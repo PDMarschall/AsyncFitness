@@ -10,6 +10,7 @@ namespace AsyncFitness.Infrastructure.DbContexts
         {
 
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<GymCustomer>()

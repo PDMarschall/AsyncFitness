@@ -27,6 +27,8 @@ namespace AsyncFitness.Core.Models
         public string City { get; set; }
         [Required]
         public string PostalCode { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime JoinDate { get; set; }
         public Subscription? Subscription { get; set; }
     }
 }
