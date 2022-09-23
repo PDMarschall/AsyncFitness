@@ -15,6 +15,8 @@ namespace AsyncFitness.Core.Models
         public string Description { get; set; }= String.Empty;
         [DataType(DataType.Currency)]
         public decimal Cost { get; set; } = decimal.Zero;
-        public bool GroupFitness { get; set; } = false;
+        public bool IsGroupFitness { get; set; } = false;
+
+        public List<GymCustomer> Subscribers { get; set; }
     }
 }
