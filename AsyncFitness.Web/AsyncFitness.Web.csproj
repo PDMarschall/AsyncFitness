@@ -15,4 +15,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.9" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AsyncFitness.Core\AsyncFitness.Core.csproj" />
+    <ProjectReference Include="..\AsyncFitness.Infrastructure\AsyncFitness.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
