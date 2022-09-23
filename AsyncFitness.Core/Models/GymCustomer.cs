@@ -22,13 +22,13 @@ namespace AsyncFitness.Core.Models
         [Required]
         public string StreetName { get; set; }
         [Required]
-        public int StreetNumber { get; set; }
+        public string StreetNumber { get; set; }
         [Required]
         public string City { get; set; }
         [Required]
         public string PostalCode { get; set; }
         [DataType(DataType.Date)]
-        public DateTime JoinDate { get; set; }
+        public DateTime JoinDate { get; set; } = DateTime.Now.Date;
         public Subscription? Subscription { get; set; }
     }
 }
