@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AsyncFitness.Infrastructure.DbContexts
 {
-    public class GymCustomerContext : DbContext
+    public class FitnessBusinessContext : DbContext
     {
-        public GymCustomerContext(DbContextOptions<GymCustomerContext> options)
+        public FitnessBusinessContext(DbContextOptions<FitnessBusinessContext> options)
     : base(options)
         {
 

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AsyncFitness.Infrastructure.Migrations
 {
-    [DbContext(typeof(GymCustomerContext))]
+    [DbContext(typeof(FitnessBusinessContext))]
     [Migration("20220923191103_StreetNumberString")]
     partial class StreetNumberString
     {
