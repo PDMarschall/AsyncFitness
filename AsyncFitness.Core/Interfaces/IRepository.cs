@@ -9,11 +9,11 @@ namespace AsyncFitness.Core.Interfaces
 {
     public interface IRepository<T>
     {
-        T ReturnEntity(string id);
-        IEnumerable<T> Select(Expression<Func<T, bool>> predicate);
+        T Add(T entity);
         T Update(T entity);
-        T Insert(T entity);
-        T Delete(T entity);
+        T Get(string id);
+        IEnumerable<T> All();
+        IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
         void SaveChanges();
     }
 }
