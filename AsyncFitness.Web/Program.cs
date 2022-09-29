@@ -43,7 +43,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=GymCustomers}/{action=Index}/{id?}");
+    pattern: "{controller=Entry}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();

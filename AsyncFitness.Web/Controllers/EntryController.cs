@@ -2,11 +2,11 @@
 
 namespace AsyncFitness.Web.Controllers
 {
-    public class GymCustomersController : Controller
+    public class EntryController : Controller
     {
-        private readonly ILogger<GymCustomersController> _logger;
+        private readonly ILogger<EntryController> _logger;
 
-        public GymCustomersController(ILogger<GymCustomersController> logger)
+        public EntryController(ILogger<EntryController> logger)
         {
             _logger = logger;
         }
