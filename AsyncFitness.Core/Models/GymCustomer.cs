@@ -9,10 +9,12 @@ namespace AsyncFitness.Core.Models
 {
     public class GymCustomer
     {
-        [Key, Required, RegularExpression(@"^(\d){8}$")]
-        public string Phone { get; set; }
-        [Required, RegularExpression(@"^(\S+)@(\S+)\.\S+$")]
+        [Key, Required, RegularExpression(@"^(\S+)@(\S+)\.\S+$")]
         public string Email { get; set; }
+        [Required, RegularExpression(@"^(\d){8}$")]
+        public string Phone { get; set; }
+        [Required, MinLength(8)]
+        public string Password { get; set; }
         public byte[] ProfileImage { get; set; }
         [Required]
         public string FirstName { get; set; }
