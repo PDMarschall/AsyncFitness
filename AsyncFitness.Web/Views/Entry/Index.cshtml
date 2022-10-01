@@ -6,12 +6,12 @@
 }
 
 <div class="text-center">
-    <button asp-action="Create" type="button" onclick="location.href='@Url.Action("Create", "Entry")'">
+    <button type="button" onclick="location.href='@Url.Action("Create", "Entry")'">
         <div>Create Account</div>
     </button>
-    <form asp-action="Login">
+    <form asp-action="Login" method="post">
         <input type="text"/>
-        <button asp-action="Login" type="button" onclick="location.href='@Url.Action("Login", "Entry")'">
+        <button type="button" onclick="location.href='@Url.Action("Login", "Entry")'">
             <div>Login</div>
         </button>
     </form>
