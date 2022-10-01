@@ -13,5 +13,7 @@ namespace AsyncFitness.Infrastructure.Repository
         public SubscriptionRepository(FitnessBusinessContext context) : base(context)
         {
         }
+
+        public override int Count => _context.Subscriptions.Count();
     }
 }

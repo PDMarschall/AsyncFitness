@@ -9,6 +9,7 @@ namespace AsyncFitness.Core.Interfaces
 {
     public interface IRepository<T>
     {
+        public int Count { get; }
         T Add(T entity);
         T Update(T entity);
         T Get(string id);

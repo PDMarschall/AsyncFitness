@@ -11,7 +11,9 @@ namespace AsyncFitness.Infrastructure.Repository
 {
     public abstract class GenericRepositoryBase<T> : IRepository<T> where T : class
     {
-        private readonly FitnessBusinessContext _context;
+        protected readonly FitnessBusinessContext _context;
+
+        public abstract int Count { get; }
 
         public GenericRepositoryBase(FitnessBusinessContext context)
         {

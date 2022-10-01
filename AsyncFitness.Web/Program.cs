@@ -1,4 +1,7 @@
+using AsyncFitness.Core.Interfaces;
+using AsyncFitness.Core.Models;
 using AsyncFitness.Infrastructure.DbContexts;
+using AsyncFitness.Infrastructure.Repository;
 using AsyncFitness.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +21,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddTransient<IRepository<Subscription>, SubscriptionRepository>();
+builder.Services.AddTransient<IRepository<GymCustomer>, GymCustomerRepository>();
 
 var app = builder.Build();
 

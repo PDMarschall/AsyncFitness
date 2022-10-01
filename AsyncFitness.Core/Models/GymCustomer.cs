@@ -15,10 +15,14 @@ namespace AsyncFitness.Core.Models
         public string Phone { get; set; }
         [Required, MinLength(8)]
         public string Password { get; set; }
+
         public byte[]? ProfileImage { get; set; }
+
         [Required]
         public string FirstName { get; set; }
+
         public string MiddleName { get; set; }
+
         [Required]
         public string LastName { get; set; }
         [Required]
@@ -31,6 +35,12 @@ namespace AsyncFitness.Core.Models
         public string PostalCode { get; set; }
         [DataType(DataType.Date)]
         public DateTime JoinDate { get; set; } = DateTime.Now.Date;
+
         public Subscription? Subscription { get; set; }
+
+        public bool ValidatePassword(string pw)
+        {
+            return pw == Password;
+        }
     }
 }
