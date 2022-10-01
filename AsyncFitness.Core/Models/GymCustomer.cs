@@ -15,7 +15,7 @@ namespace AsyncFitness.Core.Models
         public string Phone { get; set; }
         [Required, MinLength(8)]
         public string Password { get; set; }
-        public byte[] ProfileImage { get; set; }
+        public byte[]? ProfileImage { get; set; }
         [Required]
         public string FirstName { get; set; }
         public string MiddleName { get; set; }

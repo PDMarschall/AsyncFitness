@@ -4,6 +4,7 @@ using AsyncFitness.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AsyncFitness.Infrastructure.Migrations
 {
     [DbContext(typeof(FitnessBusinessContext))]
-    partial class GymCustomerContextModelSnapshot : ModelSnapshot
+    [Migration("20221001115919_PasswordSetup")]
+    partial class PasswordSetup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,6 +61,7 @@ namespace AsyncFitness.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("ProfileImage")
+                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("StreetName")
@@ -69,20 +72,23 @@ namespace AsyncFitness.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SubscriptionName")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("SubscriptionId")
+                        .HasColumnType("int");
 
                     b.HasKey("Email");
 
-                    b.HasIndex("SubscriptionName");
+                    b.HasIndex("SubscriptionId");
 
                     b.ToTable("GymCustomers");
                 });
 
             modelBuilder.Entity("AsyncFitness.Core.Models.Subscription", b =>
                 {
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<decimal>("Cost")
                         .HasColumnType("decimal(18,2)");
@@ -94,7 +100,11 @@ namespace AsyncFitness.Infrastructure.Migrations
                     b.Property<bool>("IsGroupFitness")
                         .HasColumnType("bit");
 
-                    b.HasKey("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Subscriptions");
                 });
@@ -103,7 +113,7 @@ namespace AsyncFitness.Infrastructure.Migrations
                 {
                     b.HasOne("AsyncFitness.Core.Models.Subscription", "Subscription")
                         .WithMany("Subscribers")
-                        .HasForeignKey("SubscriptionName");
+                        .HasForeignKey("SubscriptionId");
 
                     b.Navigation("Subscription");
                 });

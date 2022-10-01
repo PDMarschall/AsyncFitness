@@ -9,8 +9,7 @@ namespace AsyncFitness.Core.Models
 {
     public class Subscription
     {
-        public int Id { get; set; }
-        [Required]
+        [Key, Required]
         public string Name { get; set; }= String.Empty;        
         public string Description { get; set; }= String.Empty;
         [DataType(DataType.Currency)]
