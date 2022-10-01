@@ -52,14 +52,7 @@ namespace AsyncFitness.Infrastructure.Repository
 
         public virtual void SaveChanges()
         {
-            try
-            {
-                _context.SaveChanges();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            _context.SaveChanges();
         }
     }
 }
