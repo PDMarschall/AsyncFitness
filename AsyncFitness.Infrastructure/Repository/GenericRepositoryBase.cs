@@ -18,34 +18,48 @@ namespace AsyncFitness.Infrastructure.Repository
             _context = context;
         }
 
-        public virtual T Add(T entity)
+        public virtual T Get(string id)
         {
-            throw new NotImplementedException();
+            return _context.Find<T>(id);
         }
 
         public virtual IEnumerable<T> All()
         {
-            throw new NotImplementedException();
+            return _context.Set<T>().ToArray();
         }
 
         public virtual IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return _context.Set<T>()
+            .AsQueryable()
+            .Where(predicate).ToArray();
         }
 
-        public virtual T Get(string id)
+        public virtual T Add(T entity)
         {
-            throw new NotImplementedException();
-        }
-
-        public virtual void SaveChanges()
-        {
-            throw new NotImplementedException();
+            return _context.Add(entity).Entity;
         }
 
         public virtual T Update(T entity)
         {
-            throw new NotImplementedException();
+            return _context.Update(entity).Entity;
+        }
+
+        public T Delete(T entity)
+        {
+            return _context.Remove(entity).Entity;
+        }
+
+        public virtual void SaveChanges()
+        {
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

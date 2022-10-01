@@ -18,10 +18,10 @@ namespace AsyncFitness.Infrastructure.DbContexts
                 serviceProvider.GetRequiredService<
                     DbContextOptions<FitnessBusinessContext>>()))
             {
-                // Look for any movies.
+                
                 if (context.GymCustomers.Any())
                 {
-                    return;   // DB has been seeded
+                    return;
                 }
 
                 context.GymCustomers.AddRange(
@@ -50,14 +50,15 @@ namespace AsyncFitness.Infrastructure.DbContexts
                 serviceProvider.GetRequiredService<
                     DbContextOptions<FitnessBusinessContext>>()))
             {
-                // Look for any movies.
+                
                 if (context.Subscriptions.Any())
                 {
-                    return;   // DB has been seeded
+                    return; 
                 }
 
                 List<GymCustomer> tempList = new List<GymCustomer>();
                 tempList.Add(context.GymCustomers.Find("test@testmail.com"));
+
                 context.Subscriptions.AddRange(
                     new Subscription()
                     {
