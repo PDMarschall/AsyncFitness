@@ -39,17 +39,23 @@ namespace AsyncFitness.Web.Controllers
                 }
                 catch (Exception)
                 {
-
                     throw;
                 }
             }
             return View();            
         }
 
-        public IActionResult Login()
+        [HttpPost]
+        public IActionResult Login(GymCustomer temp, string pwText)
         {
-            var lars = _repository.Get("test@testmail.com");
-            return View("LandingPage", lars);
+            GymCustomer customer = _repository.Get(temp.Email);
+            
+            if (customer.ValidatePassword(pwText))
+            {
+            return View("LandingPage", customer);
+            }
+
+            return View("Index");
         }
     }
 }

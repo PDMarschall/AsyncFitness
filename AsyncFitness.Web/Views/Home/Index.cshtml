@@ -14,33 +14,13 @@
     <br />
     <form asp-action="Login" method="post">
         <div>
-        <input type="text" value="test@testmail.com" />
+        <input asp-for="@Model.Email" type="text" value="test@testmail.com" />
         </div>
         <div>
-        <input type="password" value="password" />
+        <input name="pwText" type="password" value="password" />
         </div>
-        <button type="button" onclick="location.href='@Url.Action("Login", "Home")'">
+        <button type="submit">
             <div>Login</div>
         </button>
     </form>
 </div>
-
-
-
-
-
-
-<!--                         
-
-    Email = "test@testmail.com",
-                        FirstName = "Lars",
-                        LastName = "Larsen",
-                        MiddleName = "L.",
-                        Phone = "11111111",
-                        Password = "password",
-                        City = "Sønderborg",
-                        StreetName = "Fiskervænget",
-                        StreetNumber = "12",
-                        PostalCode = "6400"
-                        
-                       -->
