@@ -42,25 +42,32 @@ namespace AsyncFitness.Web.Controllers
                     throw;
                 }
             }
-            return View();            
+            return View();
         }
 
         [HttpPost]
         public IActionResult Login(GymCustomer temp, string pwText)
         {
             GymCustomer customer = _repository.Get(temp.Email);
-            
+
             if (customer.ValidatePassword(pwText))
             {
-            return View("LandingPage", customer);
+                PassCustomerToLayout(customer);
+                return View("LandingPage", customer);
             }
 
             return View("Index");
         }
 
+
         public IActionResult Account(GymCustomer signedInUser)
         {
             return View(signedInUser);
+        }
+
+        private void PassCustomerToLayout(GymCustomer customer)
+        {
+            ViewData["sharedModel"] = customer;
         }
     }
 }

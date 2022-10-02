@@ -4,3 +4,63 @@
     ViewData["Title"] = "Account Settings";
     Layout = "_LandingLayout";
 }
+
+<form asp-action="Create" method="post">
+    <div>
+        <label asp-for="FirstName" class="control-label">Fornavn</label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="MiddleName" class="control-label">Mellemnavn</label>
+        <input asp-for="MiddleName" class="form-control" />
+        <span asp-validation-for="MiddleName" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="LastName" class="control-label">Efternavn</label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Email" class="control-label">Email</label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Phone" class="control-label">Telefonnummer</label>
+        <input asp-for="Phone" class="form-control" />
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Password" class="control-label">Password</label>
+        <input asp-for="Password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="PostalCode" class="control-label">Postnummer</label>
+        <input asp-for="PostalCode" class="form-control" />
+        <span asp-validation-for="PostalCode" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="StreetName" class="control-label">Vejnavn</label>
+        <input asp-for="StreetName" class="form-control" />
+        <span asp-validation-for="StreetName" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="StreetNumber" class="control-label">Husnummer</label>
+        <input asp-for="StreetNumber" class="form-control" />
+        <span asp-validation-for="StreetNumber" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="City" class="control-label">By</label>
+        <input asp-for="City" class="form-control" />
+        <span asp-validation-for="City" class="text-danger"></span>
+    </div>
+
+
+    <div>
+        <button type="submit">
+            Submit
+        </button>
+    </div>
+</form>
