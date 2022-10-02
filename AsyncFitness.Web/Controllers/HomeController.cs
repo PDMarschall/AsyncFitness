@@ -57,5 +57,10 @@ namespace AsyncFitness.Web.Controllers
 
             return View("Index");
         }
+
+        public IActionResult Account(GymCustomer signedInUser)
+        {
+            return View(signedInUser);
+        }
     }
 }

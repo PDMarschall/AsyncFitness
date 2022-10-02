@@ -2,6 +2,7 @@
 @model GymCustomer
 @{
     ViewData["Title"] = "Landing Page";
+    Layout = "_LandingLayout";
 }
 
 <h1>Startside for @(Model != null ? Model.FirstName : "bruger")</h1>
