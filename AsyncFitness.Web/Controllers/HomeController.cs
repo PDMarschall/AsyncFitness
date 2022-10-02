@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AsyncFitness.Web.Controllers
 {
-    public class EntryController : Controller
+    public class HomeController : Controller
     {
-        private readonly ILogger<EntryController> _logger;
+        private readonly ILogger<HomeController> _logger;
         private readonly IRepository<GymCustomer> _repository;
 
-        public EntryController(ILogger<EntryController> logger, IRepository<GymCustomer> repository)
+        public HomeController(ILogger<HomeController> logger, IRepository<GymCustomer> repository)
         {
             _logger = logger;
             _repository = repository;
@@ -43,16 +43,13 @@ namespace AsyncFitness.Web.Controllers
                     throw;
                 }
             }
-            return View();
-            
+            return View();            
         }
 
         public IActionResult Login()
         {
-            var lars = _repository.Find(c => c.Email == "test@testmail.com");
-            var larsobjekt = lars.First();
-            var test = _repository.Count;
-            return View("LandingPage", larsobjekt);
+            var lars = _repository.Get("test@testmail.com");
+            return View("LandingPage", lars);
         }
     }
 }
