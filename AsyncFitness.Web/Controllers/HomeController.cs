@@ -1,6 +1,7 @@
 ﻿using AsyncFitness.Core.Interfaces;
 using AsyncFitness.Core.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace AsyncFitness.Web.Controllers
 {
@@ -59,10 +60,38 @@ namespace AsyncFitness.Web.Controllers
             return View("Index");
         }
 
-
-        public IActionResult Account(GymCustomer signedInUser)
+        public IActionResult LandingPage(GymCustomer customer)
         {
-            return View(signedInUser);
+            PassCustomerToLayout(customer);
+            return View(customer);
+        }
+
+
+        public IActionResult Account(GymCustomer customer)
+        {
+            PassCustomerToLayout(customer);
+            return View(customer);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateAccount(GymCustomer customer)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _repository.Update(customer);
+                    _repository.SaveChanges();
+                    PassCustomerToLayout(customer);
+                    return View("Account", customer);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            PassCustomerToLayout(customer);
+            return View(customer);
         }
 
         private void PassCustomerToLayout(GymCustomer customer)
