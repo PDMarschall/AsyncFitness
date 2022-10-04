@@ -56,6 +56,9 @@
         <input asp-for="City" class="form-control" />
         <span asp-validation-for="City" class="text-danger"></span>
     </div>
+    <select asp-for="Subscription">
+        <option value="@Model.Subscription">@(Model.Subscription == null ? "" : Model.Subscription.Name)</option>
+    </select>
 
 
     <div>

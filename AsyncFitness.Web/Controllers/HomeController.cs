@@ -2,6 +2,7 @@
 using AsyncFitness.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 
 namespace AsyncFitness.Web.Controllers
 {
@@ -51,7 +52,7 @@ namespace AsyncFitness.Web.Controllers
         {
             GymCustomer customer = _repository.Get(temp.Email);
 
-            if (customer.ValidatePassword(pwText))
+            if (customer != null && customer.ValidatePassword(pwText))
             {
                 PassCustomerToLayout(customer);
                 return View("LandingPage", customer);
