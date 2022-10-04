@@ -70,8 +70,9 @@ namespace AsyncFitness.Web.Controllers
 
         public IActionResult Account(GymCustomer customer)
         {
-            PassCustomerToLayout(customer);
-            return View(customer);
+            var temp = _repository.Get(customer.Email);
+            PassCustomerToLayout(temp);
+            return View(temp);
         }
 
         [HttpPost]
