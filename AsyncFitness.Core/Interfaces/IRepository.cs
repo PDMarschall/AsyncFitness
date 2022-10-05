@@ -14,8 +14,8 @@ namespace AsyncFitness.Core.Interfaces
         T Update(T entity);
         T Get(string id);
         T Delete(T entity);
-        IEnumerable<T> All();
-        IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
+        IQueryable<T> All();
+        IQueryable<T> Find(Expression<Func<T, bool>> predicate);
         void SaveChanges();
     }
 }

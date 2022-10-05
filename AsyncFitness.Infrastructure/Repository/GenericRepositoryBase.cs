@@ -25,16 +25,15 @@ namespace AsyncFitness.Infrastructure.Repository
             return _context.Find<T>(id);
         }
 
-        public virtual IEnumerable<T> All()
+        public virtual IQueryable<T> All()
         {
-            return _context.Set<T>().ToArray();
+            return _context.Set<T>();
         }
 
-        public virtual IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
+        public virtual IQueryable<T> Find(Expression<Func<T, bool>> predicate)
         {
-            return _context.Set<T>()
-            .AsQueryable()
-            .Where(predicate).ToArray();
+            return _context.Set<T>()            
+            .Where(predicate);
         }
 
         public virtual T Add(T entity)
