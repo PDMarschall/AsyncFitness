@@ -1,5 +1,6 @@
 ﻿using AsyncFitness.Core.Interfaces;
 using AsyncFitness.Core.Models;
+using AsyncFitness.Infrastructure.DbContexts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
@@ -9,16 +10,18 @@ namespace AsyncFitness.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IRepository<GymCustomer> _repository;
+        private readonly IRepository<Customer> _repository;
+        private readonly FitnessBusinessContext context;
 
-        public HomeController(ILogger<HomeController> logger, IRepository<GymCustomer> repository)
+        public HomeController(ILogger<HomeController> logger, IRepository<Customer> repository, FitnessBusinessContext context)
         {
             _logger = logger;
             _repository = repository;
+            this.context = context;
         }
 
         public IActionResult Index()
-        {
+        {   
             return View();
         }
 
@@ -29,7 +32,7 @@ namespace AsyncFitness.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(GymCustomer customer)
+        public IActionResult Create(Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -48,9 +51,9 @@ namespace AsyncFitness.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(GymCustomer temp, string pwText)
+        public IActionResult Login(Customer temp, string pwText)
         {
-            GymCustomer customer = _repository.Get(temp.Email);
+            Customer customer = _repository.Get(temp.Email);
 
             if (customer != null && customer.ValidatePassword(pwText))
             {
@@ -61,14 +64,14 @@ namespace AsyncFitness.Web.Controllers
             return View("Index");
         }
 
-        public IActionResult LandingPage(GymCustomer customer)
+        public IActionResult LandingPage(Customer customer)
         {
             PassCustomerToLayout(customer);
             return View(customer);
         }
 
 
-        public IActionResult Account(GymCustomer customer)
+        public IActionResult Account(Customer customer)
         {
             var temp = _repository.Get(customer.Email);
             PassCustomerToLayout(temp);
@@ -76,7 +79,7 @@ namespace AsyncFitness.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateAccount(GymCustomer customer)
+        public IActionResult UpdateAccount(Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +99,7 @@ namespace AsyncFitness.Web.Controllers
             return View(customer);
         }
 
-        private void PassCustomerToLayout(GymCustomer customer)
+        private void PassCustomerToLayout(Customer customer)
         {
             ViewData["sharedModel"] = customer;
         }

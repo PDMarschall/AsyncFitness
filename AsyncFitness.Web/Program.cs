@@ -23,7 +23,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<IRepository<Subscription>, SubscriptionRepository>();
-builder.Services.AddTransient<IRepository<GymCustomer>, GymCustomerRepository>();
+builder.Services.AddTransient<IRepository<Customer>, CustomerRepository>();
 
 var app = builder.Build();
 
@@ -33,6 +33,7 @@ using (var scope = app.Services.CreateScope())
 
     SeedData.InitializeCustomer(services);
     SeedData.InitializeSubscription(services);
+    SeedData.InitializeInstructor(services);
 }
 
 // Configure the HTTP request pipeline.

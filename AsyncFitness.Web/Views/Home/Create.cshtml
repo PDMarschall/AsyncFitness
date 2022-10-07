@@ -1,5 +1,5 @@
 ﻿@using AsyncFitness.Core.Models
-@model GymCustomer
+@model Customer
 
 @{
     ViewData["Title"] = "Create Account";
@@ -10,11 +10,6 @@
         <label asp-for="FirstName" class="control-label">Fornavn</label>
         <input asp-for="FirstName" class="form-control" />
         <span asp-validation-for="FirstName" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="MiddleName" class="control-label">Mellemnavn</label>
-        <input asp-for="MiddleName" class="form-control" />
-        <span asp-validation-for="MiddleName" class="text-danger"></span>
     </div>
     <div>
         <label asp-for="LastName" class="control-label">Efternavn</label>

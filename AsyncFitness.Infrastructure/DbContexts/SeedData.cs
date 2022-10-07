@@ -19,18 +19,17 @@ namespace AsyncFitness.Infrastructure.DbContexts
                     DbContextOptions<FitnessBusinessContext>>()))
             {
                 
-                if (context.GymCustomers.Any())
+                if (context.Customers.Any())
                 {
                     return;
                 }
 
-                context.GymCustomers.AddRange(
-                    new GymCustomer()
+                context.Customers.Add(
+                    new Customer()
                     {
                         Email = "test@testmail.com",
                         FirstName = "Lars",
-                        LastName = "Larsen",
-                        MiddleName = "L.",
+                        LastName = "Larsen",                        
                         Phone = "11111111",
                         Password = "password",
                         City = "Sønderborg",
@@ -56,10 +55,10 @@ namespace AsyncFitness.Infrastructure.DbContexts
                     return; 
                 }
 
-                List<GymCustomer> tempList = new List<GymCustomer>();
-                tempList.Add(context.GymCustomers.Find("test@testmail.com"));
+                List<Customer> tempList = new List<Customer>();
+                tempList.Add(context.Customers.Find("test@testmail.com"));
 
-                context.Subscriptions.AddRange(
+                context.Subscriptions.Add(
                     new Subscription()
                     {
                         Subscribers = tempList,
@@ -67,6 +66,38 @@ namespace AsyncFitness.Infrastructure.DbContexts
                         Cost = 50,
                         Description = "Dette er et test-abonnement",
                         Name = "Test-Abonnement"
+                    }
+                );
+                context.SaveChanges();
+            }
+        }
+
+        public static void InitializeInstructor(IServiceProvider serviceProvider)
+        {
+            using (var context = new FitnessBusinessContext(
+                serviceProvider.GetRequiredService<
+                    DbContextOptions<FitnessBusinessContext>>()))
+            {
+
+                if (context.Instructors.Any())
+                {
+                    return;
+                }
+
+                context.Instructors.Add(
+                    new Instructor()
+                    {
+                        Email = "instructor@testmail.com",
+                        FirstName = "Jens",
+                        LastName = "Jensen",
+                        Phone = "33333333",
+                        Password = "password",
+                        City = "Randers",
+                        StreetName = "Hvalen",
+                        StreetNumber = "12",
+                        PostalCode = "6400",
+                        Certifications = Core.Enums.InstructorCertifications.PersonalTrainer
+
                     }
                 );
                 context.SaveChanges();

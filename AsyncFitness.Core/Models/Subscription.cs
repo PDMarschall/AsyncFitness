@@ -16,6 +16,6 @@ namespace AsyncFitness.Core.Models
         public decimal Cost { get; set; } = decimal.Zero;
         public bool IsGroupFitness { get; set; } = false;
 
-        public List<GymCustomer> Subscribers { get; set; }
+        public List<Customer> Subscribers { get; set; }
     }
 }

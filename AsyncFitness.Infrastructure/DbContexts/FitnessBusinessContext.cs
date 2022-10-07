@@ -1,5 +1,7 @@
-﻿using AsyncFitness.Core.Models;
+﻿using AsyncFitness.Core.Enums;
+using AsyncFitness.Core.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AsyncFitness.Infrastructure.DbContexts
 {
@@ -13,13 +15,18 @@ namespace AsyncFitness.Infrastructure.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<GymCustomer>()
+            modelBuilder.Entity<Customer>()
                 .HasOne(p => p.Subscription)
                 .WithMany(c => c.Subscribers);
 
+            var converter = new EnumToStringConverter<InstructorCertifications>();
+            modelBuilder.Entity<Instructor>()
+                .Property(p => p.Certifications)
+                .HasConversion(converter);
         }
 
-        public DbSet<GymCustomer> GymCustomers { get; set; }
+        public DbSet<Customer> Customers { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<Instructor> Instructors { get; set; }
     }
 }

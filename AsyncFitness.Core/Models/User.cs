@@ -7,36 +7,39 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.Models
 {
-    public class GymCustomer
+    public abstract class User
     {
-        [Key, Required, RegularExpression(@"^(\S+)@(\S+)\.\S+$")]
+        [Key, Required, RegularExpression(@"^(\S+)@(\S+)\.\S+$"), MaxLength(100)]
         public string Email { get; set; }
-        [Required, RegularExpression(@"^(\d){8}$")]
+
+        [Required, RegularExpression(@"^(\d){8}$"), MaxLength(8)]
         public string Phone { get; set; }
-        [Required, MinLength(8)]
+
+        [Required, MinLength(8), MaxLength(100)]
         public string Password { get; set; }
 
-        public byte[]? ProfileImage { get; set; }
-
-        [Required]
+        [Required, MaxLength(100)]
         public string FirstName { get; set; }
 
-        public string MiddleName { get; set; }
-
-        [Required]
+        [Required, MaxLength(100)]
         public string LastName { get; set; }
-        [Required]
+
+        [Required, MaxLength(100)]
         public string StreetName { get; set; }
-        [Required]
+
+        [Required, MaxLength(4)]
         public string StreetNumber { get; set; }
-        [Required]
+
+        [Required, MaxLength(100)]
         public string City { get; set; }
-        [Required]
+
+        [Required, MaxLength(7)]
         public string PostalCode { get; set; }
+
         [DataType(DataType.Date)]
         public DateTime JoinDate { get; set; } = DateTime.Now.Date;
 
-        public Subscription? Subscription { get; set; }
+        public byte[]? ProfileImage { get; set; } = null;
 
         public bool ValidatePassword(string pw)
         {
