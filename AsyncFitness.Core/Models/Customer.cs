@@ -10,5 +10,6 @@ namespace AsyncFitness.Core.Models
     public class Customer : User
     {
         public Subscription? Subscription { get; set; }
+        public Instructor? Trainer { get; set; }
     }
 }

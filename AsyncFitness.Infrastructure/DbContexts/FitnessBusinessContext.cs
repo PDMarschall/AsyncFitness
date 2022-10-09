@@ -1,5 +1,4 @@
-﻿using AsyncFitness.Core.Enums;
-using AsyncFitness.Core.Models;
+﻿using AsyncFitness.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -19,10 +18,9 @@ namespace AsyncFitness.Infrastructure.DbContexts
                 .HasOne(p => p.Subscription)
                 .WithMany(c => c.Subscribers);
 
-            var converter = new EnumToStringConverter<InstructorCertifications>();
-            modelBuilder.Entity<Instructor>()
-                .Property(p => p.Certifications)
-                .HasConversion(converter);
+            modelBuilder.Entity<Customer>()
+                .HasOne(p => p.Trainer)
+                .WithMany(c => c.Clients);
         }
 
         public DbSet<Customer> Customers { get; set; }

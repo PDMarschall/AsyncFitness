@@ -58,7 +58,7 @@ namespace AsyncFitness.Infrastructure.DbContexts
                 List<Customer> tempList = new List<Customer>();
                 tempList.Add(context.Customers.Find("test@testmail.com"));
 
-                context.Subscriptions.Add(
+                context.Subscriptions.AddRange(
                     new Subscription()
                     {
                         Subscribers = tempList,
@@ -66,8 +66,17 @@ namespace AsyncFitness.Infrastructure.DbContexts
                         Cost = 50,
                         Description = "Dette er et test-abonnement",
                         Name = "Test-Abonnement"
-                    }
+                    },
+                    new Subscription() 
+                    { 
+                        Subscribers = null, 
+                        IsGroupFitness = false, 
+                        Cost = 25, 
+                        Description = "Dette er et andet abonnement", 
+                        Name = "Andet Abonnement"}
                 );
+
+
                 context.SaveChanges();
             }
         }
@@ -96,8 +105,6 @@ namespace AsyncFitness.Infrastructure.DbContexts
                         StreetName = "Hvalen",
                         StreetNumber = "12",
                         PostalCode = "6400",
-                        Certifications = Core.Enums.InstructorCertifications.PersonalTrainer
-
                     }
                 );
                 context.SaveChanges();

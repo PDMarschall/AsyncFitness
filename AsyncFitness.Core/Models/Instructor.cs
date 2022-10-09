@@ -1,5 +1,4 @@
-﻿using AsyncFitness.Core.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +8,6 @@ namespace AsyncFitness.Core.Models
 {
     public class Instructor : User
     {
-        public InstructorCertifications Certifications { get; set; } = new InstructorCertifications();
+        public List<Customer> Clients { get; set; } = new List<Customer>();
     }
 }

@@ -4,6 +4,7 @@ using AsyncFitness.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AsyncFitness.Infrastructure.Migrations
 {
     [DbContext(typeof(FitnessBusinessContext))]
-    partial class FitnessBusinessContextModelSnapshot : ModelSnapshot
+    [Migration("20221009180525_NonNullSubscription")]
+    partial class NonNullSubscription
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,6 +77,7 @@ namespace AsyncFitness.Infrastructure.Migrations
                         .HasColumnType("nvarchar(4)");
 
                     b.Property<string>("SubscriptionName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("TrainerEmail")
@@ -170,7 +173,9 @@ namespace AsyncFitness.Infrastructure.Migrations
                 {
                     b.HasOne("AsyncFitness.Core.Models.Subscription", "Subscription")
                         .WithMany("Subscribers")
-                        .HasForeignKey("SubscriptionName");
+                        .HasForeignKey("SubscriptionName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AsyncFitness.Core.Models.Instructor", "Trainer")
                         .WithMany("Clients")

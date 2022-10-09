@@ -14,7 +14,6 @@ namespace AsyncFitness.Infrastructure.Migrations
                 columns: table => new
                 {
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Certifications = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -51,6 +50,7 @@ namespace AsyncFitness.Infrastructure.Migrations
                 {
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     SubscriptionName = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    TrainerEmail = table.Column<string>(type: "nvarchar(100)", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -66,6 +66,11 @@ namespace AsyncFitness.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Customers", x => x.Email);
                     table.ForeignKey(
+                        name: "FK_Customers_Instructors_TrainerEmail",
+                        column: x => x.TrainerEmail,
+                        principalTable: "Instructors",
+                        principalColumn: "Email");
+                    table.ForeignKey(
                         name: "FK_Customers_Subscriptions_SubscriptionName",
                         column: x => x.SubscriptionName,
                         principalTable: "Subscriptions",
@@ -76,6 +81,11 @@ namespace AsyncFitness.Infrastructure.Migrations
                 name: "IX_Customers_SubscriptionName",
                 table: "Customers",
                 column: "SubscriptionName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_TrainerEmail",
+                table: "Customers",
+                column: "TrainerEmail");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

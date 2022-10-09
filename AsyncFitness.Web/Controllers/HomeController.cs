@@ -10,18 +10,18 @@ namespace AsyncFitness.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IRepository<Customer> _repository;
-        private readonly FitnessBusinessContext context;
+        private readonly IRepository<Customer> _customerRepo;
+        private readonly IRepository<Subscription> _subRepo;
 
-        public HomeController(ILogger<HomeController> logger, IRepository<Customer> repository, FitnessBusinessContext context)
+        public HomeController(ILogger<HomeController> logger, IRepository<Customer> customerRepo, IRepository<Subscription> subRepo)
         {
             _logger = logger;
-            _repository = repository;
-            this.context = context;
+            _customerRepo = customerRepo;
+            _subRepo = subRepo;
         }
 
         public IActionResult Index()
-        {   
+        {
             return View();
         }
 
@@ -38,8 +38,8 @@ namespace AsyncFitness.Web.Controllers
             {
                 try
                 {
-                    _repository.Add(customer);
-                    _repository.SaveChanges();
+                    _customerRepo.Add(customer);
+                    _customerRepo.SaveChanges();
                     return View("LandingPage", customer);
                 }
                 catch (Exception)
@@ -53,7 +53,7 @@ namespace AsyncFitness.Web.Controllers
         [HttpPost]
         public IActionResult Login(Customer temp, string pwText)
         {
-            Customer customer = _repository.Get(temp.Email);
+            Customer customer = _customerRepo.Get(temp.Email);
 
             if (customer != null && customer.ValidatePassword(pwText))
             {
@@ -73,20 +73,28 @@ namespace AsyncFitness.Web.Controllers
 
         public IActionResult Account(Customer customer)
         {
-            var temp = _repository.Get(customer.Email);
+            IQueryable<Subscription> subscriptions = _subRepo.All();
+            ViewData["Subscriptions"] = subscriptions.Where(s => !s.Subscribers.Contains(customer));
+
+            var temp = _customerRepo.Get(customer.Email);
             PassCustomerToLayout(temp);
+
             return View(temp);
         }
 
         [HttpPost]
-        public IActionResult UpdateAccount(Customer customer)
+        public IActionResult UpdateAccount(Customer customer, string sub)
         {
+            IQueryable<Subscription> subscriptions = _subRepo.All();
+            ViewData["Subscriptions"] = subscriptions.Where(s => !s.Subscribers.Contains(customer));
+
             if (ModelState.IsValid)
             {
+                customer.Subscription = _subRepo.Get(sub);
                 try
                 {
-                    _repository.Update(customer);
-                    _repository.SaveChanges();
+                    _customerRepo.Update(customer);
+                    _customerRepo.SaveChanges();
                     PassCustomerToLayout(customer);
                     return View("Account", customer);
                 }

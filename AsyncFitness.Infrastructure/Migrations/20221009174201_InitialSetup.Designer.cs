@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AsyncFitness.Infrastructure.Migrations
 {
     [DbContext(typeof(FitnessBusinessContext))]
-    [Migration("20221007205538_InitialSetup")]
+    [Migration("20221009174201_InitialSetup")]
     partial class InitialSetup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -79,9 +79,14 @@ namespace AsyncFitness.Infrastructure.Migrations
                     b.Property<string>("SubscriptionName")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("TrainerEmail")
+                        .HasColumnType("nvarchar(100)");
+
                     b.HasKey("Email");
 
                     b.HasIndex("SubscriptionName");
+
+                    b.HasIndex("TrainerEmail");
 
                     b.ToTable("Customers");
                 });
@@ -91,10 +96,6 @@ namespace AsyncFitness.Infrastructure.Migrations
                     b.Property<string>("Email")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Certifications")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -173,7 +174,18 @@ namespace AsyncFitness.Infrastructure.Migrations
                         .WithMany("Subscribers")
                         .HasForeignKey("SubscriptionName");
 
+                    b.HasOne("AsyncFitness.Core.Models.Instructor", "Trainer")
+                        .WithMany("Clients")
+                        .HasForeignKey("TrainerEmail");
+
                     b.Navigation("Subscription");
+
+                    b.Navigation("Trainer");
+                });
+
+            modelBuilder.Entity("AsyncFitness.Core.Models.Instructor", b =>
+                {
+                    b.Navigation("Clients");
                 });
 
             modelBuilder.Entity("AsyncFitness.Core.Models.Subscription", b =>

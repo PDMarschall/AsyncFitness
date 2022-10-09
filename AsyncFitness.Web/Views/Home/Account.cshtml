@@ -51,11 +51,16 @@
         <input asp-for="City" class="form-control" />
         <span asp-validation-for="City" class="text-danger"></span>
     </div>
-    <select asp-for="Subscription">
-        <option value="@Model.Subscription">@(Model.Subscription == null ? "" : Model.Subscription.Name)</option>
+    <select asp-for="Subscription" name="sub">
+        <option value="@Model.Subscription.Name" class="text-black">@(Model.Subscription == null ? "" : Model.Subscription.Name)</option>
+        @if ((IEnumerable<Subscription>)ViewData["Subscriptions"] != null)
+        {
+            @foreach (Subscription sub in (IEnumerable<Subscription>)ViewData["Subscriptions"])
+            {
+                <option value="@sub.Name">@sub.Name</option>
+            }
+        };
     </select>
-
-
     <div>
         <button type="submit">
             Submit
