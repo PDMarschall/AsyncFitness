@@ -14,9 +14,9 @@ namespace AsyncFitness.Infrastructure.DbContexts
     {
         public static void InitializeCustomer(IServiceProvider serviceProvider)
         {
-            using (var context = new FitnessBusinessContext(
+            using (var context = new FitnessContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<FitnessBusinessContext>>()))
+                    DbContextOptions<FitnessContext>>()))
             {
                 
                 if (context.Customers.Any())
@@ -45,9 +45,9 @@ namespace AsyncFitness.Infrastructure.DbContexts
         }
         public static void InitializeSubscription(IServiceProvider serviceProvider)
         {
-            using (var context = new FitnessBusinessContext(
+            using (var context = new FitnessContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<FitnessBusinessContext>>()))
+                    DbContextOptions<FitnessContext>>()))
             {
                 
                 if (context.Subscriptions.Any())
@@ -83,9 +83,9 @@ namespace AsyncFitness.Infrastructure.DbContexts
 
         public static void InitializeInstructor(IServiceProvider serviceProvider)
         {
-            using (var context = new FitnessBusinessContext(
+            using (var context = new FitnessContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<FitnessBusinessContext>>()))
+                    DbContextOptions<FitnessContext>>()))
             {
 
                 if (context.Instructors.Any())

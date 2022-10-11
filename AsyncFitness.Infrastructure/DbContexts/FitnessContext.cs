@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AsyncFitness.Infrastructure.DbContexts
 {
-    public class FitnessBusinessContext : DbContext
+    public class FitnessContext : DbContext
     {
-        public FitnessBusinessContext(DbContextOptions<FitnessBusinessContext> options)
+        public FitnessContext(DbContextOptions<FitnessContext> options)
     : base(options)
         {
 

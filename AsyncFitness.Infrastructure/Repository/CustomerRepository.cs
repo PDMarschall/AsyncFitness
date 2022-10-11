@@ -12,7 +12,7 @@ namespace AsyncFitness.Infrastructure.Repository
 {
     public class CustomerRepository : GenericRepositoryBase<Customer>
     {
-        public CustomerRepository(FitnessBusinessContext context) : base(context)
+        public CustomerRepository(FitnessContext context) : base(context)
         {
 
         }

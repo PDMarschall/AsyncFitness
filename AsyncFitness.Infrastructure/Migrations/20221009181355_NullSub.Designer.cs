@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AsyncFitness.Infrastructure.Migrations
 {
-    [DbContext(typeof(FitnessBusinessContext))]
+    [DbContext(typeof(FitnessContext))]
     [Migration("20221009181355_NullSub")]
     partial class NullSub
     {
