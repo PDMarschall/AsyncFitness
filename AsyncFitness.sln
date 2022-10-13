@@ -13,8 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BED25A72
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsyncFitness.Infrastructure.Tests", "AsyncFitness.Infrastructure.Tests\AsyncFitness.Infrastructure.Tests.csproj", "{2D294612-7098-4B67-83AE-3512C63DD76E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncFitness.RPWeb", "AsyncFitness.RPWeb\AsyncFitness.RPWeb.csproj", "{A5ABF110-454F-4676-BB7E-8CD35DD3A658}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,10 +35,6 @@ Global
 		{2D294612-7098-4B67-83AE-3512C63DD76E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D294612-7098-4B67-83AE-3512C63DD76E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D294612-7098-4B67-83AE-3512C63DD76E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A5ABF110-454F-4676-BB7E-8CD35DD3A658}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5ABF110-454F-4676-BB7E-8CD35DD3A658}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5ABF110-454F-4676-BB7E-8CD35DD3A658}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A5ABF110-454F-4676-BB7E-8CD35DD3A658}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
