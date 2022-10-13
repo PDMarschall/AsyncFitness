@@ -9,13 +9,11 @@ namespace AsyncFitness.RPWeb.Pages
     [Authorize]
     public class PrivacyModel : PageModel
     {
-        private readonly ILogger<PrivacyModel> _logger;
-        private readonly UserManager<IdentityUser> _manager;
+        private readonly ILogger<PrivacyModel> _logger;        
 
-        public PrivacyModel(ILogger<PrivacyModel> logger, UserManager<IdentityUser> manager)
+        public PrivacyModel(ILogger<PrivacyModel> logger)
         {
             _logger = logger;
-            _manager = manager;
         }
 
         public void OnGet()
