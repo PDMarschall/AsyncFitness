@@ -21,4 +21,13 @@
     <ProjectReference Include="..\AsyncFitness.Infrastructure\AsyncFitness.Infrastructure.csproj" />
   </ItemGroup>
 
+	<PropertyGroup>
+		<ResolveStaticWebAssetsInputsDependsOn>RemoveIdentityAssets</ResolveStaticWebAssetsInputsDependsOn>
+	</PropertyGroup>
+
+	<Target Name="RemoveIdentityAssets">
+		<ItemGroup>
+			<StaticWebAsset Remove="@(StaticWebAsset)" Condition="%(SourceId) == 'Microsoft.AspNetCore.Identity.UI'" />
+		</ItemGroup>
+	</Target>
 </Project>
