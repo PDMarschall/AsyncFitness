@@ -1,4 +1,5 @@
-﻿using AsyncFitness.Core.Models;
+﻿using AsyncFitness.Core.Interfaces;
+using AsyncFitness.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -31,7 +32,7 @@ namespace AsyncFitness.Infrastructure.DbContexts
                         FirstName = "Lars",
                         LastName = "Larsen",                        
                         Phone = "11111111",
-                        Password = "password",
+                        PasswordHash = "password",
                         City = "Sønderborg",
                         StreetName = "Fiskervænget",
                         StreetNumber = "12",
@@ -88,19 +89,19 @@ namespace AsyncFitness.Infrastructure.DbContexts
                     DbContextOptions<FitnessContext>>()))
             {
 
-                if (context.Instructors.Any())
+                if (context.Trainers.Any())
                 {
                     return;
                 }
 
-                context.Instructors.Add(
-                    new Instructor()
+                context.Trainers.Add(
+                    new Trainer()
                     {
                         Email = "instructor@testmail.com",
                         FirstName = "Jens",
                         LastName = "Jensen",
                         Phone = "33333333",
-                        Password = "password",
+                        PasswordHash = "password",
                         City = "Randers",
                         StreetName = "Hvalen",
                         StreetNumber = "12",

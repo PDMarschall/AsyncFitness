@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AsyncFitness.Core.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace AsyncFitness.Core.Models
     public class Customer : User
     {
         public Subscription? Subscription { get; set; }
-        public Instructor? Trainer { get; set; }
+        public Trainer? Trainer { get; set; }
     }
 }

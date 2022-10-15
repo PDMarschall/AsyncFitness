@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AsyncFitness.Core.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,8 +16,8 @@ namespace AsyncFitness.Core.Models
         [Required, RegularExpression(@"^(\d){8}$"), MaxLength(8)]
         public string Phone { get; set; }
 
-        [Required, MinLength(8), MaxLength(100)]
-        public string Password { get; set; }
+        [Required]
+        public string PasswordHash { get; set; }
 
         [Required, MaxLength(100)]
         public string FirstName { get; set; }
@@ -37,13 +38,13 @@ namespace AsyncFitness.Core.Models
         public string PostalCode { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime JoinDate { get; set; } = DateTime.Now.Date;
+        public DateTime JoinDate { get; set; }
 
-        public byte[]? ProfileImage { get; set; } = null;
+        public byte[]? ProfileImage { get; set; }
 
         public bool ValidatePassword(string pw)
         {
-            return pw == Password;
+            return pw == PasswordHash;
         }
     }
 }

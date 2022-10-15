@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AsyncFitness.Core.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,12 +11,16 @@ namespace AsyncFitness.Core.Models
     public class Subscription
     {
         [Key, Required]
-        public string Name { get; set; }= String.Empty;        
-        public string Description { get; set; }= String.Empty;
+        public string Name { get; set; } = String.Empty;
+
+        [MaxLength(500)]
+        public string Description { get; set; } = String.Empty;
+
         [DataType(DataType.Currency)]
         public decimal Cost { get; set; } = decimal.Zero;
+
         public bool IsGroupFitness { get; set; } = false;
 
-        public List<Customer> Subscribers { get; set; }
+        public List<Customer> Subscribers { get; set; } = new List<Customer>();
     }
 }

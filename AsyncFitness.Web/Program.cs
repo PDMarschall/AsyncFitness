@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using AsyncFitness.Web.Data;
 using AsyncFitness.Web.Areas.Identity.Data;
+using AsyncFitness.Infrastructure.DbContexts;
+using AsyncFitness.Core.Interfaces;
+using AsyncFitness.Core.Models;
+using AsyncFitness.Infrastructure.Repository;
 
 namespace AsyncFitness.Web
 {
@@ -10,16 +14,24 @@ namespace AsyncFitness.Web
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            var connectionString = builder.Configuration.GetConnectionString("AsyncFitnessWebContextConnection") ?? throw new InvalidOperationException("Connection string 'AsyncFitnessWebContextConnection' not found.");
 
+            var connectionStringIdentity = builder.Configuration.GetConnectionString("IdentityConnection") ?? throw new InvalidOperationException("Connection string 'IdentityConnection' not found.");     
             builder.Services.AddDbContext<AsyncFitnessWebContext>(options =>
-            options.UseSqlServer(connectionString));
+            options.UseSqlServer(connectionStringIdentity));
+
+            var connectionStringCore = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<FitnessContext>(options =>
+            options.UseSqlServer(connectionStringCore));
 
             builder.Services.AddDefaultIdentity<AsyncFitnessUser>(options => options.SignIn.RequireConfirmedAccount = true)
             .AddEntityFrameworkStores<AsyncFitnessWebContext>();
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+
+            builder.Services.AddTransient<IRepository<Subscription>, SubscriptionRepository>();
+            builder.Services.AddTransient<IRepository<Customer>, CustomerRepository>();
+            builder.Services.AddTransient<IRepository<Trainer>, TrainerRepository>();
 
             builder.Services.Configure<IdentityOptions>(options =>
             {

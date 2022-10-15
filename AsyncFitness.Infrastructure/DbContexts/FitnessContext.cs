@@ -1,4 +1,5 @@
-﻿using AsyncFitness.Core.Models;
+﻿using AsyncFitness.Core.Interfaces;
+using AsyncFitness.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -25,6 +26,6 @@ namespace AsyncFitness.Infrastructure.DbContexts
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
-        public DbSet<Instructor> Instructors { get; set; }
+        public DbSet<Trainer> Trainers { get; set; }
     }
 }
