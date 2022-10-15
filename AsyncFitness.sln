@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BED25A72
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsyncFitness.Infrastructure.Tests", "AsyncFitness.Infrastructure.Tests\AsyncFitness.Infrastructure.Tests.csproj", "{2D294612-7098-4B67-83AE-3512C63DD76E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncFitness.Web", "AsyncFitness.Web\AsyncFitness.Web.csproj", "{070E6D81-2E07-4F56-B730-2166EDBD903D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsyncFitness.Web", "AsyncFitness.Web\AsyncFitness.Web.csproj", "{070E6D81-2E07-4F56-B730-2166EDBD903D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
