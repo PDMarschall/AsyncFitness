@@ -121,27 +121,26 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account.Manage
             var email = await _userManager.GetEmailAsync(user);
             if (Input.NewEmail != email)
             {
-                var userId = await _userManager.GetUserIdAsync(user);
-                var code = await _userManager.GenerateChangeEmailTokenAsync(user, Input.NewEmail);
-                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                var callbackUrl = Url.Page(
-                    "/Account/ConfirmEmailChange",
-                    pageHandler: null,
-                    values: new { area = "Identity", userId = userId, email = Input.NewEmail, code = code },
-                    protocol: Request.Scheme);
-                await _emailSender.SendEmailAsync(
-                    Input.NewEmail,
-                    "Confirm your email",
-                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                try
+                {
+                    var customer = _customerRepo.Get(user.Email);
+                    customer.Email = Input.NewEmail;
+                    _customerRepo.Update(customer);
+                    _customerRepo.SaveChanges();
 
-                StatusMessage = "Confirmation link to change email sent. Please check your email.";
+                    await _userManager.SetEmailAsync(user, Input.NewEmail);
+                    await _userManager.SetUserNameAsync(user, Input.NewEmail);
+                    var emailConfirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    await _userManager.ConfirmEmailAsync(user, emailConfirmationToken);
 
-                var customer = _customerRepo.Get(user.Email);
-                customer.Email = Input.NewEmail;
-                _customerRepo.Update(customer);
-                _customerRepo.SaveChanges();
-
-                return RedirectToPage();
+                    StatusMessage = "Your email has been succesfully changed";
+                    return RedirectToPage();
+                }
+                catch (Exception)
+                {
+                    StatusMessage = "There was a problem with updating your email";                    
+                    throw;
+                }                
             }
 
             StatusMessage = "Your email is unchanged.";
