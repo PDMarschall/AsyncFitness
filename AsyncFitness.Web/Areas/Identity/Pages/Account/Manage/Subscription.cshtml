@@ -3,4 +3,13 @@
 @{
 }
 
-<h1>Hej</h1>
+<div class="form-floating">
+    <input asp-for="Subscription.Name" class="form-control" disabled />
+    <label asp-for="Subscription.Name" class="form-label"></label>
+</div>
+<form id="subscription-form" method="post">
+    <div class="form-floating">
+        <select asp-for="Subscription" asp-items="Model.SubscriptionsList"></select>
+    </div>
+    <button id="change-subscription-button" type="submit" asp-page-handler="ChangeSubscription" class="w-100 btn btn-lg btn-primary">Change subscription</button>
+</form>

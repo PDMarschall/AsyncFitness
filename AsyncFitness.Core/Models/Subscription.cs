@@ -22,5 +22,10 @@ namespace AsyncFitness.Core.Models
         public bool IsGroupFitness { get; set; } = false;
 
         public List<Customer> Subscribers { get; set; } = new List<Customer>();
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
