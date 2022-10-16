@@ -19,7 +19,7 @@ namespace AsyncFitness.Infrastructure.DbContexts
                 serviceProvider.GetRequiredService<
                     DbContextOptions<FitnessContext>>()))
             {
-                
+
                 if (context.Customers.Any())
                 {
                     return;
@@ -30,14 +30,14 @@ namespace AsyncFitness.Infrastructure.DbContexts
                     {
                         Email = "test@testmail.com",
                         FirstName = "Lars",
-                        LastName = "Larsen",                        
-                        Phone = "11111111",                        
+                        LastName = "Larsen",
+                        Phone = "11111111",
                         City = "Sønderborg",
                         StreetName = "Fiskervænget",
                         StreetNumber = "12",
                         PostalCode = "6400",
                         Subscription = context.Subscriptions.Find("Test-Abonnement")
-                       
+
                     }
                 );
                 context.SaveChanges();
@@ -49,10 +49,10 @@ namespace AsyncFitness.Infrastructure.DbContexts
                 serviceProvider.GetRequiredService<
                     DbContextOptions<FitnessContext>>()))
             {
-                
+
                 if (context.Subscriptions.Any())
                 {
-                    return; 
+                    return;
                 }
 
                 List<Customer> tempList = new List<Customer>();
@@ -67,13 +67,14 @@ namespace AsyncFitness.Infrastructure.DbContexts
                         Description = "Dette er et test-abonnement",
                         Name = "Test-Abonnement"
                     },
-                    new Subscription() 
-                    { 
-                        Subscribers = null, 
-                        IsGroupFitness = false, 
-                        Cost = 25, 
-                        Description = "Dette er et andet abonnement", 
-                        Name = "Andet Abonnement"}
+                    new Subscription()
+                    {
+                        Subscribers = null,
+                        IsGroupFitness = false,
+                        Cost = 25,
+                        Description = "Dette er et andet abonnement",
+                        Name = "Andet Abonnement"
+                    }
                 );
 
 
@@ -99,7 +100,7 @@ namespace AsyncFitness.Infrastructure.DbContexts
                         Email = "instructor@testmail.com",
                         FirstName = "Jens",
                         LastName = "Jensen",
-                        Phone = "33333333",                        
+                        Phone = "33333333",
                         City = "Randers",
                         StreetName = "Hvalen",
                         StreetNumber = "12",
