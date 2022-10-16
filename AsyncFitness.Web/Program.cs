@@ -19,7 +19,7 @@ namespace AsyncFitness.Web
             builder.Services.AddDbContext<AsyncFitnessWebContext>(options =>
             options.UseSqlServer(connectionStringIdentity));
 
-            var connectionStringCore = builder.Configuration.GetConnectionString("DefaultConnection");
+            var connectionStringCore = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<FitnessContext>(options =>
             options.UseSqlServer(connectionStringCore));
 
@@ -38,7 +38,6 @@ namespace AsyncFitness.Web
 
             builder.Services.Configure<IdentityOptions>(options =>
             {
-                // Password settings.
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireNonAlphanumeric = true;
@@ -46,12 +45,10 @@ namespace AsyncFitness.Web
                 options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 1;
 
-                // Lockout settings.
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
 
-                // User settings.
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = false;
@@ -59,7 +56,6 @@ namespace AsyncFitness.Web
 
             builder.Services.ConfigureApplicationCookie(options =>
             {
-                // Cookie settings
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 
@@ -69,15 +65,6 @@ namespace AsyncFitness.Web
             });
 
             var app = builder.Build();
-
-            using (var scope = app.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-
-                SeedData.InitializeCustomer(services);
-                SeedData.InitializeSubscription(services);
-                SeedData.InitializeInstructor(services);
-            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -91,7 +78,7 @@ namespace AsyncFitness.Web
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseAuthentication(); ;
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
