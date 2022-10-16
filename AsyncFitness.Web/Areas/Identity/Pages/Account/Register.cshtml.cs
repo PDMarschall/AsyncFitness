@@ -145,14 +145,14 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account
                     await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                     await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 
-                    _customerRepo.Add(user.ConvertToCustomer());                    
+                    _customerRepo.Add(user.ConvertToCustomer());
+                    _customerRepo.SaveChanges();
                 }
                 catch (Exception)
                 {
                     throw;
                 }
 
-                _customerRepo.SaveChanges();
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
