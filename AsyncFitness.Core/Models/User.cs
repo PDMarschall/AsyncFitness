@@ -26,16 +26,16 @@ namespace AsyncFitness.Core.Models
         public string LastName { get; set; }
 
         [Required, MaxLength(100)]
-        public string StreetName { get; set; }
+        public string StreetName { get; set; } = String.Empty;
 
         [Required, MaxLength(4)]
-        public string StreetNumber { get; set; }
+        public string StreetNumber { get; set; } = String.Empty;
 
         [Required, MaxLength(100)]
-        public string City { get; set; }
+        public string City { get; set; } = String.Empty;
 
         [Required, MaxLength(7)]
-        public string PostalCode { get; set; }
+        public string PostalCode { get; set; } = String.Empty;
 
         [DataType(DataType.Date)]
         public DateTime JoinDate { get; set; }

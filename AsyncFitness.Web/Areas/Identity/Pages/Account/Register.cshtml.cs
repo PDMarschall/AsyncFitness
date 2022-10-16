@@ -19,6 +19,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using AsyncFitness.Core.Interfaces;
+using AsyncFitness.Core.Models;
 
 namespace AsyncFitness.Web.Areas.Identity.Pages.Account
 {
@@ -30,13 +32,15 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<AsyncFitnessUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IRepository<Customer> _customerRepo;
 
         public RegisterModel(
             UserManager<AsyncFitnessUser> userManager,
             IUserStore<AsyncFitnessUser> userStore,
             SignInManager<AsyncFitnessUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IRepository<Customer> customerRepo)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +48,7 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _customerRepo = customerRepo;
         }
 
         /// <summary>
@@ -90,6 +95,11 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
+            [Required]
+            [Phone]
+            [Display(Name = "Phone Number")]
+            public string PhoneNumber { get; set; }
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -121,15 +131,28 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
 
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
+                user.PhoneNumber = Input.PhoneNumber;
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                try
+                {
+                    await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                    await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+
+                    _customerRepo.Add(user.ConvertToCustomer());                    
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+
+                _customerRepo.SaveChanges();
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
