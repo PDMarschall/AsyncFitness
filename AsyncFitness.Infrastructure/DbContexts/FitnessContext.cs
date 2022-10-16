@@ -22,6 +22,14 @@ namespace AsyncFitness.Infrastructure.DbContexts
             modelBuilder.Entity<Customer>()
                 .HasOne(p => p.Trainer)
                 .WithMany(c => c.Clients);
+
+            modelBuilder.Entity<Customer>(entity => {
+                entity.HasIndex(e => e.Email).IsUnique();
+            });
+
+            modelBuilder.Entity<Trainer>(entity => {
+                entity.HasIndex(e => e.Email).IsUnique();
+            });
         }
 
         public DbSet<Customer> Customers { get; set; }

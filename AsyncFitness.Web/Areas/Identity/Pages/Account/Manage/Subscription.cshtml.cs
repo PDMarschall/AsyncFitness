@@ -60,10 +60,9 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account.Manage
         }
 
         private async Task LoadAsync(AsyncFitnessUser user)
-        {
-            string email = await _userManager.GetEmailAsync(user);
-            Subscription = _customerRepo.Get(email).Subscription;
-            SubscriptionsList = _subscriptionRepo.Find(s => !s.Subscribers.Contains(_customerRepo.Get(email))).ToList();
+        {            
+            Subscription = _customerRepo.Get(user.Email).Subscription;
+            SubscriptionsList = _subscriptionRepo.Find(s => !s.Subscribers.Contains(_customerRepo.Get(user.Email))).ToList();
         }
 
         public async Task<IActionResult> OnPostChangeSubscriptionAsync()
@@ -82,15 +81,15 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account.Manage
             }
 
             var currentSubscription = _subscriptionRepo.Find(s => s.Subscribers.Contains(customer));
-            var selectedSubscription = _subscriptionRepo.Get(NewSubscriptionName);
+            var newSubscription = _subscriptionRepo.Get(NewSubscriptionName);
 
-            if (selectedSubscription != currentSubscription)
+            if (newSubscription != currentSubscription && newSubscription != null)
             {
-                customer.Subscription = selectedSubscription;
+                customer.Subscription = newSubscription;
                 _customerRepo.Update(customer);
                 _customerRepo.SaveChanges();
 
-                StatusMessage = $"Subscription changed to {selectedSubscription.Name}";
+                StatusMessage = $"Subscription changed to {newSubscription.Name}";
                 return RedirectToPage();
             }
 

@@ -7,6 +7,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using AsyncFitness.Core.Interfaces;
+using AsyncFitness.Core.Models;
 using AsyncFitness.Web.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -21,15 +23,18 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<AsyncFitnessUser> _userManager;
         private readonly SignInManager<AsyncFitnessUser> _signInManager;
         private readonly IEmailSender _emailSender;
+        private readonly IRepository<Customer> _customerRepo;
 
         public EmailModel(
             UserManager<AsyncFitnessUser> userManager,
             SignInManager<AsyncFitnessUser> signInManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IRepository<Customer> customerRepo)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _customerRepo = customerRepo;
         }
 
         /// <summary>
@@ -130,6 +135,12 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account.Manage
                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                 StatusMessage = "Confirmation link to change email sent. Please check your email.";
+
+                var customer = _customerRepo.Get(user.Email);
+                customer.Email = Input.NewEmail;
+                _customerRepo.Update(customer);
+                _customerRepo.SaveChanges();
+
                 return RedirectToPage();
             }
 
