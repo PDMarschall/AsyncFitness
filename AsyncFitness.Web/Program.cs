@@ -31,7 +31,7 @@ namespace AsyncFitness.Web
             {
                 options.Conventions.AuthorizeAreaFolder("Fitness", "/");
             });
-
+            builder.Services.AddTransient<UserManager<AsyncFitnessUser>>();
             builder.Services.AddTransient<IRepository<Subscription>, SubscriptionRepository>();
             builder.Services.AddTransient<IRepository<Customer>, CustomerRepository>();
             builder.Services.AddTransient<IRepository<Trainer>, TrainerRepository>();
