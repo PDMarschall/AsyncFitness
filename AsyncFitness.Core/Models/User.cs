@@ -16,9 +16,6 @@ namespace AsyncFitness.Core.Models
         [Required, RegularExpression(@"^(\d){8}$"), MaxLength(8)]
         public string Phone { get; set; }
 
-        [Required]
-        public string PasswordHash { get; set; }
-
         [Required, MaxLength(100)]
         public string FirstName { get; set; }
 
@@ -41,10 +38,5 @@ namespace AsyncFitness.Core.Models
         public DateTime JoinDate { get; set; }
 
         public byte[]? ProfileImage { get; set; }
-
-        public bool ValidatePassword(string pw)
-        {
-            return pw == PasswordHash;
-        }
     }
 }

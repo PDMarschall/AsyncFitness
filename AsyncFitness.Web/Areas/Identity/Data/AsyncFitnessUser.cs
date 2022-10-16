@@ -25,8 +25,7 @@ public class AsyncFitnessUser : IdentityUser
         {
             FirstName = this.FirstName,
             LastName = this.LastName,
-            Email = this.Email,
-            PasswordHash = this.PasswordHash,
+            Email = this.Email,            
             Phone = this.PhoneNumber
         };
 
@@ -39,8 +38,7 @@ public class AsyncFitnessUser : IdentityUser
         {
             FirstName = this.FirstName,
             LastName = this.LastName,
-            Email = this.Email,
-            PasswordHash = this.PasswordHash,
+            Email = this.Email,            
             Phone = this.PhoneNumber
         };
 

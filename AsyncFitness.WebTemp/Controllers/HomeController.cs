@@ -55,13 +55,8 @@ namespace AsyncFitness.Web.Controllers
         {
             Customer customer = _customerRepo.Get(temp.Email);
 
-            if (customer != null && customer.ValidatePassword(pwText))
-            {
                 PassCustomerToLayout(customer);
                 return View("LandingPage", customer);
-            }
-
-            return View("Index");
         }
 
         public IActionResult LandingPage(Customer customer)
