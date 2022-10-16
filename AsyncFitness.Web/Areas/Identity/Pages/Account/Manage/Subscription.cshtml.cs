@@ -37,24 +37,15 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account.Manage
         }
 
         public Subscription Subscription { get; set; }
-        public SelectList SubscriptionsList { get; set; }
+        public List<Subscription> SubscriptionsList { get; set; }
+
+        [TempData]
+        public string StatusMessage { get; set; }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public string NewSubscriptionName { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        public class InputModel
-        {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required]
-            public Subscription NewSubscription { get; set; }
-        }
+
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -72,46 +63,39 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account.Manage
         {
             string email = await _userManager.GetEmailAsync(user);
             Subscription = _customerRepo.Get(email).Subscription;
-            SubscriptionsList = new SelectList(_subscriptionRepo.Find(s => !s.Subscribers.Contains(_customerRepo.Get(email))));            
+            SubscriptionsList = _subscriptionRepo.Find(s => !s.Subscribers.Contains(_customerRepo.Get(email))).ToList();
         }
 
         public async Task<IActionResult> OnPostChangeSubscriptionAsync()
         {
-            //var user = await _userManager.GetUserAsync(User);
-            //if (user == null)
-            //{
-            //    return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            //}
+            var user = await _userManager.GetUserAsync(User);
+            var customer = _customerRepo.Get(user.Email);
+            if (user == null || customer == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
 
-            //if (!ModelState.IsValid)
-            //{
-            //    await LoadAsync(user);
-            //    return Page();
-            //}
+            if (!ModelState.IsValid)
+            {
+                await LoadAsync(user);
+                return Page();
+            }
 
-            //var email = await _userManager.GetEmailAsync(user);
-            //if (Input.NewEmail != email)
-            //{
-            //    var userId = await _userManager.GetUserIdAsync(user);
-            //    var code = await _userManager.GenerateChangeEmailTokenAsync(user, Input.NewEmail);
-            //    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-            //    var callbackUrl = Url.Page(
-            //        "/Account/ConfirmEmailChange",
-            //        pageHandler: null,
-            //        values: new { area = "Identity", userId = userId, email = Input.NewEmail, code = code },
-            //        protocol: Request.Scheme);
-            //    await _emailSender.SendEmailAsync(
-            //        Input.NewEmail,
-            //        "Confirm your email",
-            //        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+            var currentSubscription = _subscriptionRepo.Find(s => s.Subscribers.Contains(customer));
+            var selectedSubscription = _subscriptionRepo.Get(NewSubscriptionName);
 
-            //    StatusMessage = "Confirmation link to change email sent. Please check your email.";
-            //    return RedirectToPage();
-            //}
+            if (selectedSubscription != currentSubscription)
+            {
+                customer.Subscription = selectedSubscription;
+                _customerRepo.Update(customer);
+                _customerRepo.SaveChanges();
 
-            //StatusMessage = "Your email is unchanged.";
-            //return RedirectToPage();
-            return Page();
+                StatusMessage = $"Subscription changed to {selectedSubscription.Name}";
+                return RedirectToPage();
+            }
+
+            StatusMessage = "Your subscription is unchanged.";
+            return RedirectToPage();
         }
     }
 }
