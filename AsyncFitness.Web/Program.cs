@@ -27,7 +27,10 @@ namespace AsyncFitness.Web
             .AddEntityFrameworkStores<AsyncFitnessWebContext>();
 
             // Add services to the container.
-            builder.Services.AddRazorPages();
+            builder.Services.AddRazorPages(options =>
+            {
+                options.Conventions.AuthorizeAreaFolder("Fitness", "/");
+            });
 
             builder.Services.AddTransient<IRepository<Subscription>, SubscriptionRepository>();
             builder.Services.AddTransient<IRepository<Customer>, CustomerRepository>();
