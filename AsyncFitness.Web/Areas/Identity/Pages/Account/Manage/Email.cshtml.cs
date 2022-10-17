@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using AsyncFitness.Core.Interfaces;
-using AsyncFitness.Core.Models;
+using AsyncFitness.Core.Models.User;
 using AsyncFitness.Web.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;

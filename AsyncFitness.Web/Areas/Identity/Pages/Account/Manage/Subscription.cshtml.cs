@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using AsyncFitness.Core.Interfaces;
-using AsyncFitness.Core.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text.Encodings.Web;
 using System.Text;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using AsyncFitness.Core.Models.User;
 
 namespace AsyncFitness.Web.Areas.Identity.Pages.Account.Manage
 {

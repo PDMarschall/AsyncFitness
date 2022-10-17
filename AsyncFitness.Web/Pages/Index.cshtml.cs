@@ -1,4 +1,5 @@
 ﻿using AsyncFitness.Core.Models;
+using AsyncFitness.Core.Models.User;
 using AsyncFitness.Infrastructure.DbContexts;
 using AsyncFitness.Web.Areas.Identity.Data;
 using AsyncFitness.Web.Data;
@@ -41,7 +42,7 @@ namespace AsyncFitness.Web.Pages
                 }
 
                 context.Customers.Add(
-                    new Core.Models.Customer
+                    new Customer
                     {
                         Email = "test@testmail.com",
                         Phone = "11111111",

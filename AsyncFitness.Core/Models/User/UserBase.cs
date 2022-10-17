@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AsyncFitness.Core.Models
+namespace AsyncFitness.Core.Models.User
 {
-    public abstract class User
+    public abstract class UserBase
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -26,16 +26,16 @@ namespace AsyncFitness.Core.Models
         public string LastName { get; set; }
 
         [Required, MaxLength(100)]
-        public string StreetName { get; set; } = String.Empty;
+        public string StreetName { get; set; } = string.Empty;
 
         [Required, MaxLength(4)]
-        public string StreetNumber { get; set; } = String.Empty;
+        public string StreetNumber { get; set; } = string.Empty;
 
         [Required, MaxLength(100)]
-        public string City { get; set; } = String.Empty;
+        public string City { get; set; } = string.Empty;
 
         [Required, MaxLength(7)]
-        public string PostalCode { get; set; } = String.Empty;
+        public string PostalCode { get; set; } = string.Empty;
 
         [DataType(DataType.Date)]
         public DateTime JoinDate { get; set; }

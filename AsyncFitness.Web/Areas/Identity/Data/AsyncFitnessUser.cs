@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using AsyncFitness.Core.Models;
+using AsyncFitness.Core.Models.User;
 using Microsoft.AspNetCore.Identity;
 
 namespace AsyncFitness.Web.Areas.Identity.Data;

@@ -20,7 +20,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using AsyncFitness.Core.Interfaces;
-using AsyncFitness.Core.Models;
+using AsyncFitness.Core.Models.User;
 
 namespace AsyncFitness.Web.Areas.Identity.Pages.Account
 {

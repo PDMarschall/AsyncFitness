@@ -1,5 +1,5 @@
 using AsyncFitness.Core.Interfaces;
-using AsyncFitness.Core.Models;
+using AsyncFitness.Core.Models.User;
 using AsyncFitness.Infrastructure.Repository;
 using Moq;
 

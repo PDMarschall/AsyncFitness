@@ -4,8 +4,8 @@ using AsyncFitness.Web.Data;
 using AsyncFitness.Web.Areas.Identity.Data;
 using AsyncFitness.Infrastructure.DbContexts;
 using AsyncFitness.Core.Interfaces;
-using AsyncFitness.Core.Models;
 using AsyncFitness.Infrastructure.Repository;
+using AsyncFitness.Core.Models.User;
 
 namespace AsyncFitness.Web
 {

@@ -6,15 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AsyncFitness.Core.Models
+namespace AsyncFitness.Core.Models.User
 {
     public class Subscription
     {
         [Key, Required]
-        public string Name { get; set; } = String.Empty;
+        public string Name { get; set; } = string.Empty;
 
         [MaxLength(500)]
-        public string Description { get; set; } = String.Empty;
+        public string Description { get; set; } = string.Empty;
 
         [DataType(DataType.Currency)]
         public decimal Cost { get; set; } = decimal.Zero;

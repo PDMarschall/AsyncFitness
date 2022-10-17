@@ -1,4 +1,4 @@
-﻿using AsyncFitness.Core.Models;
+﻿using AsyncFitness.Core.Models.User;
 using AsyncFitness.Infrastructure.DbContexts;
 using System;
 using System.Collections.Generic;
