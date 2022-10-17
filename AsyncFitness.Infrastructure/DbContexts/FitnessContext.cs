@@ -43,18 +43,18 @@ namespace AsyncFitness.Infrastructure.DbContexts
         {
             modelBuilder.Entity<Customer>().HasOne(s => s.Subscription).WithMany(ss => ss.Subscribers);
             modelBuilder.Entity<Customer>().HasOne(t => t.Trainer).WithMany(c => c.Clients);
-            modelBuilder.Entity<Customer>(entity => { entity.HasIndex(e => e.Email).IsUnique(); });
+            modelBuilder.Entity<Customer>(entity => entity.HasIndex(e => e.Email).IsUnique());
         }
 
         private void ConfigureTrainerClass(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Trainer>(entity => { entity.HasIndex(e => e.Email).IsUnique(); });
+            modelBuilder.Entity<Trainer>(entity => entity.HasIndex(e => e.Email).IsUnique());
         }
 
         private void ConfigureAdminClass(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Admin>().HasMany(a => a.AdministratedFitnessCenters).WithOne(g => g.GymLeader);
-            modelBuilder.Entity<Admin>(entity => { entity.HasIndex(e => e.Email).IsUnique(); });
+            modelBuilder.Entity<Admin>(entity => entity.HasIndex(e => e.Email).IsUnique());
         }
 
         private void ConfigureFacilityModelClasses(ModelBuilder modelBuilder)
