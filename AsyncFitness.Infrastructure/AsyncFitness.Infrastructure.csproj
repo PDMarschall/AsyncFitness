@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DbContexts\FitnessContextDiagram.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.9">
@@ -25,28 +29,5 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="DbContexts\FitnessContextDiagram.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>FitnessContextDiagram.xsd</DependentUpon>
-    </Compile>
-    <Compile Update="DbContexts\FitnessContextDiagram.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>FitnessContextDiagram.xsd</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="DbContexts\FitnessContextDiagram.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
-    </None>
-    <None Update="DbContexts\FitnessContextDiagram.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>FitnessContextDiagram.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
 
 </Project>
