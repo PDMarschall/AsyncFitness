@@ -1,5 +1,6 @@
 ﻿using AsyncFitness.Core.Models.Facility;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.Datastructures
 {
-    public class GroupFitnessClassCalendar
+    public class GroupFitnessClassCalendar : IEnumerable<GroupFitnessClass>
     {
         private List<GroupFitnessClass>[] _calendarContainer;
 
@@ -67,6 +68,22 @@ namespace AsyncFitness.Core.Datastructures
                 .IndexOf(_calendarContainer[indexOfClass]
                 .First(c => c.End < fitnessClass.Start));
             _calendarContainer[indexOfClass].Insert(indexToInsertClass, fitnessClass);
+        }
+
+        public IEnumerator<GroupFitnessClass> GetEnumerator()
+        {
+            for (int i = 0; i < _calendarContainer.Length; i++)
+            {
+                foreach (GroupFitnessClass fitnessClass in _calendarContainer[i])
+                {
+                    yield return fitnessClass;
+                }
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
         }
     }
 }
