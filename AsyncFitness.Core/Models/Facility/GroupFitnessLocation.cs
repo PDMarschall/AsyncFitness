@@ -19,6 +19,7 @@ namespace AsyncFitness.Core.Models.Facility
         [Required]
         public int Capacity { get; set; }
 
+        [Required]
         public FitnessCenter Center { get; set; }
 
         public List<GroupFitnessClass> Classes { get; set; }

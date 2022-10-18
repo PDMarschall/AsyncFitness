@@ -16,14 +16,24 @@ namespace AsyncFitness.Core.Models.Facility
 
         public List<Customer> BookedParticipants { get; set; }
 
+        [Required]
         public List<Trainer> Instructors { get; set; }
 
+        [Required]
         public GroupFitnessLocation Location { get; set; }
 
+        [Required]
         public GroupFitnessConcept Concept { get; set; }
 
+        [Required]
         public DateTime Start { get; set; }
 
+        [Required]
         public DateTime End { get; set; }
+
+        public bool IsValid()
+        {
+            return Start < End;
+        }
     }
 }
