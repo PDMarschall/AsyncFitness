@@ -36,12 +36,12 @@ namespace AsyncFitness.Web.Pages
                     DbContextOptions<FitnessContext>>()))
             {
                 // Look for any movies.
-                if (context.Customers.Any())
+                if (context.FitnessCustomers.Any())
                 {
                     return;   // DB has been seeded
                 }
 
-                context.Customers.Add(
+                context.FitnessCustomers.Add(
                     new Customer
                     {
                         Email = "test@testmail.com",
@@ -90,15 +90,15 @@ namespace AsyncFitness.Web.Pages
                     DbContextOptions<FitnessContext>>()))
             {
 
-                if (context.Subscriptions.Any())
+                if (context.FitnessSubscriptions.Any())
                 {
                     return;
                 }
 
                 List<Customer> tempList = new List<Customer>();
-                tempList.Add(context.Customers.Find("test@testmail.com"));
+                tempList.Add(context.FitnessCustomers.Find("test@testmail.com"));
 
-                context.Subscriptions.AddRange(
+                context.FitnessSubscriptions.AddRange(
                     new Subscription()
                     {
                         Subscribers = tempList,

@@ -16,11 +16,11 @@ namespace AsyncFitness.Infrastructure.Repository
 
         }
 
-        public override int Count => _context.Trainers.Count();
+        public override int Count => _context.FitnessTrainers.Count();
 
         public override Trainer Get(string id)
         {
-            return _context.Trainers.Include(s => s.Clients).FirstOrDefault(c => c.Email == id);
+            return _context.FitnessTrainers.Include(s => s.Clients).FirstOrDefault(c => c.Email == id);
         }
     }
 }

@@ -9,15 +9,16 @@ namespace AsyncFitness.Infrastructure.DbContexts
     public class FitnessContext : DbContext
     {
         #region UserModelClasses
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<Subscription> Subscriptions { get; set; }
-        public DbSet<Trainer> Trainers { get; set; }
-        public DbSet<Admin> Admins { get; set; }
+        public DbSet<Customer> FitnessCustomers { get; set; }
+        public DbSet<Subscription> FitnessSubscriptions { get; set; }
+        public DbSet<Trainer> FitnessTrainers { get; set; }
+        public DbSet<Admin> FitnessAdmins { get; set; }
         #endregion
 
         #region FacilityModelClasses
-        public DbSet<GroupFitnessConcept> Classes { get; set; }
-        public DbSet<GroupFitnessLocation> Locations { get; set; }
+        public DbSet<GroupFitnessClass> FitnessClasses { get; set; }
+        public DbSet<GroupFitnessConcept> FitnessConcepts { get; set; }
+        public DbSet<GroupFitnessLocation> FitnessLocations { get; set; }
         public DbSet<FitnessCenter> FitnessCenters { get; set; }
         #endregion
 
@@ -75,6 +76,5 @@ namespace AsyncFitness.Infrastructure.DbContexts
             modelBuilder.Entity<GroupFitnessClass>().HasOne(c => c.Location).WithMany(s => s.Classes);
             modelBuilder.Entity<GroupFitnessClass>().HasOne(c => c.Concept).WithMany(s => s.ClassesWithConcept);
         }
-
     }
 }
