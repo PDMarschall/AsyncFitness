@@ -71,8 +71,8 @@ namespace AsyncFitness.Infrastructure.DbContexts
 
         private void ConfigureGroupFitnessClass(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<GroupFitnessClass>().HasMany(c => c.BookedParticipants).WithMany(s => s.BookedClasses);
-            modelBuilder.Entity<GroupFitnessClass>().HasMany(c => c.Instructors).WithMany(s => s.ClassesByTrainer);
+            modelBuilder.Entity<GroupFitnessClass>().HasMany(c => c.BookedParticipants).WithMany(s => s.BookedClasses).UsingEntity(t => t.ToTable("FitnessCustomerClassBookings"));
+            modelBuilder.Entity<GroupFitnessClass>().HasMany(c => c.Instructors).WithMany(s => s.ClassesByTrainer).UsingEntity(t => t.ToTable("FitnessTrainerClassBookings"));
             modelBuilder.Entity<GroupFitnessClass>().HasOne(c => c.Location).WithMany(s => s.Classes);
             modelBuilder.Entity<GroupFitnessClass>().HasOne(c => c.Concept).WithMany(s => s.ClassesWithConcept);
         }

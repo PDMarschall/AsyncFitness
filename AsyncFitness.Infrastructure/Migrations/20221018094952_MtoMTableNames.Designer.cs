@@ -4,6 +4,7 @@ using AsyncFitness.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AsyncFitness.Infrastructure.Migrations
 {
     [DbContext(typeof(FitnessContext))]
-    partial class FitnessContextModelSnapshot : ModelSnapshot
+    [Migration("20221018094952_MtoMTableNames")]
+    partial class MtoMTableNames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -359,7 +361,7 @@ namespace AsyncFitness.Infrastructure.Migrations
 
                     b.HasIndex("BookedParticipantsId");
 
-                    b.ToTable("FitnessCustomerClassBookings", (string)null);
+                    b.ToTable("CustomerClassBookings", (string)null);
                 });
 
             modelBuilder.Entity("GroupFitnessClassTrainer", b =>
@@ -374,7 +376,7 @@ namespace AsyncFitness.Infrastructure.Migrations
 
                     b.HasIndex("InstructorsId");
 
-                    b.ToTable("FitnessTrainerClassBookings", (string)null);
+                    b.ToTable("TrainerClassBookings", (string)null);
                 });
 
             modelBuilder.Entity("AsyncFitness.Core.Models.Facility.FitnessCenter", b =>
