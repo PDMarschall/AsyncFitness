@@ -17,11 +17,11 @@ namespace AsyncFitness.Infrastructure.Repository
 
         }
 
-        public override int Count => _context.FitnessCustomers.Count();
+        public override int Count => _context.FitnessCustomer.Count();
 
         public override Customer Get(string id)
         {
-            return _context.FitnessCustomers.Include(s => s.Subscription).FirstOrDefault(c => c.Email == id);
+            return _context.FitnessCustomer.Include(s => s.Subscription).FirstOrDefault(c => c.Email == id);
         }
     }
 }

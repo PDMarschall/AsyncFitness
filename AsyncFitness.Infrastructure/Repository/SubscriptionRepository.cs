@@ -14,6 +14,6 @@ namespace AsyncFitness.Infrastructure.Repository
         {
         }
 
-        public override int Count => _context.FitnessSubscriptions.Count();
+        public override int Count => _context.FitnessSubscription.Count();
     }
 }
