@@ -31,9 +31,18 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>FitnessContextDiagram.xsd</DependentUpon>
     </Compile>
+    <Compile Update="DbContexts\FitnessContextDiagram.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FitnessContextDiagram.xsd</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="DbContexts\FitnessContextDiagram.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+    </None>
     <None Update="DbContexts\FitnessContextDiagram.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>FitnessContextDiagram.Designer.cs</LastGenOutput>
