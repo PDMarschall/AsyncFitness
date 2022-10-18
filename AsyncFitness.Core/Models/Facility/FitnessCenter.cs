@@ -19,7 +19,7 @@ namespace AsyncFitness.Core.Models.Facility
 
         public List<GroupFitnessLocation> Facilities { get; set; }
 
-        public List<GroupFitnessConcept> AvailableClasses { get; set; }
+        public List<GroupFitnessConcept> AvailableConcepts { get; set; }
 
         [NotMapped]
         public GroupFitnessClassCalendar ClassCalendar { get; set; }

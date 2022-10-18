@@ -24,5 +24,6 @@ namespace AsyncFitness.Core.Models.Facility
         public TimeSpan Duration { get; set; }
 
         public List<GroupFitnessClass> ClassesWithConcept { get; set; }
+        public List<FitnessCenter> CentersWithConcept { get; set; }
     }
 }

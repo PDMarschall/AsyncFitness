@@ -26,17 +26,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="DbContexts\DataSet1.Designer.cs">
+    <Compile Update="DbContexts\FitnessContextDiagram.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>DataSet1.xsd</DependentUpon>
+      <DependentUpon>FitnessContextDiagram.xsd</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="DbContexts\DataSet1.xsd">
+    <None Update="DbContexts\FitnessContextDiagram.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+      <LastGenOutput>FitnessContextDiagram.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
