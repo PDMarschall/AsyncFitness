@@ -82,6 +82,7 @@ namespace AsyncFitness.Core.Datastructures
 
             return conceptClasses;
         }
+
         public List<GroupFitnessClass> GetClassesByConcept(GroupFitnessConcept concept)
         {
             List<GroupFitnessClass> conceptClasses = new List<GroupFitnessClass>();
@@ -117,7 +118,6 @@ namespace AsyncFitness.Core.Datastructures
 
             return conceptClasses;
         }
-
 
         public List<string> GetScheduleConflicts()
         {
@@ -171,6 +171,7 @@ namespace AsyncFitness.Core.Datastructures
         #endregion
 
         #region GuardMethods
+
         private void GuardAgainstNullCollection(IEnumerable<GroupFitnessClass> fitnessClasses)
         {
             if (fitnessClasses == null)
@@ -210,6 +211,7 @@ namespace AsyncFitness.Core.Datastructures
                 throw new DuplicateFitnessClassException($"GroupFitnessClass Id: {fitnessClass.Id}, Concept: {fitnessClass.Concept.Name} is already contained in this collection.");
             }
         }
+
         #endregion
 
         #region Enumerator
