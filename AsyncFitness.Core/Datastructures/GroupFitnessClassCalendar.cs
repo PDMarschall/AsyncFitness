@@ -1,4 +1,5 @@
 ﻿using AsyncFitness.Core.Models.Facility;
+using AsyncFitness.Core.Models.User;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,22 +29,72 @@ namespace AsyncFitness.Core.Datastructures
         {
             GuardAgainstNull(fitnessClass);
             GuardAgainstInvalid(fitnessClass);
-            InsertClassAfterPriorClass(fitnessClass);
+            GuardAgainstDuplication(fitnessClass);
+
+            InsertFitnessClass(fitnessClass);
+            SortCalendarDayAscending(GetClassIndex(fitnessClass));
         }
 
         public void AddClassRange(IEnumerable<GroupFitnessClass> fitnessClasses)
         {
             GuardAgainstNullCollection(fitnessClasses);
             GuardAgainstInvalidCollection(fitnessClasses);
+
             foreach (GroupFitnessClass fitnessClass in fitnessClasses)
             {
-                InsertClassAfterPriorClass(fitnessClass);
+                GuardAgainstDuplication(fitnessClass);
+                InsertFitnessClass(fitnessClass);
+            }
+
+            SortCalendarAscending();
+        }
+
+        public void RemoveClass(GroupFitnessClass fitnessClass)
+        {
+            int indexOfClass = GetClassIndex(fitnessClass);
+            _calendarContainer[indexOfClass].Remove(fitnessClass);
+        }
+
+        public void RemoveClass(int id)
+        {
+            for (int i = 0; i < _calendarContainer.Length; i++)
+            {
+                for (int y = 1; y == _calendarContainer[i].Count; y++)
+                {
+                    if (_calendarContainer[i][y].Id == id)
+                    {
+                        _calendarContainer[i].RemoveAt(y);
+                        break;
+                    }
+                }
             }
         }
 
+        public List<GroupFitnessClass> GetClassesByTrainer(Trainer trainer)
+        {
+            List<GroupFitnessClass> conceptClasses = new List<GroupFitnessClass>();
 
+            for (int i = 0; i < _calendarContainer.Length; i++)
+            {
+                conceptClasses.AddRange(_calendarContainer[i].Where(c => c.Instructors.Contains(trainer)));
+            }
 
-        public List<string> GetDoubleBookings()
+            return conceptClasses;
+        }
+
+        public List<GroupFitnessClass> GetClassesByConcept(GroupFitnessConcept concept)
+        {
+            List<GroupFitnessClass> conceptClasses = new List<GroupFitnessClass>();
+
+            for (int i = 0; i < _calendarContainer.Length; i++)
+            {
+                conceptClasses.AddRange(_calendarContainer[i].Where(c => c.Concept == concept));
+            }
+
+            return conceptClasses;
+        }
+
+        public List<string> GetScheduleConflicts()
         {
             List<string> errorLog = new List<string>();
 
@@ -58,22 +109,41 @@ namespace AsyncFitness.Core.Datastructures
             return errorLog;
         }
 
-        private void InsertClassAfterPriorClass(GroupFitnessClass fitnessClass)
+        public void Clear()
         {
-            int indexOfClass = (int)fitnessClass.Start.DayOfWeek;
-            int indexToInsertClass = _calendarContainer[indexOfClass]
-                .IndexOf(_calendarContainer[indexOfClass]
-                .FirstOrDefault(c => c.End >= fitnessClass.Start));
-
-            if (indexToInsertClass != -1)
+            for (int i = 0; i < _calendarContainer.Length; i++)
             {
-                _calendarContainer[indexOfClass].Insert(indexToInsertClass, fitnessClass);
-            }
-            else
-            {
-                _calendarContainer[indexOfClass].Add(fitnessClass);
+                _calendarContainer[i].Clear();
             }
         }
+
+        #region PrivateMethods
+
+        private void InsertFitnessClass(GroupFitnessClass fitnessClass)
+        {
+            int indexOfClass = GetClassIndex(fitnessClass);
+            _calendarContainer[indexOfClass].Add(fitnessClass);
+        }
+
+        private int GetClassIndex(GroupFitnessClass fitnessClass)
+        {
+            return (int)fitnessClass.Start.DayOfWeek;
+        }
+
+        private void SortCalendarDayAscending(int indexOfDay)
+        {
+            _calendarContainer[indexOfDay].Sort((c1, c2) => c1.Start.CompareTo(c2.Start));
+        }
+
+        private void SortCalendarAscending()
+        {
+            for (int i = 0; i < _calendarContainer.Length; i++)
+            {
+                _calendarContainer[i].Sort((c1, c2) => c1.Start.CompareTo(c2.Start));
+            }
+        }
+
+        #endregion
 
         #region GuardMethods
         private void GuardAgainstNullCollection(IEnumerable<GroupFitnessClass> fitnessClasses)
@@ -82,7 +152,6 @@ namespace AsyncFitness.Core.Datastructures
             {
                 throw new NullReferenceException("GroupFitnessClass-collection cannot be null");
             }
-
         }
 
         private void GuardAgainstInvalidCollection(IEnumerable<GroupFitnessClass> fitnessClasses)
@@ -106,6 +175,14 @@ namespace AsyncFitness.Core.Datastructures
             if (!fitnessClass.IsValid())
             {
                 throw new ArgumentException($"GroupFitnessClass ID:{fitnessClass.Id} did not pass internal class validity test.");
+            }
+        }
+
+        private void GuardAgainstDuplication(GroupFitnessClass fitnessClass)
+        {
+            if (_calendarContainer[GetClassIndex(fitnessClass)].Contains(fitnessClass))
+            {
+                throw new ArgumentException($"GroupFitnessClass Id: {fitnessClass.Id}, Concept: {fitnessClass.Concept.Name} is already contained in this collection.");
             }
         }
         #endregion
