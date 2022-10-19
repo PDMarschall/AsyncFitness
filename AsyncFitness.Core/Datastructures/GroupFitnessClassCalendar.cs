@@ -176,7 +176,7 @@ namespace AsyncFitness.Core.Datastructures
         {
             if (fitnessClasses == null)
             {
-                throw new NullReferenceException("GroupFitnessClass-collection cannot be null");
+                throw new GroupFitnessClassException("GroupFitnessClass-collection cannot be null");
             }
         }
 
@@ -192,7 +192,7 @@ namespace AsyncFitness.Core.Datastructures
         {
             if (fitnessClass == null)
             {
-                throw new NullReferenceException("GroupFitnessClass cannot be null.");
+                throw new GroupFitnessClassException("GroupFitnessClass cannot be null.");
             }
         }
 
@@ -200,7 +200,7 @@ namespace AsyncFitness.Core.Datastructures
         {
             if (!fitnessClass.IsValid())
             {
-                throw new ArgumentException($"GroupFitnessClass ID:{fitnessClass.Id} did not pass internal class validity test.");
+                throw new GroupFitnessClassException($"GroupFitnessClass ID:{fitnessClass.Id} did not pass internal class validity test.");
             }
         }
 
@@ -208,7 +208,7 @@ namespace AsyncFitness.Core.Datastructures
         {
             if (_calendarContainer[GetClassIndex(fitnessClass)].Contains(fitnessClass))
             {
-                throw new DuplicateFitnessClassException($"GroupFitnessClass Id: {fitnessClass.Id}, Concept: {fitnessClass.Concept.Name} is already contained in this collection.");
+                throw new GroupFitnessClassException($"GroupFitnessClass Id: {fitnessClass.Id}, Concept: {fitnessClass.Concept.Name} is already contained in this collection.");
             }
         }
 
