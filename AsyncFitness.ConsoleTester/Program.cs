@@ -30,7 +30,11 @@ internal class GroupFitnessClassCalendarTests
 
     public void Run()
     {
-        _calendar.AddClassRange(_testClasses);
+        _calendar.AddClassRange(_testClasses);        
+
+        var testByConcept = _calendar.GetClassesByConcept(_fitnessConcept);
+        var testByLocation = _calendar.GetClassesByLocation(_fitnessLocation);
+
         _calendar.AddClassRange(_testClasses);
     }
 

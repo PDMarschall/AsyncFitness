@@ -1,4 +1,5 @@
-﻿using AsyncFitness.Core.Models.Facility;
+﻿using AsyncFitness.Core.Exceptions;
+using AsyncFitness.Core.Models.Facility;
 using AsyncFitness.Core.Models.User;
 using System;
 using System.Collections;
@@ -81,6 +82,17 @@ namespace AsyncFitness.Core.Datastructures
 
             return conceptClasses;
         }
+        public List<GroupFitnessClass> GetClassesByConcept(GroupFitnessConcept concept)
+        {
+            List<GroupFitnessClass> conceptClasses = new List<GroupFitnessClass>();
+
+            for (int i = 0; i < _calendarContainer.Length; i++)
+            {
+                conceptClasses.AddRange(_calendarContainer[i].Where(c => c.Concept == concept));
+            }
+
+            return conceptClasses;
+        }
 
         public List<GroupFitnessClass> GetClassesByTrainer(Trainer trainer)
         {
@@ -94,17 +106,18 @@ namespace AsyncFitness.Core.Datastructures
             return conceptClasses;
         }
 
-        public List<GroupFitnessClass> GetClassesByConcept(GroupFitnessConcept concept)
+        public List<GroupFitnessClass> GetClassesByParticipant(Customer customer)
         {
             List<GroupFitnessClass> conceptClasses = new List<GroupFitnessClass>();
 
             for (int i = 0; i < _calendarContainer.Length; i++)
             {
-                conceptClasses.AddRange(_calendarContainer[i].Where(c => c.Concept == concept));
+                conceptClasses.AddRange(_calendarContainer[i].Where(c => c.BookedParticipants.Contains(customer)));
             }
 
             return conceptClasses;
         }
+
 
         public List<string> GetScheduleConflicts()
         {
@@ -194,7 +207,7 @@ namespace AsyncFitness.Core.Datastructures
         {
             if (_calendarContainer[GetClassIndex(fitnessClass)].Contains(fitnessClass))
             {
-                throw new ArgumentException($"GroupFitnessClass Id: {fitnessClass.Id}, Concept: {fitnessClass.Concept.Name} is already contained in this collection.");
+                throw new DuplicateFitnessClassException($"GroupFitnessClass Id: {fitnessClass.Id}, Concept: {fitnessClass.Concept.Name} is already contained in this collection.");
             }
         }
         #endregion
