@@ -1,4 +1,5 @@
 ﻿using AsyncFitness.Core.Exceptions;
+using AsyncFitness.Core.Extensions;
 using AsyncFitness.Core.Models.Facility;
 using AsyncFitness.Core.Models.User;
 using System;
@@ -28,8 +29,8 @@ namespace AsyncFitness.Core.Datastructures
 
         public void AddClass(GroupFitnessClass fitnessClass)
         {
-            GuardAgainstNull(fitnessClass);
-            GuardAgainstInvalid(fitnessClass);
+            fitnessClass.GuardAgainstNull();
+            fitnessClass.GuardAgainstInvalid();
             GuardAgainstDuplication(fitnessClass);
 
             InsertFitnessClass(fitnessClass);
@@ -38,8 +39,8 @@ namespace AsyncFitness.Core.Datastructures
 
         public void AddClassRange(IEnumerable<GroupFitnessClass> fitnessClasses)
         {
-            GuardAgainstNullCollection(fitnessClasses);
-            GuardAgainstInvalidCollection(fitnessClasses);
+            fitnessClasses.GuardAgainstNull();
+            fitnessClasses.GuardAgainstInvalidCollection();
 
             foreach (GroupFitnessClass fitnessClass in fitnessClasses)
             {
@@ -171,38 +172,6 @@ namespace AsyncFitness.Core.Datastructures
         #endregion
 
         #region GuardMethods
-
-        private void GuardAgainstNullCollection(IEnumerable<GroupFitnessClass> fitnessClasses)
-        {
-            if (fitnessClasses == null)
-            {
-                throw new GroupFitnessClassException("GroupFitnessClass-collection cannot be null");
-            }
-        }
-
-        private void GuardAgainstInvalidCollection(IEnumerable<GroupFitnessClass> fitnessClasses)
-        {
-            foreach (GroupFitnessClass fitnessClass in fitnessClasses)
-            {
-                GuardAgainstNull(fitnessClass);
-            }
-        }
-
-        private void GuardAgainstNull(GroupFitnessClass fitnessClass)
-        {
-            if (fitnessClass == null)
-            {
-                throw new GroupFitnessClassException("GroupFitnessClass cannot be null.");
-            }
-        }
-
-        private void GuardAgainstInvalid(GroupFitnessClass fitnessClass)
-        {
-            if (!fitnessClass.IsValid())
-            {
-                throw new GroupFitnessClassException($"GroupFitnessClass ID:{fitnessClass.Id} did not pass internal class validity test.");
-            }
-        }
 
         private void GuardAgainstDuplication(GroupFitnessClass fitnessClass)
         {
