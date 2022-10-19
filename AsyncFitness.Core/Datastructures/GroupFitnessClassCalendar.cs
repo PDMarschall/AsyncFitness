@@ -70,6 +70,18 @@ namespace AsyncFitness.Core.Datastructures
             }
         }
 
+        public List<GroupFitnessClass> GetClassesByLocation(GroupFitnessLocation fitnessLocation)
+        {
+            List<GroupFitnessClass> conceptClasses = new List<GroupFitnessClass>();
+
+            for (int i = 0; i < _calendarContainer.Length; i++)
+            {
+                conceptClasses.AddRange(_calendarContainer[i].Where(c => c.Location == fitnessLocation));
+            }
+
+            return conceptClasses;
+        }
+
         public List<GroupFitnessClass> GetClassesByTrainer(Trainer trainer)
         {
             List<GroupFitnessClass> conceptClasses = new List<GroupFitnessClass>();
