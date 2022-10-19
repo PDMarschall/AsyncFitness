@@ -34,8 +34,6 @@ internal class GroupFitnessClassCalendarTests
 
         var testByConcept = _calendar.GetClassesByConcept(_fitnessConcept);
         var testByLocation = _calendar.GetClassesByLocation(_fitnessLocation);
-
-        _calendar.AddClassRange(_testClasses);
     }
 
     public void Setup()
