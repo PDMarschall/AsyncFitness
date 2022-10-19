@@ -15,6 +15,8 @@ namespace AsyncFitness.Core.Models.Facility
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        public string Name { get; set; }
+
         public Admin GymLeader { get; set; }
 
         public List<GroupFitnessLocation> Facilities { get; set; }

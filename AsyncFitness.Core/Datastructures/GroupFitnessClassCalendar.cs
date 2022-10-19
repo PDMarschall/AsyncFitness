@@ -18,17 +18,23 @@ namespace AsyncFitness.Core.Datastructures
         {
             Center = fitnessCenter;
             _calendarContainer = new List<GroupFitnessClass>[7];
+            for (int i = 0; i < _calendarContainer.Length; i++)
+            {
+                _calendarContainer[i] = new List<GroupFitnessClass>();
+            }
         }
 
         public void AddClass(GroupFitnessClass fitnessClass)
         {
             GuardAgainstNull(fitnessClass);
+            GuardAgainstInvalid(fitnessClass);
             InsertClassAfterPriorClass(fitnessClass);
         }
 
         public void AddClassRange(IEnumerable<GroupFitnessClass> fitnessClasses)
         {
             GuardAgainstNullCollection(fitnessClasses);
+            GuardAgainstInvalidCollection(fitnessClasses);
             foreach (GroupFitnessClass fitnessClass in fitnessClasses)
             {
                 InsertClassAfterPriorClass(fitnessClass);
@@ -37,12 +43,50 @@ namespace AsyncFitness.Core.Datastructures
 
 
 
+        public List<string> GetDoubleBookings()
+        {
+            List<string> errorLog = new List<string>();
+
+            for (int i = 0; i < _calendarContainer.Length; i++)
+            {
+                for (int y = 1; y == _calendarContainer[i].Count; y++)
+                {
+
+                }
+            }
+
+            return errorLog;
+        }
+
+        private void InsertClassAfterPriorClass(GroupFitnessClass fitnessClass)
+        {
+            int indexOfClass = (int)fitnessClass.Start.DayOfWeek;
+            int indexToInsertClass = _calendarContainer[indexOfClass]
+                .IndexOf(_calendarContainer[indexOfClass]
+                .FirstOrDefault(c => c.End >= fitnessClass.Start));
+
+            if (indexToInsertClass != -1)
+            {
+                _calendarContainer[indexOfClass].Insert(indexToInsertClass, fitnessClass);
+            }
+            else
+            {
+                _calendarContainer[indexOfClass].Add(fitnessClass);
+            }
+        }
+
+        #region GuardMethods
         private void GuardAgainstNullCollection(IEnumerable<GroupFitnessClass> fitnessClasses)
         {
             if (fitnessClasses == null)
             {
                 throw new NullReferenceException("GroupFitnessClass-collection cannot be null");
             }
+
+        }
+
+        private void GuardAgainstInvalidCollection(IEnumerable<GroupFitnessClass> fitnessClasses)
+        {
             foreach (GroupFitnessClass fitnessClass in fitnessClasses)
             {
                 GuardAgainstNull(fitnessClass);
@@ -55,21 +99,18 @@ namespace AsyncFitness.Core.Datastructures
             {
                 throw new NullReferenceException("GroupFitnessClass cannot be null.");
             }
+        }
+
+        private void GuardAgainstInvalid(GroupFitnessClass fitnessClass)
+        {
             if (!fitnessClass.IsValid())
             {
-                throw new ArgumentException("GroupFitnessClass.Start cannot be later than GroupFitnessClass.End");
+                throw new ArgumentException($"GroupFitnessClass ID:{fitnessClass.Id} did not pass internal class validity test.");
             }
         }
+        #endregion
 
-        private void InsertClassAfterPriorClass(GroupFitnessClass fitnessClass)
-        {
-            int indexOfClass = (int)fitnessClass.Start.DayOfWeek;
-            int indexToInsertClass = _calendarContainer[indexOfClass]
-                .IndexOf(_calendarContainer[indexOfClass]
-                .First(c => c.End < fitnessClass.Start));
-            _calendarContainer[indexOfClass].Insert(indexToInsertClass, fitnessClass);
-        }
-
+        #region Enumerator
         public IEnumerator<GroupFitnessClass> GetEnumerator()
         {
             for (int i = 0; i < _calendarContainer.Length; i++)
@@ -85,5 +126,6 @@ namespace AsyncFitness.Core.Datastructures
         {
             return this.GetEnumerator();
         }
+        #endregion
     }
 }

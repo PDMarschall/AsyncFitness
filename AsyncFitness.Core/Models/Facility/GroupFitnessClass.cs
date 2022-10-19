@@ -33,7 +33,7 @@ namespace AsyncFitness.Core.Models.Facility
 
         public bool IsValid()
         {
-            return Start < End;
+            return Start < End && End - Start >= Concept.Duration;
         }
     }
 }
