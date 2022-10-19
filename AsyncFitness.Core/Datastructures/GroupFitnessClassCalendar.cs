@@ -57,21 +57,6 @@ namespace AsyncFitness.Core.Datastructures
             _calendarContainer[indexOfClass].Remove(fitnessClass);
         }
 
-        public void RemoveClass(int id)
-        {
-            for (int i = 0; i < _calendarContainer.Length; i++)
-            {
-                for (int y = 1; y == _calendarContainer[i].Count; y++)
-                {
-                    if (_calendarContainer[i][y].Id == id)
-                    {
-                        _calendarContainer[i].RemoveAt(y);
-                        break;
-                    }
-                }
-            }
-        }
-
         public List<GroupFitnessClass> GetClassesByLocation(GroupFitnessLocation fitnessLocation)
         {
             List<GroupFitnessClass> conceptClasses = new List<GroupFitnessClass>();
