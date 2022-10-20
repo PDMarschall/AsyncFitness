@@ -5,6 +5,7 @@ using AsyncFitness.Core.Models.User;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -15,12 +16,11 @@ namespace AsyncFitness.Core.Datastructures
     public class GroupFitnessClassCalendar : IEnumerable<GroupFitnessClass>
     {
         private List<GroupFitnessClass>[] _calendarContainer;
+        public int WeekNumber { get; }
 
-        public FitnessCenter Center { get; private set; }
-
-        public GroupFitnessClassCalendar(FitnessCenter fitnessCenter)
+        public GroupFitnessClassCalendar(int weekNumber)
         {
-            Center = fitnessCenter;
+            WeekNumber = weekNumber;
             _calendarContainer = new List<GroupFitnessClass>[7];
             for (int i = 0; i < _calendarContainer.Length; i++)
             {
@@ -30,22 +30,18 @@ namespace AsyncFitness.Core.Datastructures
 
         public void AddClass(GroupFitnessClass fitnessClass)
         {
-            fitnessClass.GuardAgainstNull();
-            fitnessClass.GuardAgainstInvalid();
-            GuardAgainstDuplication(fitnessClass);
-
+            TestAgainstGuards(fitnessClass);
             InsertFitnessClass(fitnessClass);
             SortCalendarDayAscending(GetClassIndex(fitnessClass));
         }
 
-        public void AddClassRange(IEnumerable<GroupFitnessClass> fitnessClasses)
+        public void AddClassRange(IQueryable<GroupFitnessClass> fitnessClasses)
         {
             fitnessClasses.GuardAgainstNull();
-            fitnessClasses.GuardAgainstInvalidCollection();
 
             foreach (GroupFitnessClass fitnessClass in fitnessClasses)
             {
-                GuardAgainstDuplication(fitnessClass);
+                TestAgainstGuards(fitnessClass);
                 InsertFitnessClass(fitnessClass);
             }
 
@@ -58,7 +54,7 @@ namespace AsyncFitness.Core.Datastructures
             _calendarContainer[indexOfClass].Remove(fitnessClass);
         }
 
-        public List<GroupFitnessClass> GetClassesByLocation(GroupFitnessLocation fitnessLocation)
+        public IEnumerable<GroupFitnessClass> GetClassesByLocation(GroupFitnessLocation fitnessLocation)
         {
             List<GroupFitnessClass> locationClasses = new List<GroupFitnessClass>();
 
@@ -70,7 +66,7 @@ namespace AsyncFitness.Core.Datastructures
             return locationClasses;
         }
 
-        public List<GroupFitnessClass> GetClassesByConcept(GroupFitnessConcept concept)
+        public IEnumerable<GroupFitnessClass> GetClassesByConcept(GroupFitnessConcept concept)
         {
             List<GroupFitnessClass> conceptClasses = new List<GroupFitnessClass>();
 
@@ -82,7 +78,7 @@ namespace AsyncFitness.Core.Datastructures
             return conceptClasses;
         }
 
-        public List<GroupFitnessClass> GetClassesByTrainer(Trainer trainer)
+        public IEnumerable<GroupFitnessClass> GetClassesByTrainer(Trainer trainer)
         {
             List<GroupFitnessClass> trainerClasses = new List<GroupFitnessClass>();
 
@@ -94,7 +90,7 @@ namespace AsyncFitness.Core.Datastructures
             return trainerClasses;
         }
 
-        public List<GroupFitnessClass> GetClassesByParticipant(Customer customer)
+        public IEnumerable<GroupFitnessClass> GetClassesByParticipant(Customer customer)
         {
             List<GroupFitnessClass> customerClasses = new List<GroupFitnessClass>();
 
@@ -159,6 +155,14 @@ namespace AsyncFitness.Core.Datastructures
 
         #region LocalGuardMethods
 
+        private void TestAgainstGuards(GroupFitnessClass fitnessClass)
+        {
+            fitnessClass.GuardAgainstNull();
+            fitnessClass.GuardAgainstInvalid();
+            GuardAgainstDuplication(fitnessClass);
+            GuardAgainstWrongWeek(fitnessClass);
+        }
+
         private void GuardAgainstDuplication(GroupFitnessClass fitnessClass)
         {
             if (_calendarContainer[GetClassIndex(fitnessClass)].Contains(fitnessClass))
@@ -167,9 +171,18 @@ namespace AsyncFitness.Core.Datastructures
             }
         }
 
+        private void GuardAgainstWrongWeek(GroupFitnessClass fitnessClass)
+        {
+            if (ISOWeek.GetWeekOfYear(fitnessClass.Start) != WeekNumber)
+            {
+                throw new GroupFitnessClassException($"GroupFitnessClass Id: {fitnessClass.Id}, Date: {fitnessClass.Start.Date} did not match the specified week number for the calendar.");
+            }
+        }
+
         #endregion
 
         #region Enumerator
+
         public IEnumerator<GroupFitnessClass> GetEnumerator()
         {
             for (int i = 0; i < _calendarContainer.Length; i++)
@@ -185,6 +198,7 @@ namespace AsyncFitness.Core.Datastructures
         {
             return this.GetEnumerator();
         }
+
         #endregion
     }
 }

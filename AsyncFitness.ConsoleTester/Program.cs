@@ -1,5 +1,7 @@
 ﻿using AsyncFitness.Core.Datastructures;
+using AsyncFitness.Core.Extensions;
 using AsyncFitness.Core.Models.Facility;
+using System.Globalization;
 
 internal class Program
 {
@@ -39,7 +41,7 @@ internal class GroupFitnessClassCalendarTests
     public void Setup()
     {
         _fitnessCenter = new FitnessCenter { Name = "Viborgvej Centeret" };
-        _calendar = new GroupFitnessClassCalendar(_fitnessCenter);
+        _calendar = new GroupFitnessClassCalendar(ISOWeek.GetWeekOfYear(new DateTime(2022, 10, 4, 20, 0, 0)));
         _fitnessConcept = new GroupFitnessConcept { Name = "TestConcept", Description = "Dette er et test koncept og varer en time.", Duration = new TimeSpan(1, 0, 0) };
         _fitnessLocation = new GroupFitnessLocation { Name = "Holdsal 1", Center = _fitnessCenter, Capacity = 30 };
         _testClasses = new GroupFitnessClass[]

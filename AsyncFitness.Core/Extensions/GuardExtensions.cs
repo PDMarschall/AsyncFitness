@@ -18,14 +18,6 @@ namespace AsyncFitness.Core.Extensions
             }
         }
 
-        public static void GuardAgainstInvalidCollection(this IEnumerable<GroupFitnessClass> fitnessClasses)
-        {
-            foreach (GroupFitnessClass fitnessClass in fitnessClasses)
-            {
-                GuardAgainstNull(fitnessClass);
-            }
-        }
-
         public static void GuardAgainstNull(this GroupFitnessClass fitnessClass)
         {
             if (fitnessClass == null)
