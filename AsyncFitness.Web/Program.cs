@@ -85,6 +85,8 @@ namespace AsyncFitness.Web
                 SeedData.InitializeFitnessLocations(services);
                 SeedData.InitializeFitnessConcept(services);
                 SeedData.InitializeFitnessClass(services);
+
+                SeedData.InitializeBridgeTables(services);
             }
 
             // Configure the HTTP request pipeline.

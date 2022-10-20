@@ -228,12 +228,12 @@ namespace AsyncFitness.Web
 
                 context.FitnessClass.AddRange(
                     new GroupFitnessClass
-                {
-                    Location = context.FitnessLocation.Where(c => c.Name == "Holdsal 1").First(),
-                    Concept = context.FitnessConcept.Where(c => c.Name == "Concept One").First(),
-                    Start = new DateTime(2022, 10, 4, 20, 0, 0),
-                    End = new DateTime(2022, 10, 4, 21, 0, 0)
-                },
+                    {
+                        Location = context.FitnessLocation.Where(c => c.Name == "Holdsal 1").First(),
+                        Concept = context.FitnessConcept.Where(c => c.Name == "Concept One").First(),
+                        Start = new DateTime(2022, 10, 4, 20, 0, 0),
+                        End = new DateTime(2022, 10, 4, 21, 0, 0)
+                    },
                     new GroupFitnessClass
                     {
                         Location = context.FitnessLocation.Where(c => c.Name == "Holdsal 2").First(),
@@ -248,5 +248,14 @@ namespace AsyncFitness.Web
             }
         }
 
+        public static void InitializeBridgeTables(IServiceProvider serviceProvider)
+        {
+            using (var context = new FitnessContext(
+                serviceProvider.GetRequiredService<
+                    DbContextOptions<FitnessContext>>()))
+            {
+
+            }
+        }
     }
 }
