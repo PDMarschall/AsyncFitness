@@ -106,13 +106,16 @@ namespace AsyncFitness.Core.Datastructures
 
             for (int i = 0; i < _calendarContainer.Length; i++)
             {
-                for (int y = 1; y == _calendarContainer[i].Count; y++)
+                if (_calendarContainer[i].Count > 0)
                 {
-                    if (_calendarContainer[i][y - 1].DoubleBooking(_calendarContainer[i][y]))
+                    for (int y = 1; y < _calendarContainer[i].Count; y++)
                     {
-                        GroupFitnessClass classOne = _calendarContainer[i][y - 1];
-                        GroupFitnessClass classTwo = _calendarContainer[i][y];
-                        errorLog.Add($"Double Booking: {classOne.Concept} {classOne.Start.Date} and {classTwo.Concept} {classTwo.Start.Date}.");
+                        if (_calendarContainer[i][y - 1].DoubleBooking(_calendarContainer[i][y]))
+                        {
+                            GroupFitnessClass classOne = _calendarContainer[i][y - 1];
+                            GroupFitnessClass classTwo = _calendarContainer[i][y];
+                            errorLog.Add($"Double Booking: {classOne.Concept.Name} {classOne.Id} {classOne.Start} and {classTwo.Concept.Name} {classTwo.Id} {classTwo.Start}.");
+                        }
                     }
                 }
             }
