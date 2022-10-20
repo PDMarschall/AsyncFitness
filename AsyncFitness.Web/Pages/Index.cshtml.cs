@@ -16,13 +16,11 @@ namespace AsyncFitness.Web.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly UserManager<AsyncFitnessUser> _userManager;
-        private readonly IServiceProvider _serviceProvider;
 
-        public IndexModel(ILogger<IndexModel> logger, UserManager<AsyncFitnessUser> userManager, IServiceProvider serviceProvider)
+        public IndexModel(ILogger<IndexModel> logger, UserManager<AsyncFitnessUser> userManager)
         {
             _logger = logger;
             _userManager = userManager;
-            _serviceProvider = serviceProvider;
         }
 
         public void OnGet()
