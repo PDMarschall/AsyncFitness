@@ -6,6 +6,7 @@ using AsyncFitness.Infrastructure.DbContexts;
 using AsyncFitness.Core.Interfaces;
 using AsyncFitness.Infrastructure.Repository;
 using AsyncFitness.Core.Models.User;
+using AsyncFitness.Core.Models.Facility;
 
 namespace AsyncFitness.Web
 {
@@ -31,10 +32,15 @@ namespace AsyncFitness.Web
             {
                 options.Conventions.AuthorizeAreaFolder("Fitness", "/");
             });
+
             builder.Services.AddTransient<UserManager<AsyncFitnessUser>>();
             builder.Services.AddTransient<IRepository<Subscription>, SubscriptionRepository>();
             builder.Services.AddTransient<IRepository<Customer>, CustomerRepository>();
             builder.Services.AddTransient<IRepository<Trainer>, TrainerRepository>();
+            builder.Services.AddTransient<IRepository<FitnessCenter>, FitnessCenterRepository>();
+            builder.Services.AddTransient<IRepository<GroupFitnessClass>, GroupFitnessClassRepository>();
+            builder.Services.AddTransient<IRepository<GroupFitnessConcept>, GroupFitnessConceptRepository>();
+            builder.Services.AddTransient<IRepository<GroupFitnessLocation>, GroupFitnessLocationRepository>();
 
             builder.Services.Configure<IdentityOptions>(options =>
             {
@@ -63,8 +69,21 @@ namespace AsyncFitness.Web
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
-
+            
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+
+                SeedData.InitializeCustomer(services);
+                SeedData.InitializeSubscription(services);
+
+                //SeedData.InitializeFitnessCenter(services);
+                //SeedData.InitializeFitnessLocations(services);
+                //SeedData.InitializeFitnessConcept(services);
+                //SeedData.InitializeFitnessClass(services);
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
