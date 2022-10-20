@@ -30,7 +30,10 @@ namespace AsyncFitness.Core.Extensions
         {
             if (fitnessClassOne.Location == fitnessClassTwo.Location)
             {
-                return fitnessClassOne.Start >= fitnessClassTwo.End && fitnessClassOne.End <= fitnessClassTwo.Start;
+                return fitnessClassOne.Start < fitnessClassTwo.End 
+                    && fitnessClassTwo.Start < fitnessClassOne.End 
+                    || fitnessClassTwo.Start < fitnessClassOne.End 
+                    && fitnessClassOne.Start < fitnessClassTwo.End;
             }
             return false;
         }
