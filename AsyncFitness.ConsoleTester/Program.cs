@@ -63,12 +63,16 @@ internal class GroupFitnessClassCalendarTests
         var TrueOne = testOne.DoubleBooking(testTwo);
 
         testOne = new GroupFitnessClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 19, 0, 0), End = new DateTime(2022, 10, 4, 20, 0, 0) };
+        testTwo = new GroupFitnessClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 18, 30, 0), End = new DateTime(2022, 10, 4, 19, 30, 0) };
+        var TrueTwo = testOne.DoubleBooking(testTwo);
+
+        testOne = new GroupFitnessClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 19, 0, 0), End = new DateTime(2022, 10, 4, 20, 0, 0) };
         testTwo = new GroupFitnessClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 20, 00, 0), End = new DateTime(2022, 10, 4, 21, 00, 0) };
         var falseTwo = testTwo.DoubleBooking(testOne);
 
         testOne = new GroupFitnessClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 19, 0, 0), End = new DateTime(2022, 10, 4, 20, 0, 0) };
-        testTwo = new GroupFitnessClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 19, 30, 0), End = new DateTime(2022, 10, 4, 20, 30, 0) };
-        var trueTwo = testTwo.DoubleBooking(testOne);
+        testTwo = new GroupFitnessClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 18, 30, 0), End = new DateTime(2022, 10, 4, 19, 30, 0) };
+        var trueThree = testTwo.DoubleBooking(testOne);
     }
 
     public void PrintCalendar()
