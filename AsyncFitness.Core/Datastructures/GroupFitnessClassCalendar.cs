@@ -60,7 +60,6 @@ namespace AsyncFitness.Core.Datastructures
                 TestAgainstGuards(fitnessClass);
                 InsertFitnessClass(fitnessClass);
             }
-
             SortCalendarAscending();
         }
 
@@ -78,7 +77,6 @@ namespace AsyncFitness.Core.Datastructures
         public IEnumerable<GroupFitnessClass> GetClasses(DayOfWeek day)
         {
             return _calendarContainer[(int)(day + 6) % 7];
-
         }
 
         /// <summary>
