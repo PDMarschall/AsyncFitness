@@ -66,8 +66,9 @@ namespace AsyncFitness.Infrastructure.DbContexts
 
         private void ConfigureFitnessCenterClass(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<FitnessCenter>().HasMany(f => f.Facilities).WithOne(c => c.Center);            
-            modelBuilder.Entity<FitnessCenter>().HasMany(f => f.AvailableConcepts).WithMany(c => c.CentersWithConcept).UsingEntity(t => t.ToTable("FitnessConceptAtCenter"));            
+            modelBuilder.Entity<FitnessCenter>().HasMany(f => f.Facilities).WithOne(c => c.Center);
+            modelBuilder.Entity<FitnessCenter>().HasMany(f => f.AvailableConcepts).WithMany(c => c.CentersWithConcept).UsingEntity(t => t.ToTable("FitnessConceptAtCenter"));
+            modelBuilder.Entity<FitnessCenter>(entity => entity.HasIndex(e => e.Name).IsUnique());
         }
 
         private void ConfigureGroupFitnessClass(ModelBuilder modelBuilder)

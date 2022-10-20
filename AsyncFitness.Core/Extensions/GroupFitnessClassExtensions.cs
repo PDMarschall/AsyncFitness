@@ -20,9 +20,13 @@ namespace AsyncFitness.Core.Extensions
 
         public static void GuardAgainstInvalid(this GroupFitnessClass fitnessClass)
         {
-            if (!fitnessClass.IsValid())
+            if (!fitnessClass.IsValidTimeSlot())
             {
-                throw new GroupFitnessClassException($"GroupFitnessClass ID:{fitnessClass.Id} did not pass internal class validity test.");
+                throw new GroupFitnessClassException($"GroupFitnessClass ID:{fitnessClass.Id} invalid Start and End Times. {fitnessClass.Start.ToShortTimeString()} - {fitnessClass.End.ToShortTimeString()}");
+            }
+            if (!fitnessClass.isValidDuration())
+            {
+                throw new GroupFitnessClassException($"GroupFitnessClass ID:{fitnessClass.Id} is not allocated enough time for its GroupFitnessConcept. Concept Duration: {fitnessClass.Concept.Duration}. Allocated GroupfitnessClass Duration: {fitnessClass.End - fitnessClass.Start}");
             }
         }
 

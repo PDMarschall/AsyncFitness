@@ -78,11 +78,13 @@ namespace AsyncFitness.Web
 
                 SeedData.InitializeCustomer(services);
                 SeedData.InitializeSubscription(services);
+                SeedData.InitializeTrainer(services);
+                SeedData.InitializeAdmin(services);
 
-                //SeedData.InitializeFitnessCenter(services);
-                //SeedData.InitializeFitnessLocations(services);
-                //SeedData.InitializeFitnessConcept(services);
-                //SeedData.InitializeFitnessClass(services);
+                SeedData.InitializeFitnessCenter(services);
+                SeedData.InitializeFitnessLocations(services);
+                SeedData.InitializeFitnessConcept(services);
+                SeedData.InitializeFitnessClass(services);
             }
 
             // Configure the HTTP request pipeline.

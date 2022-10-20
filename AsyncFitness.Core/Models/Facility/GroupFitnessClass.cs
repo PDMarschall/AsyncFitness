@@ -31,9 +31,14 @@ namespace AsyncFitness.Core.Models.Facility
         [Required]
         public DateTime End { get; set; }
 
-        public bool IsValid()
+        public bool IsValidTimeSlot()
         {
-            return Start < End && End - Start >= Concept.Duration;
+            return Start < End;
+        }
+
+        public bool isValidDuration()
+        {
+            return End - Start >= Concept.Duration;
         }
     }
 }
