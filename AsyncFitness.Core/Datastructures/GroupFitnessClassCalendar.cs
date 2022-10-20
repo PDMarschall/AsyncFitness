@@ -71,6 +71,17 @@ namespace AsyncFitness.Core.Datastructures
         }
 
         /// <summary>
+        /// Filters the GroupFitnessClassCalendar based on a DayOfWeek.
+        /// </summary>
+        /// <param name="fitnessLocation">The DayOfWeek to filter according to.</param>
+        /// <returns>The GroupFitnessClasses of the GroupFitnessClassCalendar taking place on the DayOfWeek.</returns>
+        public IEnumerable<GroupFitnessClass> GetClasses(DayOfWeek day)
+        {
+            return _calendarContainer[(int)(day + 6) % 7];
+
+        }
+
+        /// <summary>
         /// Filters the GroupFitnessClassCalendar based on a GroupFitnessLocation.
         /// </summary>
         /// <param name="fitnessLocation">The GroupFitnessLocation to filter according to.</param>
