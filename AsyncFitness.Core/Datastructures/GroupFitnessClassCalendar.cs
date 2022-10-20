@@ -35,10 +35,8 @@ namespace AsyncFitness.Core.Datastructures
             SortCalendarDayAscending(GetClassIndex(fitnessClass));
         }
 
-        public void AddClassRange(IQueryable<GroupFitnessClass> fitnessClasses)
+        public void AddClassRange(IEnumerable<GroupFitnessClass> fitnessClasses)
         {
-            fitnessClasses.GuardAgainstNull();
-
             foreach (GroupFitnessClass fitnessClass in fitnessClasses)
             {
                 TestAgainstGuards(fitnessClass);
@@ -54,7 +52,7 @@ namespace AsyncFitness.Core.Datastructures
             _calendarContainer[indexOfClass].Remove(fitnessClass);
         }
 
-        public IEnumerable<GroupFitnessClass> GetClassesByLocation(GroupFitnessLocation fitnessLocation)
+        public IEnumerable<GroupFitnessClass> GetClasses(GroupFitnessLocation fitnessLocation)
         {
             List<GroupFitnessClass> locationClasses = new List<GroupFitnessClass>();
 
@@ -66,7 +64,7 @@ namespace AsyncFitness.Core.Datastructures
             return locationClasses;
         }
 
-        public IEnumerable<GroupFitnessClass> GetClassesByConcept(GroupFitnessConcept concept)
+        public IEnumerable<GroupFitnessClass> GetClasses(GroupFitnessConcept concept)
         {
             List<GroupFitnessClass> conceptClasses = new List<GroupFitnessClass>();
 
@@ -78,7 +76,7 @@ namespace AsyncFitness.Core.Datastructures
             return conceptClasses;
         }
 
-        public IEnumerable<GroupFitnessClass> GetClassesByTrainer(Trainer trainer)
+        public IEnumerable<GroupFitnessClass> GetClasses(Trainer trainer)
         {
             List<GroupFitnessClass> trainerClasses = new List<GroupFitnessClass>();
 
@@ -90,7 +88,7 @@ namespace AsyncFitness.Core.Datastructures
             return trainerClasses;
         }
 
-        public IEnumerable<GroupFitnessClass> GetClassesByParticipant(Customer customer)
+        public IEnumerable<GroupFitnessClass> GetClasses(Customer customer)
         {
             List<GroupFitnessClass> customerClasses = new List<GroupFitnessClass>();
 
@@ -110,7 +108,12 @@ namespace AsyncFitness.Core.Datastructures
             {
                 for (int y = 1; y == _calendarContainer[i].Count; y++)
                 {
-
+                    if (_calendarContainer[i][y - 1].DoubleBooking(_calendarContainer[i][y]))
+                    {
+                        GroupFitnessClass classOne = _calendarContainer[i][y - 1];
+                        GroupFitnessClass classTwo = _calendarContainer[i][y];
+                        errorLog.Add($"Double Booking: {classOne.Concept} {classOne.Start.Date} and {classTwo.Concept} {classTwo.Start.Date}.");
+                    }
                 }
             }
 

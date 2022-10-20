@@ -8,16 +8,8 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.Extensions
 {
-    public static class GuardExtensions
+    public static class GroupFitnessClassExtensions
     {
-        public static void GuardAgainstNull(this object obj)
-        {
-            if (obj == null)
-            {
-                throw new NullReferenceException($"{nameof(obj)} cannot be null.");
-            }
-        }
-
         public static void GuardAgainstNull(this GroupFitnessClass fitnessClass)
         {
             if (fitnessClass == null)
@@ -32,6 +24,15 @@ namespace AsyncFitness.Core.Extensions
             {
                 throw new GroupFitnessClassException($"GroupFitnessClass ID:{fitnessClass.Id} did not pass internal class validity test.");
             }
+        }
+
+        public static bool DoubleBooking(this GroupFitnessClass fitnessClassOne, GroupFitnessClass fitnessClassTwo)
+        {
+            if (fitnessClassOne.Location == fitnessClassTwo.Location)
+            {
+                return fitnessClassOne.Start >= fitnessClassTwo.End && fitnessClassOne.End <= fitnessClassTwo.Start;
+            }
+            return false;
         }
     }
 }
