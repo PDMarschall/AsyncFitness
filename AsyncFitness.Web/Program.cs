@@ -7,6 +7,7 @@ using AsyncFitness.Core.Interfaces;
 using AsyncFitness.Infrastructure.Repository;
 using AsyncFitness.Core.Models.User;
 using AsyncFitness.Core.Models.Facility;
+using AsyncFitness.Core.Services;
 
 namespace AsyncFitness.Web
 {
@@ -41,6 +42,9 @@ namespace AsyncFitness.Web
             builder.Services.AddTransient<IRepository<GroupFitnessClass>, GroupFitnessClassRepository>();
             builder.Services.AddTransient<IRepository<GroupFitnessConcept>, GroupFitnessConceptRepository>();
             builder.Services.AddTransient<IRepository<GroupFitnessLocation>, GroupFitnessLocationRepository>();
+
+            builder.Services.AddTransient<IFitnessBookingService, FitnessBookingService>();
+            builder.Services.AddTransient<IFitnessClassCalendarService, FitnessClassCalendarService>();
 
             builder.Services.Configure<IdentityOptions>(options =>
             {

@@ -11,9 +11,7 @@ namespace AsyncFitness.Core.Interfaces
 {
     public interface IFitnessClassCalendarService
     {
-        FitnessCenter FitnessCenter { get; }
-        Task<List<GroupFitnessClassCalendar>> GetCalendarAsync(int year);
-        Task<List<GroupFitnessClassCalendar>> GetCalendarAsync(int year, int month);        
+        FitnessCenter FitnessCenter { get; } 
         Task<GroupFitnessClassCalendar> GetCalendarAsync(int year, int month, int week);
         Task<GroupFitnessClassCalendar> GetCalendarAsync(DateTime date);
     }

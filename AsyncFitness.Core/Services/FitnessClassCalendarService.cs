@@ -18,16 +18,6 @@ namespace AsyncFitness.Core.Services
             FitnessCenter = center;
         }
 
-        public async Task<List<GroupFitnessClassCalendar>> GetCalendarAsync(int year)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<GroupFitnessClassCalendar>> GetCalendarAsync(int year, int month)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<GroupFitnessClassCalendar> GetCalendarAsync(int year, int month, int week)
         {
             throw new NotImplementedException();
