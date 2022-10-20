@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -59,14 +60,14 @@ namespace AsyncFitness.Core.Datastructures
 
         public List<GroupFitnessClass> GetClassesByLocation(GroupFitnessLocation fitnessLocation)
         {
-            List<GroupFitnessClass> conceptClasses = new List<GroupFitnessClass>();
+            List<GroupFitnessClass> locationClasses = new List<GroupFitnessClass>();
 
             for (int i = 0; i < _calendarContainer.Length; i++)
             {
-                conceptClasses.AddRange(_calendarContainer[i].Where(c => c.Location == fitnessLocation));
+                locationClasses.AddRange(_calendarContainer[i].Where(c => c.Location == fitnessLocation));
             }
 
-            return conceptClasses;
+            return locationClasses;
         }
 
         public List<GroupFitnessClass> GetClassesByConcept(GroupFitnessConcept concept)
@@ -83,26 +84,26 @@ namespace AsyncFitness.Core.Datastructures
 
         public List<GroupFitnessClass> GetClassesByTrainer(Trainer trainer)
         {
-            List<GroupFitnessClass> conceptClasses = new List<GroupFitnessClass>();
+            List<GroupFitnessClass> trainerClasses = new List<GroupFitnessClass>();
 
             for (int i = 0; i < _calendarContainer.Length; i++)
             {
-                conceptClasses.AddRange(_calendarContainer[i].Where(c => c.Instructors.Contains(trainer)));
+                trainerClasses.AddRange(_calendarContainer[i].Where(c => c.Instructors.Contains(trainer)));
             }
 
-            return conceptClasses;
+            return trainerClasses;
         }
 
         public List<GroupFitnessClass> GetClassesByParticipant(Customer customer)
         {
-            List<GroupFitnessClass> conceptClasses = new List<GroupFitnessClass>();
+            List<GroupFitnessClass> customerClasses = new List<GroupFitnessClass>();
 
             for (int i = 0; i < _calendarContainer.Length; i++)
             {
-                conceptClasses.AddRange(_calendarContainer[i].Where(c => c.BookedParticipants.Contains(customer)));
+                customerClasses.AddRange(_calendarContainer[i].Where(c => c.BookedParticipants.Contains(customer)));
             }
 
-            return conceptClasses;
+            return customerClasses;
         }
 
         public List<string> GetScheduleConflicts()
@@ -156,7 +157,7 @@ namespace AsyncFitness.Core.Datastructures
 
         #endregion
 
-        #region GuardMethods
+        #region LocalGuardMethods
 
         private void GuardAgainstDuplication(GroupFitnessClass fitnessClass)
         {

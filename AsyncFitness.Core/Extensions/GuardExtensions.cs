@@ -41,7 +41,5 @@ namespace AsyncFitness.Core.Extensions
                 throw new GroupFitnessClassException($"GroupFitnessClass ID:{fitnessClass.Id} did not pass internal class validity test.");
             }
         }
-
-
     }
 }
