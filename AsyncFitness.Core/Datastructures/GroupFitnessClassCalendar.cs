@@ -24,13 +24,13 @@ namespace AsyncFitness.Core.Datastructures
         public int CalendarYear { get; }
 
         /// <summary>
-        /// Initiates an instance of a GroupFitnessClassCalendar for a week of a particular year.
+        /// Initiates an instance of a GroupFitnessClassCalendar for a particular ISO 8601 calendar week of a particular year.
         /// </summary>
-        /// <param name="calendarWeek">The DateTime containing the information of the year and week for the calendar.</param>
-        public GroupFitnessClassCalendar(DateTime calendarWeek)
+        /// <param name="calendarWeek">The DateOnly containing the information of the year and week for the calendar.</param>
+        public GroupFitnessClassCalendar(DateOnly dateFromWeek)
         {
-            CalendarWeekNumber = ISOWeek.GetWeekOfYear(calendarWeek);
-            CalendarYear = calendarWeek.Year;
+            CalendarWeekNumber = ISOWeek.GetWeekOfYear(dateFromWeek.ToDateTime(TimeOnly.MinValue));
+            CalendarYear = dateFromWeek.Year;
             _calendarContainer = new List<GroupFitnessClass>[7];
             for (int i = 0; i < _calendarContainer.Length; i++)
             {
@@ -171,9 +171,12 @@ namespace AsyncFitness.Core.Datastructures
             _calendarContainer[indexOfClass].Add(fitnessClass);
         }
 
+        /// <summary>
+        /// ISO 8601 weeks start on Monday. This returns 0 for Monday.
+        /// </summary>
         private int GetClassIndex(GroupFitnessClass fitnessClass)
         {
-            return (int)fitnessClass.Start.DayOfWeek;
+            return (int)(fitnessClass.Start.DayOfWeek + 6) % 7;
         }
 
         private void SortCalendarDayAscending(int indexOfDay)

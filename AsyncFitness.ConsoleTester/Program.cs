@@ -45,7 +45,7 @@ internal class GroupFitnessClassCalendarTests
     public void Setup()
     {
         _fitnessCenter = new FitnessCenter { Name = "Viborgvej Centeret" };
-        _calendar = new GroupFitnessClassCalendar(new DateTime(2022, 10, 4, 20, 0, 0));
+        _calendar = new GroupFitnessClassCalendar(new DateOnly(2022, 10, 4));
         _fitnessConcept = new GroupFitnessConcept { Name = "TestConcept", Description = "Dette er et test koncept og varer en time.", Duration = new TimeSpan(1, 0, 0) };
         _fitnessLocation = new GroupFitnessLocation { Name = "Holdsal 1", Center = _fitnessCenter, Capacity = 30 };
         _testClasses = new GroupFitnessClass[]
