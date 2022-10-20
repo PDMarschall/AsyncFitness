@@ -102,7 +102,7 @@ namespace AsyncFitness.Core.Datastructures
 
         public List<string> GetScheduleConflicts()
         {
-            List<string> errorLog = new List<string>();
+            List<string> warningLog = new List<string>();
 
             for (int i = 0; i < _calendarContainer.Length; i++)
             {
@@ -114,13 +114,13 @@ namespace AsyncFitness.Core.Datastructures
                         {
                             GroupFitnessClass classOne = _calendarContainer[i][y - 1];
                             GroupFitnessClass classTwo = _calendarContainer[i][y];
-                            errorLog.Add($"Double Booking: {classOne.Concept.Name} {classOne.Id} {classOne.Start} and {classTwo.Concept.Name} {classTwo.Id} {classTwo.Start}.");
+                            warningLog.Add($"Scheduling Conflict: {classOne.Concept.Name} {classOne.Id} {classOne.Start} and {classTwo.Concept.Name} {classTwo.Id} {classTwo.Start}.");
                         }
                     }
                 }
             }
 
-            return errorLog;
+            return warningLog;
         }
 
         public void Clear()
