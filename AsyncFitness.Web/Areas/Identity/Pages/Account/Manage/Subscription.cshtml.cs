@@ -87,7 +87,7 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account.Manage
             {
                 customer.Subscription = newSubscription;
                 _customerRepo.Update(customer);
-                _customerRepo.SaveChanges();
+                _customerRepo.SaveChangesAsync();
 
                 StatusMessage = $"Subscription changed to {newSubscription.Name}";
                 return RedirectToPage();

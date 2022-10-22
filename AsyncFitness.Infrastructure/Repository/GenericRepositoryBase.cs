@@ -51,9 +51,9 @@ namespace AsyncFitness.Infrastructure.Repository
             return _context.Remove(entity).Entity;
         }
 
-        public virtual void SaveChanges()
+        public async Task SaveChangesAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

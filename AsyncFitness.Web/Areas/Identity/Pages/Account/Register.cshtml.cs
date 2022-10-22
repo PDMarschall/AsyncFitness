@@ -146,7 +146,7 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account
                     await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 
                     _customerRepo.Add(user.ConvertToCustomer());
-                    _customerRepo.SaveChanges();
+                    _customerRepo.SaveChangesAsync();
                 }
                 catch (Exception)
                 {

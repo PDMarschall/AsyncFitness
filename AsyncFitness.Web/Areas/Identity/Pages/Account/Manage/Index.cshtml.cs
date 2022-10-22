@@ -168,7 +168,7 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account.Manage
             customer.City = Input.City;
             customer.PostalCode = Input.PostalCode;
             _customerRepo.Update(customer);
-            _customerRepo.SaveChanges();
+            _customerRepo.SaveChangesAsync();
         }
     }
 }

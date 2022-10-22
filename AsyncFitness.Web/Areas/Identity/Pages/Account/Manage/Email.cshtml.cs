@@ -126,7 +126,7 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account.Manage
                     var customer = _customerRepo.Get(user.Email);
                     customer.Email = Input.NewEmail;
                     _customerRepo.Update(customer);
-                    _customerRepo.SaveChanges();
+                    _customerRepo.SaveChangesAsync();
 
                     await _userManager.SetEmailAsync(user, Input.NewEmail);
                     await _userManager.SetUserNameAsync(user, Input.NewEmail);
