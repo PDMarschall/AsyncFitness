@@ -9,17 +9,17 @@ namespace AsyncFitness.Core.Services
 {
     public class GroupFitnessClassBookingService : IGroupFitnessClassBookingService
     {
-        public Task FilterClasses(Dictionary<string, string> criteria)
+        public Task FilterClassesAsync(Dictionary<string, string> criteria)
         {
             throw new NotImplementedException();
         }
 
-        public Task LoadClasses()
+        public Task LoadClassesAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task SaveClasses()
+        public Task SaveClassesAsync()
         {
             throw new NotImplementedException();
         }

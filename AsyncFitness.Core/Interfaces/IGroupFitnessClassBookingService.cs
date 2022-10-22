@@ -8,8 +8,8 @@ namespace AsyncFitness.Core.Interfaces
 {
     public interface IGroupFitnessClassBookingService
     {
-        Task LoadClasses();
-        Task FilterClasses(Dictionary<string, string> criteria);
-        Task SaveClasses();
+        Task LoadClassesAsync();
+        Task FilterClassesAsync(Dictionary<string, string> criteria);
+        Task SaveClassesAsync();
     }
 }
