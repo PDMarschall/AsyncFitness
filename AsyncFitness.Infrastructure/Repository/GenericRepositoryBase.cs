@@ -32,8 +32,7 @@ namespace AsyncFitness.Infrastructure.Repository
 
         public virtual IQueryable<T> Find(Expression<Func<T, bool>> predicate)
         {
-            return _context.Set<T>()            
-            .Where(predicate);
+            return _context.Set<T>().AsQueryable<T>().Where(predicate);
         }
 
         public virtual T Add(T entity)
