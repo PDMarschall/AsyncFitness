@@ -254,6 +254,31 @@ namespace AsyncFitness.Web
                 serviceProvider.GetRequiredService<
                     DbContextOptions<FitnessContext>>()))
             {
+                var class1 = context.FitnessClass.Include(c => c.Instructors).Include(p => p.BookedParticipants).Where(g => g.Id == 1).First();
+                var class2 = context.FitnessClass.Include(c => c.Instructors).Include(p => p.BookedParticipants).Where(g => g.Id == 2).First();                
+
+                if (class1.BookedParticipants.Count == 0 && class1.Instructors.Count == 0 && class1 != null)
+                {
+                    class1.BookedParticipants.Add(context.FitnessCustomer.Find(4));
+                    class1.Instructors.Add(context.FitnessTrainer.Find(1));
+                    context.SaveChanges();
+                }
+
+                if (class2.BookedParticipants.Count == 0 && class2.Instructors.Count == 0 & class2 != null)
+                {
+                    class2.BookedParticipants.Add(context.FitnessCustomer.Find(4));
+                    class2.Instructors.Add(context.FitnessTrainer.Find(1));
+                    context.SaveChanges();
+                }
+
+                var fitnessCenter = context.FitnessCenter.Include(c=>c.GymLeader).Include(d => d.Facilities).Where(f => f.Id == 2).First();
+
+                if (fitnessCenter != null)
+                {
+                    fitnessCenter.AvailableConcepts.Add(context.FitnessConcept.Find(1));
+                    fitnessCenter.AvailableConcepts.Add(context.FitnessConcept.Find(2));       
+                    context.SaveChanges();
+                }
 
             }
         }

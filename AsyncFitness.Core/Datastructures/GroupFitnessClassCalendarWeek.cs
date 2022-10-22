@@ -209,6 +209,7 @@ namespace AsyncFitness.Core.Datastructures
         {
             fitnessClass.GuardAgainstNull();
             fitnessClass.GuardAgainstInvalid();
+            fitnessClass.GuardAgainstOverbooking();
             GuardAgainstDuplication(fitnessClass);
             GuardAgainstWrongWeek(fitnessClass);
         }

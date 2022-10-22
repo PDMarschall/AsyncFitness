@@ -14,16 +14,16 @@ namespace AsyncFitness.Core.Models.Facility
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public List<Customer> BookedParticipants { get; set; }
+        public List<Customer> BookedParticipants { get; set; } = new List<Customer>();
 
         [Required]
-        public List<Trainer> Instructors { get; set; }
+        public List<Trainer> Instructors { get; set; } = new List<Trainer>();
 
         [Required]
-        public GroupFitnessLocation Location { get; set; }
+        public GroupFitnessLocation Location { get; set; } = new GroupFitnessLocation();
 
         [Required]
-        public GroupFitnessConcept Concept { get; set; }
+        public GroupFitnessConcept Concept { get; set; } = new GroupFitnessConcept();
 
         [Required]
         public DateTime Start { get; set; }
@@ -36,9 +36,14 @@ namespace AsyncFitness.Core.Models.Facility
             return Start < End;
         }
 
-        public bool isValidDuration()
+        public bool IsValidDuration()
         {
             return End - Start >= Concept.Duration;
+        }
+
+        public bool IsValidCapacity()
+        {
+            return BookedParticipants.Count >= Location.Capacity;
         }
     }
 }

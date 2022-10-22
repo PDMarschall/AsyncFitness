@@ -23,7 +23,7 @@ namespace AsyncFitness.Core.Models.Facility
         [Required]
         public TimeSpan Duration { get; set; }
 
-        public List<GroupFitnessClass> ClassesWithConcept { get; set; }
-        public List<FitnessCenter> CentersWithConcept { get; set; }
+        public List<GroupFitnessClass> ClassesWithConcept { get; set; } = new List<GroupFitnessClass>();
+        public List<FitnessCenter> CentersWithConcept { get; set; } = new List<FitnessCenter>();
     }
 }

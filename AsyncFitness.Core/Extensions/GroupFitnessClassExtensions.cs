@@ -24,11 +24,21 @@ namespace AsyncFitness.Core.Extensions
             {
                 throw new GroupFitnessClassException($"GroupFitnessClass ID:{fitnessClass.Id} invalid Start and End Times. {fitnessClass.Start.ToShortTimeString()} - {fitnessClass.End.ToShortTimeString()}");
             }
-            if (!fitnessClass.isValidDuration())
+            if (!fitnessClass.IsValidDuration())
             {
                 throw new GroupFitnessClassException($"GroupFitnessClass ID:{fitnessClass.Id} is not allocated enough time for its GroupFitnessConcept. Concept Duration: {fitnessClass.Concept.Duration}. Allocated GroupfitnessClass Duration: {fitnessClass.End - fitnessClass.Start}");
             }
+
         }
+
+        public static void GuardAgainstOverbooking(this GroupFitnessClass fitnessClass)
+        {
+            if (!fitnessClass.IsValidCapacity())
+            {
+                throw new GroupFitnessClassException($"GroupFitnessClass ID:{fitnessClass.Id} has too many bookings. Capacity: {fitnessClass.Location.Capacity}, Bookings: {fitnessClass.BookedParticipants.Count}");
+            }
+        }
+        
 
         public static bool DoubleBooking(this GroupFitnessClass fitnessClassOne, GroupFitnessClass fitnessClassTwo)
         {

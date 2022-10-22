@@ -9,7 +9,7 @@
     {
         <li class="nav-item">
             <form id="fitnessForm" class="form-inline" asp-area="Fitness" asp-page="/Index" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-                <button id="fitness" type="submit" class="nav-link btn btn-link text-dark">Fitness</button>
+                <button id="fitness" type="submit" class="nav-link btn btn-link text-dark">Book Class</button>
             </form>
         </li>
         AsyncFitnessUser user = await UserManager.GetUserAsync(User);
