@@ -16,7 +16,7 @@ namespace AsyncFitness.Core.Datastructures
     /// <summary>
     /// A collection of GroupFitnessClasses spanning one ISO 8601 calendar week.
     /// </summary>
-    public class GroupFitnessClassCalendar : IEnumerable<GroupFitnessClass>
+    public class GroupFitnessClassCalendarWeek : IEnumerable<GroupFitnessClass>
     {
         private readonly List<GroupFitnessClass>[] _calendarContainer;
 
@@ -27,7 +27,7 @@ namespace AsyncFitness.Core.Datastructures
         /// Initiates an instance of a GroupFitnessClassCalendar for a particular ISO 8601 calendar week of a particular year.
         /// </summary>
         /// <param name="calendarWeek">The DateOnly containing the information of the year and week for the calendar.</param>
-        public GroupFitnessClassCalendar(DateOnly dateFromWeek)
+        public GroupFitnessClassCalendarWeek(DateOnly dateFromWeek)
         {
             CalendarWeekNumber = ISOWeek.GetWeekOfYear(dateFromWeek.ToDateTime(TimeOnly.MinValue));
             CalendarYear = dateFromWeek.Year;

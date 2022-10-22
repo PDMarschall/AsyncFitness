@@ -43,8 +43,8 @@ namespace AsyncFitness.Web
             builder.Services.AddTransient<IRepository<GroupFitnessConcept>, GroupFitnessConceptRepository>();
             builder.Services.AddTransient<IRepository<GroupFitnessLocation>, GroupFitnessLocationRepository>();
 
-            builder.Services.AddTransient<IFitnessBookingService, FitnessBookingService>();
-            builder.Services.AddTransient<IFitnessClassCalendarService, FitnessClassCalendarService>();
+            builder.Services.AddTransient<IGroupFitnessClassBookingService, GroupFitnessClassBookingService>();
+            builder.Services.AddTransient<IGroupFitnessClassCalendarCreationService, GroupFitnessClassCalendarCreationService>();
 
             builder.Services.Configure<IdentityOptions>(options =>
             {

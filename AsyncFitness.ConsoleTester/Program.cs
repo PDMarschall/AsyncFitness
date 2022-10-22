@@ -19,7 +19,7 @@ internal class Program
 
 internal class GroupFitnessClassCalendarTests
 {
-    private GroupFitnessClassCalendar _calendar;
+    private GroupFitnessClassCalendarWeek _calendar;
     private GroupFitnessClass[] _testClasses;
     private GroupFitnessConcept _fitnessConcept;
     private GroupFitnessLocation _fitnessLocation;
@@ -45,7 +45,7 @@ internal class GroupFitnessClassCalendarTests
     public void Setup()
     {
         _fitnessCenter = new FitnessCenter { Name = "Viborgvej Centeret" };
-        _calendar = new GroupFitnessClassCalendar(new DateOnly(2022, 10, 4));
+        _calendar = new GroupFitnessClassCalendarWeek(new DateOnly(2022, 10, 4));
         _fitnessConcept = new GroupFitnessConcept { Name = "TestConcept", Description = "Dette er et test koncept og varer en time.", Duration = new TimeSpan(1, 0, 0) };
         _fitnessLocation = new GroupFitnessLocation { Name = "Holdsal 1", Center = _fitnessCenter, Capacity = 30 };
         _testClasses = new GroupFitnessClass[]

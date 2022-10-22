@@ -24,6 +24,6 @@ namespace AsyncFitness.Core.Models.Facility
         public List<GroupFitnessConcept> AvailableConcepts { get; set; }
 
         [NotMapped]
-        public GroupFitnessClassCalendar ClassCalendar { get; set; }
+        public GroupFitnessClassCalendarWeek ClassCalendar { get; set; }
     }
 }
