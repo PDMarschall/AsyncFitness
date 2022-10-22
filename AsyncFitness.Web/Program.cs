@@ -17,34 +17,55 @@ namespace AsyncFitness.Web
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            var connectionStringIdentity = builder.Configuration.GetConnectionString("IdentityConnection") ?? throw new InvalidOperationException("Connection string 'IdentityConnection' not found.");     
+            ConfigureDbContext(builder);
+            ConfigureIdentity(builder);
+            ConfigureDI(builder);
+            
+            var app = builder.Build();
+
+            SeedDatabase(app);
+
+            // Configure the HTTP request pipeline.
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+            app.UseRouting();
+            app.UseAuthentication();
+
+            app.UseAuthorization();
+
+            app.MapRazorPages();
+
+            app.Run();
+        }
+
+        private static void ConfigureDbContext(WebApplicationBuilder builder)
+        {
+            var connectionStringIdentity = builder.Configuration.GetConnectionString("IdentityConnection") ?? throw new InvalidOperationException("Connection string 'IdentityConnection' not found.");
             builder.Services.AddDbContext<AsyncFitnessWebContext>(options =>
             options.UseSqlServer(connectionStringIdentity));
 
             var connectionStringCore = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<FitnessContext>(options =>
             options.UseSqlServer(connectionStringCore));
+        }
 
+        private static void ConfigureIdentity(WebApplicationBuilder builder)
+        {
             builder.Services.AddDefaultIdentity<AsyncFitnessUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            .AddEntityFrameworkStores<AsyncFitnessWebContext>();
+                .AddEntityFrameworkStores<AsyncFitnessWebContext>();
 
-            // Add services to the container.
             builder.Services.AddRazorPages(options =>
             {
                 options.Conventions.AuthorizeAreaFolder("Fitness", "/");
             });
-
-            builder.Services.AddTransient<UserManager<AsyncFitnessUser>>();
-            builder.Services.AddTransient<IRepository<Subscription>, SubscriptionRepository>();
-            builder.Services.AddTransient<IRepository<Customer>, CustomerRepository>();
-            builder.Services.AddTransient<IRepository<Trainer>, TrainerRepository>();
-            builder.Services.AddTransient<IRepository<FitnessCenter>, FitnessCenterRepository>();
-            builder.Services.AddTransient<IRepository<GroupFitnessClass>, GroupFitnessClassRepository>();
-            builder.Services.AddTransient<IRepository<GroupFitnessConcept>, GroupFitnessConceptRepository>();
-            builder.Services.AddTransient<IRepository<GroupFitnessLocation>, GroupFitnessLocationRepository>();
-
-            builder.Services.AddTransient<IGroupFitnessClassBookingService, GroupFitnessClassBookingService>();
-            builder.Services.AddTransient<IGroupFitnessClassCalendarCreationService, GroupFitnessClassCalendarCreationService>();
 
             builder.Services.Configure<IdentityOptions>(options =>
             {
@@ -73,9 +94,25 @@ namespace AsyncFitness.Web
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
-            
-            var app = builder.Build();
+        }
 
+        private static void ConfigureDI(WebApplicationBuilder builder)
+        {
+            
+            builder.Services.AddTransient<IRepository<Subscription>, SubscriptionRepository>();
+            builder.Services.AddTransient<IRepository<Customer>, CustomerRepository>();
+            builder.Services.AddTransient<IRepository<Trainer>, TrainerRepository>();
+            builder.Services.AddTransient<IRepository<FitnessCenter>, FitnessCenterRepository>();
+            builder.Services.AddTransient<IRepository<GroupFitnessClass>, GroupFitnessClassRepository>();
+            builder.Services.AddTransient<IRepository<GroupFitnessConcept>, GroupFitnessConceptRepository>();
+            builder.Services.AddTransient<IRepository<GroupFitnessLocation>, GroupFitnessLocationRepository>();
+
+            builder.Services.AddTransient<IGroupFitnessClassBookingService, GroupFitnessClassBookingService>();
+            builder.Services.AddTransient<IGroupFitnessClassCalendarCreationService, GroupFitnessClassCalendarCreationService>();
+        }
+
+        private static void SeedDatabase(WebApplication app)
+        {
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -92,26 +129,6 @@ namespace AsyncFitness.Web
 
                 SeedData.InitializeBridgeTables(services);
             }
-
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
-            app.UseRouting();
-            app.UseAuthentication();
-
-            app.UseAuthorization();
-
-            app.MapRazorPages();
-
-            app.Run();
         }
     }
 }

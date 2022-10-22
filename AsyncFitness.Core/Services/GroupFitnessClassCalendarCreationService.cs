@@ -13,11 +13,6 @@ namespace AsyncFitness.Core.Services
     {
         public FitnessCenter FitnessCenter { get; }
 
-        public GroupFitnessClassCalendarCreationService(FitnessCenter center)
-        {
-            FitnessCenter = center;
-        }
-
         public Task<List<GroupFitnessClassCalendarWeek>> GetCalendarAsync(int year)
         {
             throw new NotImplementedException();
