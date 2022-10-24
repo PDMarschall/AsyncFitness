@@ -1,4 +1,5 @@
 ﻿using AsyncFitness.Core.Models;
+using AsyncFitness.Core.Models.Facility;
 using AsyncFitness.Core.Models.User;
 using AsyncFitness.Infrastructure.DbContexts;
 using AsyncFitness.Web.Areas.Identity.Data;
@@ -24,8 +25,7 @@ namespace AsyncFitness.Web.Pages
         }
 
         public void OnGet()
-        {
+        {            
         }
-
     }
 }

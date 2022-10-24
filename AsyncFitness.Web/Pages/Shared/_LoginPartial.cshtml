@@ -8,8 +8,13 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <form id="fitnessForm" class="form-inline" asp-area="Fitness" asp-page="/Index" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-                <button id="fitness" type="submit" class="nav-link btn btn-link text-dark">Book Class</button>
+            <form id="classbookingForm" class="form-inline" asp-area="Fitness" asp-page="/ClassBooking" method="get">
+                <button id="classbook" type="submit" class="nav-link btn btn-link text-dark">Book Class</button>
+            </form>
+        </li>
+        <li class="nav-item">
+            <form id="fitnessOverviewForm" class="form-inline" asp-area="Fitness" asp-page="/Index" method="get">
+                <button id="fitnessoverview" type="submit" class="nav-link btn btn-link text-dark">Overview</button>
             </form>
         </li>
         AsyncFitnessUser user = await UserManager.GetUserAsync(User);

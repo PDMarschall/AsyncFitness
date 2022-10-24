@@ -271,9 +271,9 @@ namespace AsyncFitness.Web
                     context.SaveChanges();
                 }
 
-                var fitnessCenter = context.FitnessCenter.Include(c=>c.GymLeader).Include(d => d.Facilities).Where(f => f.Id == 2).First();
+                var fitnessCenter = context.FitnessCenter.Include(c=>c.GymLeader).Include(d => d.Facilities).Include(a => a.AvailableConcepts).Where(f => f.Id == 2).First();
 
-                if (fitnessCenter != null)
+                if (fitnessCenter.AvailableConcepts.Count == 0)
                 {
                     fitnessCenter.AvailableConcepts.Add(context.FitnessConcept.Find(1));
                     fitnessCenter.AvailableConcepts.Add(context.FitnessConcept.Find(2));       
