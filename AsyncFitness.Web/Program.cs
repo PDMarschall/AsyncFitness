@@ -19,8 +19,8 @@ namespace AsyncFitness.Web
 
             ConfigureDbContext(builder);
             ConfigureIdentity(builder);
-            ConfigureDI(builder);
-            
+            ConfigureDI(builder);            
+
             var app = builder.Build();
 
             SeedDatabase(app);
@@ -116,6 +116,8 @@ namespace AsyncFitness.Web
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
+
+                SeedData.EnsureDB(services);
 
                 SeedData.InitializeCustomer(services);
                 SeedData.InitializeIdentity(services);

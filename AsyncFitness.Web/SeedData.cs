@@ -14,6 +14,17 @@ namespace AsyncFitness.Web
 {
     public static class SeedData
     {
+        public static void EnsureDB(IServiceProvider serviceProvider)
+        {
+            var domainDBContext = serviceProvider.GetRequiredService<FitnessContext>();
+            domainDBContext.Database.EnsureDeleted();
+            domainDBContext.Database.EnsureCreated();
+
+            var identityDBContext = serviceProvider.GetRequiredService<AsyncFitnessWebContext>();
+            identityDBContext.Database.EnsureDeleted();
+            identityDBContext.Database.EnsureCreated();
+        }
+
         public static void InitializeCustomer(IServiceProvider serviceProvider)
         {
             using (var context = new FitnessContext(
@@ -51,6 +62,7 @@ namespace AsyncFitness.Web
                     FirstName = "Lars",
                     LastName = "Larsen",
                     UserName = "test@testmail.com",
+                    PhoneNumber = "11111111",
                     NormalizedUserName = "test@testmail.com",
                     Email = "test@testmail.com",
                     NormalizedEmail = "test@testmail.com",
