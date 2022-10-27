@@ -6,6 +6,7 @@ using AsyncFitness.Infrastructure.Repository;
 using AsyncFitness.Web.Areas.Identity.Data;
 using AsyncFitness.Web.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -38,6 +39,44 @@ namespace AsyncFitness.Web
                     }
                 );
                 context.SaveChanges();
+            }
+        }
+
+        public static async void InitializeIdentity(IServiceProvider serviceProvider)
+        {
+            using (var _context = new AsyncFitnessWebContext(serviceProvider.GetRequiredService<DbContextOptions<AsyncFitnessWebContext>>()))
+            {
+                var user = new AsyncFitnessUser
+                {
+                    FirstName = "Lars",
+                    LastName = "Larsen",
+                    UserName = "test@testmail.com",
+                    NormalizedUserName = "test@testmail.com",
+                    Email = "test@testmail.com",
+                    NormalizedEmail = "test@testmail.com",
+                    EmailConfirmed = true,
+                    LockoutEnabled = false,
+                    SecurityStamp = Guid.NewGuid().ToString()
+                };
+
+                var roleStore = new RoleStore<IdentityRole>(_context);
+
+                if (!_context.Roles.Any(r => r.Name == "admin"))
+                {
+                    await roleStore.CreateAsync(new IdentityRole { Name = "admin", NormalizedName = "admin" });
+                }
+
+                if (!_context.Users.Any(u => u.UserName == user.UserName))
+                {
+                    var password = new PasswordHasher<AsyncFitnessUser>();
+                    var hashed = password.HashPassword(user, "Hej123!");
+                    user.PasswordHash = hashed;
+                    var userStore = new UserStore<AsyncFitnessUser>(_context);
+                    await userStore.CreateAsync(user);
+                    await userStore.AddToRoleAsync(user, "admin");
+                }
+
+                await _context.SaveChangesAsync();
             }
         }
 
@@ -254,7 +293,7 @@ namespace AsyncFitness.Web
                     DbContextOptions<FitnessContext>>()))
             {
                 var class1 = context.FitnessClass.Include(c => c.Instructors).Include(p => p.BookedParticipants).Where(g => g.Id == 1).First();
-                var class2 = context.FitnessClass.Include(c => c.Instructors).Include(p => p.BookedParticipants).Where(g => g.Id == 2).First();                
+                var class2 = context.FitnessClass.Include(c => c.Instructors).Include(p => p.BookedParticipants).Where(g => g.Id == 2).First();
 
                 if (class1.BookedParticipants.Count == 0 && class1.Instructors.Count == 0 && class1 != null)
                 {
@@ -270,12 +309,12 @@ namespace AsyncFitness.Web
                     context.SaveChanges();
                 }
 
-                var fitnessCenter = context.FitnessCenter.Include(c=>c.GymLeader).Include(d => d.Facilities).Include(a => a.AvailableConcepts).First();
+                var fitnessCenter = context.FitnessCenter.Include(c => c.GymLeader).Include(d => d.Facilities).Include(a => a.AvailableConcepts).First();
 
                 if (fitnessCenter.AvailableConcepts.Count == 0)
                 {
                     fitnessCenter.AvailableConcepts.Add(context.FitnessConcept.Find(1));
-                    fitnessCenter.AvailableConcepts.Add(context.FitnessConcept.Find(2));       
+                    fitnessCenter.AvailableConcepts.Add(context.FitnessConcept.Find(2));
                     context.SaveChanges();
                 }
 

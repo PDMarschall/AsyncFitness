@@ -118,6 +118,7 @@ namespace AsyncFitness.Web
                 var services = scope.ServiceProvider;
 
                 SeedData.InitializeCustomer(services);
+                SeedData.InitializeIdentity(services);
                 SeedData.InitializeSubscription(services);
                 SeedData.InitializeTrainer(services);
                 SeedData.InitializeAdmin(services);
