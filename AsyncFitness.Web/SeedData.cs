@@ -153,7 +153,6 @@ namespace AsyncFitness.Web
                     GymLeader = context.FitnessAdmin.Where(c => c.FirstName == "Niels").First()
                 });
 
-
                 context.SaveChanges();
             }
         }
@@ -259,19 +258,19 @@ namespace AsyncFitness.Web
 
                 if (class1.BookedParticipants.Count == 0 && class1.Instructors.Count == 0 && class1 != null)
                 {
-                    class1.BookedParticipants.Add(context.FitnessCustomer.Find(4));
-                    class1.Instructors.Add(context.FitnessTrainer.Find(1));
+                    class1.BookedParticipants.Add(context.FitnessCustomer.First());
+                    class1.Instructors.Add(context.FitnessTrainer.First());
                     context.SaveChanges();
                 }
 
                 if (class2.BookedParticipants.Count == 0 && class2.Instructors.Count == 0 & class2 != null)
                 {
-                    class2.BookedParticipants.Add(context.FitnessCustomer.Find(4));
-                    class2.Instructors.Add(context.FitnessTrainer.Find(1));
+                    class2.BookedParticipants.Add(context.FitnessCustomer.First());
+                    class2.Instructors.Add(context.FitnessTrainer.First());
                     context.SaveChanges();
                 }
 
-                var fitnessCenter = context.FitnessCenter.Include(c=>c.GymLeader).Include(d => d.Facilities).Include(a => a.AvailableConcepts).Where(f => f.Id == 2).First();
+                var fitnessCenter = context.FitnessCenter.Include(c=>c.GymLeader).Include(d => d.Facilities).Include(a => a.AvailableConcepts).First();
 
                 if (fitnessCenter.AvailableConcepts.Count == 0)
                 {
