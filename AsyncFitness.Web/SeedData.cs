@@ -240,7 +240,8 @@ namespace AsyncFitness.Web
                         Start = new DateTime(2022, 10, 4, 20, 0, 0),
                         End = new DateTime(2022, 10, 4, 21, 0, 0)
                     }
-                );
+                ); ;
+
 
                 context.SaveChanges();
             }
@@ -277,6 +278,7 @@ namespace AsyncFitness.Web
                     fitnessCenter.AvailableConcepts.Add(context.FitnessConcept.Find(2));       
                     context.SaveChanges();
                 }
+
             }
         }
     }
