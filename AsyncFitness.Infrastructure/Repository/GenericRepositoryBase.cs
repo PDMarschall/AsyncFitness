@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Infrastructure.Repository
 {
-    public abstract class GenericRepositoryBase<T> : IRepository<T>, IRepositoryAsync<T> where T : class
+    public abstract class GenericRepositoryBase<T> : IRepository<T> where T : class
     {
         protected readonly FitnessContext _context;
 

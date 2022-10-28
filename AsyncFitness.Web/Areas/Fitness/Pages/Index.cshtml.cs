@@ -25,7 +25,7 @@ namespace AsyncFitness.Web.Areas.Fitness.Pages
         }
 
         [BindProperty(SupportsGet = true)]
-        public List<GroupFitnessClass> UserBookings { get; set; }
+        public IEnumerable<GroupFitnessClass> UserBookings { get; set; }
 
         public async Task OnGetAsync()
         {
@@ -34,11 +34,11 @@ namespace AsyncFitness.Web.Areas.Fitness.Pages
 
             if (trainer != null)
             {
-                UserBookings =  _bookingService.LoadClassesAsync(trainer);
+                UserBookings = await _bookingService.LoadClassesAsync(trainer);
             }
             else
             {
-                UserBookings = _bookingService.LoadClassesAsync(customer);
+                UserBookings = await _bookingService.LoadClassesAsync(customer);
             }
         }
     }

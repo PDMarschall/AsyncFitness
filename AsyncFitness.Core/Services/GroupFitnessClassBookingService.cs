@@ -22,25 +22,25 @@ namespace AsyncFitness.Core.Services
             _trainerRepository = trainerRepository;
         }
 
-        public Task<List<GroupFitnessClass>> FilterClassesAsync(Dictionary<string, string> criteria)
+        public Task<IEnumerable<GroupFitnessClass>> FilterClassesAsync(Dictionary<string, string> criteria)
         {
             throw new NotImplementedException();
         }
 
-        public List<GroupFitnessClass> LoadClassesAsync(Customer customer)
+        public async Task<IEnumerable<GroupFitnessClass>> LoadClassesAsync(Customer customer)
         {
-            List<GroupFitnessClass> result = new List<GroupFitnessClass>();
+            IEnumerable<GroupFitnessClass> result = new List<GroupFitnessClass>();
 
-            result = _fitnessClassRepo.Find(c => c.BookedParticipants.Contains(customer)).ToList();
+            result = await _fitnessClassRepo.FindAsync(c => c.BookedParticipants.Contains(customer));
 
             return result;
         }
 
-        public List<GroupFitnessClass> LoadClassesAsync(Trainer trainer)
+        public async Task<IEnumerable<GroupFitnessClass>> LoadClassesAsync(Trainer trainer)
         {
-            List<GroupFitnessClass> result = new List<GroupFitnessClass>();
+            IEnumerable<GroupFitnessClass> result = new List<GroupFitnessClass>();
 
-            result = _fitnessClassRepo.Find(c => c.Instructors.Contains(trainer)).ToList();
+            result = await _fitnessClassRepo.FindAsync(c => c.Instructors.Contains(trainer));
 
             return result;
         }

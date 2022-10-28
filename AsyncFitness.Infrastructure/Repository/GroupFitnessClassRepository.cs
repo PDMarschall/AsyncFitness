@@ -2,6 +2,7 @@
 using AsyncFitness.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -18,13 +19,22 @@ namespace AsyncFitness.Infrastructure.Repository
 
         public override int Count => _context.FitnessClass.Count();
 
-        public override IQueryable<GroupFitnessClass> Find(Expression<Func<GroupFitnessClass, bool>> predicate)
+        public override IEnumerable<GroupFitnessClass> Find(Expression<Func<GroupFitnessClass, bool>> predicate)
         {
-            return base.Find(predicate)
+            return _context.Set<GroupFitnessClass>().AsQueryable<GroupFitnessClass>().Where(predicate)
                 .Include(c => c.BookedParticipants)
                 .Include(f => f.Concept)
                 .Include(p => p.Instructors)
                 .Include(l => l.Location).ThenInclude(t => t.Center);
+        }
+
+        public override async Task<IEnumerable<GroupFitnessClass>> FindAsync(Expression<Func<GroupFitnessClass, bool>> predicate)
+        {
+            return await _context.Set<GroupFitnessClass>().AsQueryable<GroupFitnessClass>().Where(predicate)
+                .Include(c => c.BookedParticipants)
+                .Include(f => f.Concept)
+                .Include(p => p.Instructors)
+                .Include(l => l.Location).ThenInclude(t => t.Center).ToListAsync();
         }
     }
 }
