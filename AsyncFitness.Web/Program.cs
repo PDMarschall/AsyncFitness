@@ -15,13 +15,13 @@ namespace AsyncFitness.Web
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
             ConfigureDbContext(builder);
             ConfigureIdentity(builder);
-            ConfigureDI(builder);            
+            ConfigureDI(builder);
 
-            var app = builder.Build();
+            WebApplication app = builder.Build();
 
             SeedDatabase(app);
 
@@ -48,11 +48,11 @@ namespace AsyncFitness.Web
 
         private static void ConfigureDbContext(WebApplicationBuilder builder)
         {
-            var connectionStringIdentity = builder.Configuration.GetConnectionString("IdentityConnection") ?? throw new InvalidOperationException("Connection string 'IdentityConnection' not found.");
+            string connectionStringIdentity = builder.Configuration.GetConnectionString("IdentityConnection") ?? throw new InvalidOperationException("Connection string 'IdentityConnection' not found.");
             builder.Services.AddDbContext<AsyncFitnessWebContext>(options =>
             options.UseSqlServer(connectionStringIdentity));
 
-            var connectionStringCore = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            string connectionStringCore = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<FitnessContext>(options =>
             options.UseSqlServer(connectionStringCore));
         }
@@ -98,7 +98,7 @@ namespace AsyncFitness.Web
 
         private static void ConfigureDI(WebApplicationBuilder builder)
         {
-            
+
             builder.Services.AddTransient<IRepository<Subscription>, SubscriptionRepository>();
             builder.Services.AddTransient<IRepository<Customer>, CustomerRepository>();
             builder.Services.AddTransient<IRepository<Trainer>, TrainerRepository>();
@@ -113,24 +113,10 @@ namespace AsyncFitness.Web
 
         private static void SeedDatabase(WebApplication app)
         {
-            using (var scope = app.Services.CreateScope())
+            using (IServiceScope scope = app.Services.CreateScope())
             {
-                var services = scope.ServiceProvider;
-
-                SeedData.EnsureDB(services);
-
-                SeedData.InitializeCustomer(services);
-                SeedData.InitializeIdentity(services);
-                SeedData.InitializeSubscription(services);
-                SeedData.InitializeTrainer(services);
-                SeedData.InitializeAdmin(services);
-
-                SeedData.InitializeFitnessCenter(services);
-                SeedData.InitializeFitnessLocations(services);
-                SeedData.InitializeFitnessConcept(services);
-                SeedData.InitializeFitnessClass(services);
-
-                SeedData.InitializeBridgeTables(services);
+                IServiceProvider services = scope.ServiceProvider;
+                SeedData.CreateInitialDb(services);
             }
         }
     }

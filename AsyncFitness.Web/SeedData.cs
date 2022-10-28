@@ -14,7 +14,28 @@ namespace AsyncFitness.Web
 {
     public static class SeedData
     {
-        public static void EnsureDB(IServiceProvider serviceProvider)
+        public static void CreateInitialDb(IServiceProvider serviceProvider)
+        {
+            EnsureDB(serviceProvider);
+
+            //user classes
+            InitializeCustomer(serviceProvider);
+            InitializeIdentity(serviceProvider);
+            InitializeSubscription(serviceProvider);
+            InitializeTrainer(serviceProvider);
+            InitializeAdmin(serviceProvider);
+
+            //facility classes
+            InitializeFitnessCenter(serviceProvider);
+            InitializeFitnessLocations(serviceProvider);
+            InitializeFitnessConcept(serviceProvider);
+            InitializeFitnessClass(serviceProvider);
+
+            //many to many relations
+            InitializeBridgeTables(serviceProvider);
+        }
+
+        private static void EnsureDB(IServiceProvider serviceProvider)
         {
             var domainDBContext = serviceProvider.GetRequiredService<FitnessContext>();
             domainDBContext.Database.EnsureDeleted();
@@ -25,7 +46,7 @@ namespace AsyncFitness.Web
             identityDBContext.Database.EnsureCreated();
         }
 
-        public static void InitializeCustomer(IServiceProvider serviceProvider)
+        private static void InitializeCustomer(IServiceProvider serviceProvider)
         {
             using (var context = new FitnessContext(
                 serviceProvider.GetRequiredService<
@@ -53,7 +74,7 @@ namespace AsyncFitness.Web
             }
         }
 
-        public static async void InitializeIdentity(IServiceProvider serviceProvider)
+        private static async void InitializeIdentity(IServiceProvider serviceProvider)
         {
             using (var _context = new AsyncFitnessWebContext(serviceProvider.GetRequiredService<DbContextOptions<AsyncFitnessWebContext>>()))
             {
@@ -92,7 +113,7 @@ namespace AsyncFitness.Web
             }
         }
 
-        public static void InitializeTrainer(IServiceProvider serviceProvider)
+        private static void InitializeTrainer(IServiceProvider serviceProvider)
         {
             using (var context = new FitnessContext(
                 serviceProvider.GetRequiredService<
@@ -120,7 +141,7 @@ namespace AsyncFitness.Web
             }
         }
 
-        public static void InitializeAdmin(IServiceProvider serviceProvider)
+        private static void InitializeAdmin(IServiceProvider serviceProvider)
         {
             using (var context = new FitnessContext(
                 serviceProvider.GetRequiredService<
@@ -148,7 +169,7 @@ namespace AsyncFitness.Web
             }
         }
 
-        public static void InitializeSubscription(IServiceProvider serviceProvider)
+        private static void InitializeSubscription(IServiceProvider serviceProvider)
         {
             using (var context = new FitnessContext(
                 serviceProvider.GetRequiredService<
@@ -188,7 +209,7 @@ namespace AsyncFitness.Web
             }
         }
 
-        public static void InitializeFitnessCenter(IServiceProvider serviceProvider)
+        private static void InitializeFitnessCenter(IServiceProvider serviceProvider)
         {
             using (var context = new FitnessContext(
                 serviceProvider.GetRequiredService<
@@ -207,7 +228,8 @@ namespace AsyncFitness.Web
                 context.SaveChanges();
             }
         }
-        public static void InitializeFitnessLocations(IServiceProvider serviceProvider)
+
+        private static void InitializeFitnessLocations(IServiceProvider serviceProvider)
         {
             using (var context = new FitnessContext(
                 serviceProvider.GetRequiredService<
@@ -236,7 +258,8 @@ namespace AsyncFitness.Web
                 context.SaveChanges();
             }
         }
-        public static void InitializeFitnessConcept(IServiceProvider serviceProvider)
+
+        private static void InitializeFitnessConcept(IServiceProvider serviceProvider)
         {
             using (var context = new FitnessContext(
                 serviceProvider.GetRequiredService<
@@ -265,7 +288,8 @@ namespace AsyncFitness.Web
                 context.SaveChanges();
             }
         }
-        public static void InitializeFitnessClass(IServiceProvider serviceProvider)
+
+        private static void InitializeFitnessClass(IServiceProvider serviceProvider)
         {
             using (var context = new FitnessContext(
                 serviceProvider.GetRequiredService<
@@ -298,7 +322,7 @@ namespace AsyncFitness.Web
             }
         }
 
-        public static void InitializeBridgeTables(IServiceProvider serviceProvider)
+        private static void InitializeBridgeTables(IServiceProvider serviceProvider)
         {
             using (var context = new FitnessContext(
                 serviceProvider.GetRequiredService<
