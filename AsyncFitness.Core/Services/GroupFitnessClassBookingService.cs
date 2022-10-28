@@ -11,19 +11,38 @@ namespace AsyncFitness.Core.Services
 {
     public class GroupFitnessClassBookingService : IGroupFitnessClassBookingService
     {
+        private readonly IRepository<Customer> _customerRepo;
+        private readonly IRepository<GroupFitnessClass> _fitnessClassRepo;
+        private readonly IRepository<Trainer> _trainerRepository;
+
+        public GroupFitnessClassBookingService(IRepository<Customer> customerRepo, IRepository<GroupFitnessClass> fitnessClassRepo, IRepository<Trainer> trainerRepository)
+        {
+            _customerRepo = customerRepo;
+            _fitnessClassRepo = fitnessClassRepo;
+            _trainerRepository = trainerRepository;
+        }
+
         public Task<List<GroupFitnessClass>> FilterClassesAsync(Dictionary<string, string> criteria)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<GroupFitnessClass>> LoadClassesAsync(Customer customer)
+        public List<GroupFitnessClass> LoadClassesAsync(Customer customer)
         {
-            throw new NotImplementedException();
+            List<GroupFitnessClass> result = new List<GroupFitnessClass>();
+
+            result = _fitnessClassRepo.Find(c => c.BookedParticipants.Contains(customer)).ToList();
+
+            return result;
         }
 
-        public Task<List<GroupFitnessClass>> LoadClassesAsync(Trainer trainer)
+        public List<GroupFitnessClass> LoadClassesAsync(Trainer trainer)
         {
-            throw new NotImplementedException();
+            List<GroupFitnessClass> result = new List<GroupFitnessClass>();
+
+            result = _fitnessClassRepo.Find(c => c.Instructors.Contains(trainer)).ToList();
+
+            return result;
         }
 
         public Task SaveClassesAsync()

@@ -98,7 +98,6 @@ namespace AsyncFitness.Web
 
         private static void ConfigureDI(WebApplicationBuilder builder)
         {
-
             builder.Services.AddTransient<IRepository<Subscription>, SubscriptionRepository>();
             builder.Services.AddTransient<IRepository<Customer>, CustomerRepository>();
             builder.Services.AddTransient<IRepository<Trainer>, TrainerRepository>();

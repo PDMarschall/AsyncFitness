@@ -27,23 +27,19 @@ namespace AsyncFitness.Web.Areas.Fitness.Pages
         [BindProperty(SupportsGet = true)]
         public List<GroupFitnessClass> UserBookings { get; set; }
 
-        public int Test { get; set; }
-
         public async Task OnGetAsync()
         {
             Trainer trainer = _trainerRepo.Find(t => t.Email == User.Identity.Name).FirstOrDefault();
             Customer customer = _customerRepo.Find(c => c.Email == User.Identity.Name).FirstOrDefault();
 
-            //if (trainer != null)
-            //{                
-            //    UserBookings = await _bookingService.LoadClassesAsync(trainer);
-            //}
-            //else
-            //{                
-            //    UserBookings = await _bookingService.LoadClassesAsync(customer);
-            //}
-
-            Test = 1;
+            if (trainer != null)
+            {
+                UserBookings =  _bookingService.LoadClassesAsync(trainer);
+            }
+            else
+            {
+                UserBookings = _bookingService.LoadClassesAsync(customer);
+            }
         }
     }
 }

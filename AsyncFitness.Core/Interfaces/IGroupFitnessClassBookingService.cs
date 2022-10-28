@@ -10,8 +10,10 @@ namespace AsyncFitness.Core.Interfaces
 {
     public interface IGroupFitnessClassBookingService
     {        
-        Task<List<GroupFitnessClass>> LoadClassesAsync(Customer customer);
-        Task<List<GroupFitnessClass>> LoadClassesAsync(Trainer trainer);
+        List<GroupFitnessClass> LoadClassesAsync(Customer customer);
+        //Task<List<GroupFitnessClass>> LoadClassesAsync(Customer customer);
+        List<GroupFitnessClass> LoadClassesAsync(Trainer trainer);
+        //Task<List<GroupFitnessClass>> LoadClassesAsync(Trainer trainer);
         Task<List<GroupFitnessClass>> FilterClassesAsync(Dictionary<string, string> criteria);
         Task SaveClassesAsync();
     }
