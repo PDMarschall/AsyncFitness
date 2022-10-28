@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Infrastructure.Repository
 {
-    public abstract class GenericRepositoryBase<T> : IRepository<T> where T : class
+    public abstract class GenericRepositoryBase<T> : IRepository<T>, IRepositoryAsync<T> where T : class
     {
         protected readonly FitnessContext _context;
 
@@ -48,6 +48,11 @@ namespace AsyncFitness.Infrastructure.Repository
         public T Delete(T entity)
         {
             return _context.Remove(entity).Entity;
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
         }
 
         public async Task SaveChangesAsync()

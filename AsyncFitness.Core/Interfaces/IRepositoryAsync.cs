@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.Interfaces
 {
-    public interface IRepositoryAsync
+    public interface IRepositoryAsync<T>
     {
+
+        Task SaveChangesAsync();
     }
 }

@@ -16,6 +16,6 @@ namespace AsyncFitness.Core.Interfaces
         T Delete(T entity);
         IQueryable<T> All();
         IQueryable<T> Find(Expression<Func<T, bool>> predicate);
-        Task SaveChangesAsync();
+        void SaveChanges();
     }
 }
