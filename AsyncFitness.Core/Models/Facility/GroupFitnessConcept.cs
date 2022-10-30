@@ -14,7 +14,7 @@ namespace AsyncFitness.Core.Models.Facility
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required, MaxLength(50)]
+        [Required, MaxLength(50), Display(Name = "Concept")]
         public string Name { get; set; }
 
         [Required, MaxLength(500)]

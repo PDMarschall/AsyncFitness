@@ -13,10 +13,10 @@ namespace AsyncFitness.Core.Models.Facility
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required]
+        [Required, Display(Name = "Location")]
         public string Name { get; set; }
 
-        [Required]
+        [Required, Display(Name="Capacity")]
         public int Capacity { get; set; }
 
         [Required]
