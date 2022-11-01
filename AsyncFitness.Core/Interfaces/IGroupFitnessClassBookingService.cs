@@ -1,5 +1,6 @@
 ﻿using AsyncFitness.Core.Models.Facility;
 using AsyncFitness.Core.Models.User;
+using AsyncFitness.Core.Services.GroupFitnessClassServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;

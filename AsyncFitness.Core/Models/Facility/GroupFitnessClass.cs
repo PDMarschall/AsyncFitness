@@ -43,7 +43,7 @@ namespace AsyncFitness.Core.Models.Facility
 
         public bool IsValidCapacity()
         {
-            return BookedParticipants.Count >= Location.Capacity;
+            return BookedParticipants.Count() >= Location.Capacity;
         }
     }
 }

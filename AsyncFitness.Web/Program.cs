@@ -4,10 +4,10 @@ using AsyncFitness.Web.Data;
 using AsyncFitness.Web.Areas.Identity.Data;
 using AsyncFitness.Infrastructure.DbContexts;
 using AsyncFitness.Core.Interfaces;
-using AsyncFitness.Infrastructure.Repository;
 using AsyncFitness.Core.Models.User;
 using AsyncFitness.Core.Models.Facility;
 using AsyncFitness.Core.Services;
+using AsyncFitness.Infrastructure.Repository;
 
 namespace AsyncFitness.Web
 {
