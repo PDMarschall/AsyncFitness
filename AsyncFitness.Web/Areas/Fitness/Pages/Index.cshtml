@@ -1,6 +1,7 @@
 ﻿@page
 @using AsyncFitness.Core.Models.Facility
 @using AsyncFitness.Core.Models.User
+@using AsyncFitness.Core.Services.GroupFitnessClassServices
 @model AsyncFitness.Web.Areas.Fitness.Pages.IndexModel
 @{
     ViewData["Title"] = "Overview";
@@ -15,12 +16,12 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.UserBookings.First().Concept.Name)
+                    @Html.DisplayNameFor(model => model.UserBookings.First().ConceptName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.UserBookings.First().Location.Name)
+                    @Html.DisplayNameFor(model => model.UserBookings.First().LocationName)
                 </th>
-                <th>                    
+                <th>
                     @Html.Raw("Instructor(s)")
                 </th>
                 <th>
@@ -30,28 +31,26 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (GroupFitnessClass item in Model.UserBookings)
+            @foreach (GroupFitnessClassBookingListDto item in Model.UserBookings)
             {
 
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Concept.Name)
+                        @Html.DisplayFor(modelItem => item.ConceptName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Location.Name)
+                        @Html.DisplayFor(modelItem => item.LocationName)
                     </td>
                     <td>
                         <div>
-                            @foreach (Trainer trainer in item.Instructors)
+                            @foreach (string name in item.InstructorNames)
                             {
-                                @Html.Raw(trainer.FirstName + " " + trainer.LastName)
-                            }
-                            @*@Html.DisplayFor(modelItem => item.BookedParticipants.Count)/@Html.DisplayFor(modelItem => item.Location.Capacity)*@
+                                @Html.Raw(name)
+                            }                            
                         </div>
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Start.DayOfWeek)
-                        @String.Format("{0:d MMMM HH:mm}", item.Start)
+                        @item.Time
                     </td>
                     <td>
                         <a>Check-In</a> |

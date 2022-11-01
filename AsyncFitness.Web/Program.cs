@@ -8,6 +8,8 @@ using AsyncFitness.Core.Models.User;
 using AsyncFitness.Core.Models.Facility;
 using AsyncFitness.Core.Services;
 using AsyncFitness.Infrastructure.Repository;
+using AsyncFitness.Web.WebServices;
+using GroupFitnessClassBookingService = AsyncFitness.Core.Services.GroupFitnessClassBookingService;
 
 namespace AsyncFitness.Web
 {
@@ -108,6 +110,7 @@ namespace AsyncFitness.Web
 
             builder.Services.AddTransient<IGroupFitnessClassBookingService, GroupFitnessClassBookingService>();
             builder.Services.AddTransient<IGroupFitnessClassCalendarCreationService, GroupFitnessClassCalendarCreationService>();
+            builder.Services.AddTransient<AsyncFitness.Web.WebServices.GroupFitnessClassBookingService>();
         }
 
         private static void SeedDatabase(WebApplication app)

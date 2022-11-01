@@ -13,12 +13,12 @@ namespace AsyncFitness.Core.Services.GroupFitnessClassServices.QueryObjects
         {
             return fitnessClasses.Select(groupfitnessclass => new GroupFitnessClassBookingListDto
             {
-                Conceptname = groupfitnessclass.Concept.Name,
+                ConceptName = groupfitnessclass.Concept.Name,
                 LocationName = groupfitnessclass.Location.Name,
-                InstructorNames = groupfitnessclass.Instructors.Select(i => i.FirstName + i.LastName),
-                Time = string.Format("{0:d MMMM HH:mm}", groupfitnessclass.Start),       
-                OnWaitingList = groupfitnessclass.Location.Capacity > groupfitnessclass.BookedParticipants.FindIndex(i => i.Email == userEmail),
-                NumberInWaitingList = groupfitnessclass.Location.Capacity - groupfitnessclass.BookedParticipants.FindIndex(i => i.Email == userEmail)
+                InstructorNames = groupfitnessclass.Instructors.Select(i => i.FirstName + " " + i.LastName),
+                Time = string.Format("{0:d. MMMM HH:mm}", groupfitnessclass.Start),       
+                //OnWaitingList = groupfitnessclass.Location.Capacity > groupfitnessclass.BookedParticipants.FindIndex(i => i.Email == userEmail),
+                //NumberInWaitingList = groupfitnessclass.Location.Capacity - groupfitnessclass.BookedParticipants.FindIndex(i => i.Email == userEmail)
             });
         }
     }

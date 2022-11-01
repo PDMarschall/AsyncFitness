@@ -1,8 +1,10 @@
 using AsyncFitness.Core.Interfaces;
 using AsyncFitness.Core.Models.Facility;
 using AsyncFitness.Core.Models.User;
+using AsyncFitness.Core.Services.GroupFitnessClassServices;
 using AsyncFitness.Infrastructure.Repository;
 using AsyncFitness.Web.Areas.Identity.Data;
+using AsyncFitness.Web.WebServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,21 +13,19 @@ namespace AsyncFitness.Web.Areas.Fitness.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly IGroupFitnessClassBookingService _bookingService;
-        private readonly UserManager<AsyncFitnessUser> _userManager;
+        private readonly GroupFitnessClassBookingService _bookingService;        
         private readonly IRepository<Trainer> _trainerRepo;
         private readonly IRepository<Customer> _customerRepo;
 
-        public IndexModel(IGroupFitnessClassBookingService bookingService, UserManager<AsyncFitnessUser> userManager, IRepository<Trainer> trainerRepo, IRepository<Customer> customerRepo)
+        public IndexModel(GroupFitnessClassBookingService bookingService, IRepository<Trainer> trainerRepo, IRepository<Customer> customerRepo)
         {
-            _bookingService = bookingService;
-            _userManager = userManager;
+            _bookingService = bookingService;            
             _trainerRepo = trainerRepo;
             _customerRepo = customerRepo;
         }
 
         [BindProperty(SupportsGet = true)]
-        public IEnumerable<GroupFitnessClass> UserBookings { get; set; }
+        public IEnumerable<GroupFitnessClassBookingListDto> UserBookings { get; set; }
 
         public async Task OnGetAsync()
         {
