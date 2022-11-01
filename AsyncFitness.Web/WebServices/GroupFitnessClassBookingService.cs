@@ -1,8 +1,8 @@
-﻿using AsyncFitness.Core.Interfaces;
+﻿using AsyncFitness.Core.DTOs.GroupFitnessClassDTOs;
+using AsyncFitness.Core.DTOs.GroupFitnessClassDTOs.QueryObjects;
+using AsyncFitness.Core.Interfaces;
 using AsyncFitness.Core.Models.Facility;
 using AsyncFitness.Core.Models.User;
-using AsyncFitness.Core.Services.GroupFitnessClassServices;
-using AsyncFitness.Core.Services.GroupFitnessClassServices.QueryObjects;
 using AsyncFitness.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Web.WebServices
 {
-    public class GroupFitnessClassBookingService
+    public class GroupFitnessClassBookingService : IGroupFitnessClassBookingService
     {
         private readonly IRepository<Customer> _customerRepo;
         private readonly IRepository<GroupFitnessClass> _fitnessClassRepo;

@@ -1,11 +1,12 @@
-﻿using AsyncFitness.Core.Models.Facility;
+﻿using AsyncFitness.Core.DTOs.GroupFitnessClassDTOs;
+using AsyncFitness.Core.Models.Facility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AsyncFitness.Core.Services.GroupFitnessClassServices.QueryObjects
+namespace AsyncFitness.Core.DTOs.GroupFitnessClassDTOs.QueryObjects
 {
     public static class GroupFitnessClassBookingListSelectDto
     {
@@ -16,7 +17,7 @@ namespace AsyncFitness.Core.Services.GroupFitnessClassServices.QueryObjects
                 ConceptName = groupfitnessclass.Concept.Name,
                 LocationName = groupfitnessclass.Location.Name,
                 InstructorNames = groupfitnessclass.Instructors.Select(i => i.FirstName + " " + i.LastName),
-                Time = string.Format("{0:d. MMMM HH:mm}", groupfitnessclass.Start),       
+                Time = string.Format("{0:d. MMMM HH:mm}", groupfitnessclass.Start),
                 //OnWaitingList = groupfitnessclass.Location.Capacity > groupfitnessclass.BookedParticipants.FindIndex(i => i.Email == userEmail),
                 //NumberInWaitingList = groupfitnessclass.Location.Capacity - groupfitnessclass.BookedParticipants.FindIndex(i => i.Email == userEmail)
             });

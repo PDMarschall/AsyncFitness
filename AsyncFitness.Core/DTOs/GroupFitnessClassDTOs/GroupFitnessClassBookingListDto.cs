@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AsyncFitness.Core.Services.GroupFitnessClassServices
+namespace AsyncFitness.Core.DTOs.GroupFitnessClassDTOs
 {
     public class GroupFitnessClassBookingListDto
-    {        
+    {
         public string ConceptName { get; set; }
         public string LocationName { get; set; }
         public IEnumerable<string> InstructorNames { get; set; }

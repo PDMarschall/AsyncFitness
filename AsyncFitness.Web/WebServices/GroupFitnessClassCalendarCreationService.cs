@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AsyncFitness.Core.Services
+namespace AsyncFitness.Web.WebServices
 {
     public class GroupFitnessClassCalendarCreationService : IGroupFitnessClassCalendarCreationService
     {
