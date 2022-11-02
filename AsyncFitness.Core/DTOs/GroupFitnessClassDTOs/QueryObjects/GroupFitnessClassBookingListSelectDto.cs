@@ -1,5 +1,6 @@
 ﻿using AsyncFitness.Core.DTOs.GroupFitnessClassDTOs;
 using AsyncFitness.Core.Models.Facility;
+using AsyncFitness.Core.Models.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +11,14 @@ namespace AsyncFitness.Core.DTOs.GroupFitnessClassDTOs.QueryObjects
 {
     public static class GroupFitnessClassBookingListSelectDto
     {
-        public static IQueryable<GroupFitnessClassBookingListDto> MapGroupFitnessClassToDto(this IQueryable<GroupFitnessClass> fitnessClasses, string userEmail)
+        public static IQueryable<GroupFitnessClassBookingListDto> MapGroupFitnessClassToDto(this IQueryable<GroupFitnessClass> fitnessClasses, Customer customer)
         {
-            return fitnessClasses.Select(groupfitnessclass => new GroupFitnessClassBookingListDto
+            return fitnessClasses.Where(c => c.BookedParticipants.Contains(customer)).Select(groupfitnessclass => new GroupFitnessClassBookingListDto
             {
                 ConceptName = groupfitnessclass.Concept.Name,
                 LocationName = groupfitnessclass.Location.Name,
                 InstructorNames = groupfitnessclass.Instructors.Select(i => i.FirstName + " " + i.LastName),
-                Time = string.Format("{0:d. MMMM HH:mm}", groupfitnessclass.Start),
-                //OnWaitingList = groupfitnessclass.Location.Capacity > groupfitnessclass.BookedParticipants.FindIndex(i => i.Email == userEmail),
-                //NumberInWaitingList = groupfitnessclass.Location.Capacity - groupfitnessclass.BookedParticipants.FindIndex(i => i.Email == userEmail)
+                Time = string.Format("{0:d. MMMM HH:mm}", groupfitnessclass.Start)
             });
         }
     }

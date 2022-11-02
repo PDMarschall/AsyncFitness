@@ -4,7 +4,6 @@ using AsyncFitness.Core.Models.Facility;
 using AsyncFitness.Core.Models.User;
 using AsyncFitness.Infrastructure.Repository;
 using AsyncFitness.Web.Areas.Identity.Data;
-using AsyncFitness.Web.WebServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,13 +13,11 @@ namespace AsyncFitness.Web.Areas.Fitness.Pages
     public class IndexModel : PageModel
     {
         private readonly IGroupFitnessClassBookingService _bookingService;        
-        private readonly IRepository<Trainer> _trainerRepo;
         private readonly IRepository<Customer> _customerRepo;
 
-        public IndexModel(IGroupFitnessClassBookingService bookingService, IRepository<Trainer> trainerRepo, IRepository<Customer> customerRepo)
+        public IndexModel(IGroupFitnessClassBookingService bookingService, IRepository<Customer> customerRepo)
         {
             _bookingService = bookingService;            
-            _trainerRepo = trainerRepo;
             _customerRepo = customerRepo;
         }
 
@@ -29,17 +26,9 @@ namespace AsyncFitness.Web.Areas.Fitness.Pages
 
         public async Task OnGetAsync()
         {
-            Trainer trainer = _trainerRepo.Find(t => t.Email == User.Identity.Name).FirstOrDefault();
-            Customer customer = _customerRepo.Find(c => c.Email == User.Identity.Name).FirstOrDefault();
+            IEnumerable<Customer> customerResult = await _customerRepo.FindAsync(c => c.Email == User.Identity.Name);
 
-            if (trainer != null)
-            {
-                UserBookings = await _bookingService.LoadClassesAsync(trainer);
-            }
-            else
-            {
-                UserBookings = await _bookingService.LoadClassesAsync(customer);
-            }
+            UserBookings = await _bookingService.LoadClassesAsync(customerResult.First());
         }
     }
 }

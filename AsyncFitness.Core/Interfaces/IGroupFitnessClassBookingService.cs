@@ -12,7 +12,6 @@ namespace AsyncFitness.Core.Interfaces
     public interface IGroupFitnessClassBookingService
     {     
         Task<IEnumerable<GroupFitnessClassBookingListDto>> LoadClassesAsync(Customer customer);        
-        Task<IEnumerable<GroupFitnessClassBookingListDto>> LoadClassesAsync(Trainer trainer);
         Task<IEnumerable<GroupFitnessClass>> FilterClassesAsync(Dictionary<string, string> criteria);
         Task SaveClassesAsync();
     }

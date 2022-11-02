@@ -7,7 +7,7 @@ using AsyncFitness.Core.Interfaces;
 using AsyncFitness.Core.Models.User;
 using AsyncFitness.Core.Models.Facility;
 using AsyncFitness.Infrastructure.Repository;
-using AsyncFitness.Web.WebServices;
+using AsyncFitness.Infrastructure.DataServices;
 
 namespace AsyncFitness.Web
 {

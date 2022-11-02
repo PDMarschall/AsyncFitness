@@ -11,13 +11,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AsyncFitness.Web.WebServices
+namespace AsyncFitness.Infrastructure.DataServices
 {
     public class GroupFitnessClassBookingService : IGroupFitnessClassBookingService
     {
-        private readonly IRepository<Customer> _customerRepo;
-        private readonly IRepository<GroupFitnessClass> _fitnessClassRepo;
-        private readonly IRepository<Trainer> _trainerRepository;
         private readonly FitnessContext _fitnessContext;
 
         public GroupFitnessClassBookingService(FitnessContext fitnessContext)
@@ -31,15 +28,8 @@ namespace AsyncFitness.Web.WebServices
         }
 
         public async Task<IEnumerable<GroupFitnessClassBookingListDto>> LoadClassesAsync(Customer customer)
-        {
-            var fitnessQuery = _fitnessContext.FitnessClass.MapGroupFitnessClassToDto(customer.Email);
-
-            return await fitnessQuery.ToListAsync();
-        }
-
-        public async Task<IEnumerable<GroupFitnessClassBookingListDto>> LoadClassesAsync(Trainer trainer)
-        {
-            var fitnessQuery = _fitnessContext.FitnessClass.MapGroupFitnessClassToDto(trainer.Email);
+        {            
+            var fitnessQuery = _fitnessContext.FitnessClass.MapGroupFitnessClassToDto(customer);
 
             return await fitnessQuery.ToListAsync();
         }

@@ -57,13 +57,24 @@ namespace AsyncFitness.Web
                     return;
                 }
 
-                context.FitnessCustomer.Add(
+                context.FitnessCustomer.AddRange(
                     new Customer
                     {
                         Email = "test@testmail.com",
                         Phone = "11111111",
                         FirstName = "Lars",
                         LastName = "Larsen",
+                        StreetName = "Fiskervænget",
+                        StreetNumber = "14",
+                        City = "Sønderborg",
+                        PostalCode = "6400"
+                    },
+                    new Customer
+                    {
+                        Email = "test2@testmail.com",
+                        Phone = "22222222",
+                        FirstName = "Thyge",
+                        LastName = "Thygesen",
                         StreetName = "Fiskervænget",
                         StreetNumber = "14",
                         City = "Sønderborg",
@@ -78,7 +89,7 @@ namespace AsyncFitness.Web
         {
             using (var _context = new AsyncFitnessWebContext(serviceProvider.GetRequiredService<DbContextOptions<AsyncFitnessWebContext>>()))
             {
-                var user = new AsyncFitnessUser
+                var userOne = new AsyncFitnessUser
                 {
                     FirstName = "Lars",
                     LastName = "Larsen",
@@ -92,6 +103,20 @@ namespace AsyncFitness.Web
                     SecurityStamp = Guid.NewGuid().ToString()
                 };
 
+                var userTwo = new AsyncFitnessUser
+                {
+                    FirstName = "Thyge",
+                    LastName = "Thygesen",
+                    UserName = "test2@testmail.com",
+                    PhoneNumber = "22222222",
+                    NormalizedUserName = "test2@testmail.com",
+                    Email = "test2@testmail.com",
+                    NormalizedEmail = "test2@testmail.com",
+                    EmailConfirmed = true,
+                    LockoutEnabled = false,
+                    SecurityStamp = Guid.NewGuid().ToString()
+                };
+
                 var roleStore = new RoleStore<IdentityRole>(_context);
 
                 if (!_context.Roles.Any(r => r.Name == "admin"))
@@ -99,14 +124,23 @@ namespace AsyncFitness.Web
                     await roleStore.CreateAsync(new IdentityRole { Name = "admin", NormalizedName = "admin" });
                 }
 
-                if (!_context.Users.Any(u => u.UserName == user.UserName))
+                if (!_context.Users.Any(u => u.UserName == userOne.UserName))
                 {
                     var password = new PasswordHasher<AsyncFitnessUser>();
-                    var hashed = password.HashPassword(user, "Hej123!");
-                    user.PasswordHash = hashed;
+                    var hashed = password.HashPassword(userOne, "Hej123!");
+                    userOne.PasswordHash = hashed;
                     var userStore = new UserStore<AsyncFitnessUser>(_context);
-                    await userStore.CreateAsync(user);
-                    await userStore.AddToRoleAsync(user, "admin");
+                    await userStore.CreateAsync(userOne);
+                    await userStore.AddToRoleAsync(userOne, "admin");
+                }
+                if (!_context.Users.Any(u => u.UserName == userTwo.UserName))
+                {
+                    var password = new PasswordHasher<AsyncFitnessUser>();
+                    var hashed = password.HashPassword(userTwo, "Hej456!");
+                    userTwo.PasswordHash = hashed;
+                    var userStore = new UserStore<AsyncFitnessUser>(_context);
+                    await userStore.CreateAsync(userTwo);
+                    await userStore.AddToRoleAsync(userTwo, "admin");
                 }
 
                 await _context.SaveChangesAsync();
@@ -181,14 +215,13 @@ namespace AsyncFitness.Web
                     return;
                 }
 
-                List<Customer> tempList = new List<Customer>();
-                var customer = context.FitnessCustomer.Where(c => c.Email == "test@testmail.com");
-                tempList.Add(customer.First());
+                var customerOne = context.FitnessCustomer.Where(c => c.Email == "test@testmail.com");
+                var customerTwo = context.FitnessCustomer.Where(c => c.Email == "test2@testmail.com");
 
                 context.FitnessSubscription.AddRange(
                     new Subscription()
                     {
-                        Subscribers = tempList,
+                        Subscribers = new List<Customer>(customerOne),
                         IsGroupFitness = true,
                         Cost = 50,
                         Description = "Dette er et test-abonnement",
@@ -196,7 +229,7 @@ namespace AsyncFitness.Web
                     },
                     new Subscription()
                     {
-                        Subscribers = null,
+                        Subscribers = new List<Customer>(customerTwo),
                         IsGroupFitness = false,
                         Cost = 25,
                         Description = "Dette er et andet abonnement",
@@ -314,6 +347,20 @@ namespace AsyncFitness.Web
                         Concept = context.FitnessConcept.Where(c => c.Name == "Concept Two").First(),
                         Start = new DateTime(2022, 10, 4, 20, 0, 0),
                         End = new DateTime(2022, 10, 4, 21, 0, 0)
+                    },
+                    new GroupFitnessClass
+                    {
+                        Location = context.FitnessLocation.Where(c => c.Name == "Holdsal 1").First(),
+                        Concept = context.FitnessConcept.Where(c => c.Name == "Concept One").First(),
+                        Start = new DateTime(2022, 10, 5, 20, 0, 0),
+                        End = new DateTime(2022, 10, 5, 21, 0, 0)
+                    },
+                    new GroupFitnessClass
+                    {
+                        Location = context.FitnessLocation.Where(c => c.Name == "Holdsal 2").First(),
+                        Concept = context.FitnessConcept.Where(c => c.Name == "Concept Two").First(),
+                        Start = new DateTime(2022, 10, 5, 20, 0, 0),
+                        End = new DateTime(2022, 10, 5, 21, 0, 0)
                     }
                 ); ;
 
@@ -330,6 +377,8 @@ namespace AsyncFitness.Web
             {
                 var class1 = context.FitnessClass.Include(c => c.Instructors).Include(p => p.BookedParticipants).Where(g => g.Id == 1).First();
                 var class2 = context.FitnessClass.Include(c => c.Instructors).Include(p => p.BookedParticipants).Where(g => g.Id == 2).First();
+                var class3 = context.FitnessClass.Include(c => c.Instructors).Include(p => p.BookedParticipants).Where(g => g.Id == 3).First();
+                var class4 = context.FitnessClass.Include(c => c.Instructors).Include(p => p.BookedParticipants).Where(g => g.Id == 4).First();
 
                 if (class1.BookedParticipants.Count == 0 && class1.Instructors.Count == 0 && class1 != null)
                 {
@@ -345,6 +394,20 @@ namespace AsyncFitness.Web
                     context.SaveChanges();
                 }
 
+                if (class3.BookedParticipants.Count == 0 && class3.Instructors.Count == 0 & class3 != null)
+                {
+                    class3.BookedParticipants.Add(context.FitnessCustomer.Where(c => c.Id == 2).First());
+                    class3.Instructors.Add(context.FitnessTrainer.First());
+                    context.SaveChanges();
+                }
+
+                if (class4.BookedParticipants.Count == 0 && class4.Instructors.Count == 0 & class4 != null)
+                {
+                    class4.BookedParticipants.Add(context.FitnessCustomer.Where(c => c.Id == 2).First());
+                    class4.Instructors.Add(context.FitnessTrainer.First());
+                    context.SaveChanges();
+                }
+
                 var fitnessCenter = context.FitnessCenter.Include(c => c.GymLeader).Include(d => d.Facilities).Include(a => a.AvailableConcepts).First();
 
                 if (fitnessCenter.AvailableConcepts.Count == 0)
@@ -353,7 +416,6 @@ namespace AsyncFitness.Web
                     fitnessCenter.AvailableConcepts.Add(context.FitnessConcept.Find(2));
                     context.SaveChanges();
                 }
-
             }
         }
     }
