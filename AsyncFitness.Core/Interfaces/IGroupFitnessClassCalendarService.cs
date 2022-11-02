@@ -1,4 +1,5 @@
-﻿using AsyncFitness.Core.DTOs.GroupFitnessClassDTOs;
+﻿using AsyncFitness.Core.Datastructures;
+using AsyncFitness.Core.DTOs.GroupFitnessClassDTOs;
 using AsyncFitness.Core.Models.User;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,6 @@ namespace AsyncFitness.Core.Interfaces
 {
     public interface IGroupFitnessClassCalendarService
     {
-        Task<IEnumerable<GroupFitnessClassBookingCalendarDto>> LoadCalendarWeekAsync(DateTime date, Customer customer);
+        Task<GroupFitnessClassCalendarWeekDto> LoadCalendarWeekAsync(DateTime date, Customer customer);
     }
 }

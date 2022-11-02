@@ -28,6 +28,7 @@ namespace AsyncFitness.Infrastructure.DataServices
 
                 throw new NotImplementedException();
         }
+
         private DateTime[] GetWeekStartAndEnd(DateTime date)
         {
             int weekOfYear = ISOWeek.GetWeekOfYear(DateTime.Now);
