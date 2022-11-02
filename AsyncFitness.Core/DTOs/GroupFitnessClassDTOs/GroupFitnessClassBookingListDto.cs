@@ -8,6 +8,7 @@ namespace AsyncFitness.Core.DTOs.GroupFitnessClassDTOs
 {
     public class GroupFitnessClassBookingListDto
     {
+        public int GroupFitnessClassId { get; set; }
         public string ConceptName { get; set; }
         public string LocationName { get; set; }
         public IEnumerable<string> InstructorNames { get; set; }

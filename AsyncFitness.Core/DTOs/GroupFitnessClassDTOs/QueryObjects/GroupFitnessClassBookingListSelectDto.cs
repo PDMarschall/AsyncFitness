@@ -15,6 +15,7 @@ namespace AsyncFitness.Core.DTOs.GroupFitnessClassDTOs.QueryObjects
         {
             return fitnessClasses.Where(c => c.BookedParticipants.Contains(customer)).Select(groupfitnessclass => new GroupFitnessClassBookingListDto
             {
+                GroupFitnessClassId = groupfitnessclass.Id,
                 ConceptName = groupfitnessclass.Concept.Name,
                 LocationName = groupfitnessclass.Location.Name,
                 InstructorNames = groupfitnessclass.Instructors.Select(i => i.FirstName + " " + i.LastName),
