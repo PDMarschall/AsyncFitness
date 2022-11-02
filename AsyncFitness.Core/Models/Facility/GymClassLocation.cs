@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.Models.Facility
 {
-    public class GymLocation
+    public class GymClassLocation
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

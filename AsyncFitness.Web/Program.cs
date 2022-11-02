@@ -104,7 +104,7 @@ namespace AsyncFitness.Web
             builder.Services.AddTransient<IRepository<Gym>, GymRepository>();
             builder.Services.AddTransient<IRepository<GymClass>, GymClassRepository>();
             builder.Services.AddTransient<IRepository<GymClassConcept>, GymClassConceptRepository>();
-            builder.Services.AddTransient<IRepository<GymLocation>, GymLocationRepository>();
+            builder.Services.AddTransient<IRepository<GymClassLocation>, GymLocationRepository>();
 
             builder.Services.AddTransient<IGymClassBookingService, GymClassBookingService>();
             builder.Services.AddTransient<IGymClassScheduleService, GymClassScheduleService>();

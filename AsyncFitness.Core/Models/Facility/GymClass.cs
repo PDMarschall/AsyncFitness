@@ -20,7 +20,7 @@ namespace AsyncFitness.Core.Models.Facility
         public List<Trainer> Instructors { get; set; } = new List<Trainer>();
 
         [Required]
-        public GymLocation Location { get; set; } = new GymLocation();
+        public GymClassLocation Location { get; set; } = new GymClassLocation();
 
         [Required]
         public GymClassConcept Concept { get; set; } = new GymClassConcept();

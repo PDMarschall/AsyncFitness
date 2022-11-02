@@ -22,7 +22,7 @@ internal class GroupFitnessClassCalendarTests
     private GymClassCalendarWeek _calendar;
     private GymClass[] _testClasses;
     private GymClassConcept _fitnessConcept;
-    private GymLocation _fitnessLocation;
+    private GymClassLocation _fitnessLocation;
     private Gym _fitnessCenter;
 
     public GroupFitnessClassCalendarTests()
@@ -47,7 +47,7 @@ internal class GroupFitnessClassCalendarTests
         _fitnessCenter = new Gym { Name = "Viborgvej Centeret" };
         _calendar = new GymClassCalendarWeek(new DateOnly(2022, 10, 4));
         _fitnessConcept = new GymClassConcept { Name = "TestConcept", Description = "Dette er et test koncept og varer en time.", Duration = new TimeSpan(1, 0, 0) };
-        _fitnessLocation = new GymLocation { Name = "Holdsal 1", Center = _fitnessCenter, Capacity = 30 };
+        _fitnessLocation = new GymClassLocation { Name = "Holdsal 1", Center = _fitnessCenter, Capacity = 30 };
         _testClasses = new GymClass[]
         {
             new GymClass{Id = 1,Concept = _fitnessConcept,Location = _fitnessLocation,Start = new DateTime(2022, 10, 4, 20, 0, 0),End = new DateTime(2022, 10, 4, 21, 0, 0)},

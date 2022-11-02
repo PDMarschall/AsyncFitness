@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.Extensions
 {
-    public static class GroupFitnessClassExtensions
+    public static class GymClassExtensions
     {
         public static void GuardAgainstNull(this GymClass fitnessClass)
         {
             if (fitnessClass == null)
             {
-                throw new GroupFitnessClassException("GroupFitnessClass cannot be null.");
+                throw new GymClassException("GroupFitnessClass cannot be null.");
             }
         }
 
@@ -22,11 +22,11 @@ namespace AsyncFitness.Core.Extensions
         {
             if (!fitnessClass.IsValidTimeSlot())
             {
-                throw new GroupFitnessClassException($"GroupFitnessClass ID:{fitnessClass.Id} invalid Start and End Times. {fitnessClass.Start.ToShortTimeString()} - {fitnessClass.End.ToShortTimeString()}");
+                throw new GymClassException($"GroupFitnessClass ID:{fitnessClass.Id} invalid Start and End Times. {fitnessClass.Start.ToShortTimeString()} - {fitnessClass.End.ToShortTimeString()}");
             }
             if (!fitnessClass.IsValidDuration())
             {
-                throw new GroupFitnessClassException($"GroupFitnessClass ID:{fitnessClass.Id} is not allocated enough time for its GroupFitnessConcept. Concept Duration: {fitnessClass.Concept.Duration}. Allocated GroupfitnessClass Duration: {fitnessClass.End - fitnessClass.Start}");
+                throw new GymClassException($"GroupFitnessClass ID:{fitnessClass.Id} is not allocated enough time for its GroupFitnessConcept. Concept Duration: {fitnessClass.Concept.Duration}. Allocated GroupfitnessClass Duration: {fitnessClass.End - fitnessClass.Start}");
             }
 
         }
@@ -35,7 +35,7 @@ namespace AsyncFitness.Core.Extensions
         {
             if (!fitnessClass.IsValidCapacity())
             {
-                throw new GroupFitnessClassException($"GroupFitnessClass ID:{fitnessClass.Id} has too many bookings. Capacity: {fitnessClass.Location.Capacity}, Bookings: {fitnessClass.BookedParticipants.Count}");
+                throw new GymClassException($"GroupFitnessClass ID:{fitnessClass.Id} has too many bookings. Capacity: {fitnessClass.Location.Capacity}, Bookings: {fitnessClass.BookedParticipants.Count}");
             }
         }
         

@@ -18,7 +18,7 @@ namespace AsyncFitness.Infrastructure.DbContexts
         #region FacilityModelClasses
         public DbSet<GymClass> FitnessClass { get; set; }
         public DbSet<GymClassConcept> FitnessConcept { get; set; }
-        public DbSet<GymLocation> FitnessLocation { get; set; }
+        public DbSet<GymClassLocation> FitnessLocation { get; set; }
         public DbSet<Gym> FitnessCenter { get; set; }
         #endregion
 

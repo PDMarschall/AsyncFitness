@@ -84,7 +84,7 @@ namespace AsyncFitness.Core.Datastructures
         /// </summary>
         /// <param name="fitnessLocation">The GroupFitnessLocation to filter according to.</param>
         /// <returns>The GroupFitnessClasses of the GroupFitnessClassCalendar taking place at the GroupFitnessLocation.</returns>
-        public IEnumerable<GymClass> GetClasses(GymLocation fitnessLocation)
+        public IEnumerable<GymClass> GetClasses(GymClassLocation fitnessLocation)
         {
             List<GymClass> locationClasses = new List<GymClass>();
             for (int i = 0; i < _calendarContainer.Length; i++)
@@ -218,7 +218,7 @@ namespace AsyncFitness.Core.Datastructures
         {
             if (_calendarContainer[GetClassIndex(fitnessClass)].Contains(fitnessClass))
             {
-                throw new GroupFitnessClassException($"GroupFitnessClass Id: {fitnessClass.Id}, Concept: {fitnessClass.Concept.Name} is already contained in this collection.");
+                throw new GymClassException($"GroupFitnessClass Id: {fitnessClass.Id}, Concept: {fitnessClass.Concept.Name} is already contained in this collection.");
             }
         }
 
@@ -226,7 +226,7 @@ namespace AsyncFitness.Core.Datastructures
         {
             if (ISOWeek.GetWeekOfYear(fitnessClass.Start) != CalendarWeekNumber)
             {
-                throw new GroupFitnessClassException($"GroupFitnessClass Id: {fitnessClass.Id}, Date: {fitnessClass.Start.Date} did not match the specified week number for the calendar.");
+                throw new GymClassException($"GroupFitnessClass Id: {fitnessClass.Id}, Date: {fitnessClass.Start.Date} did not match the specified week number for the calendar.");
             }
         }
 

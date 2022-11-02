@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Infrastructure.Repository
 {
-    public class GymLocationRepository : GenericRepositoryBase<GymLocation>
+    public class GymLocationRepository : GenericRepositoryBase<GymClassLocation>
     {
         public GymLocationRepository(FitnessDbContext context) : base(context)
         {

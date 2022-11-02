@@ -274,13 +274,13 @@ namespace AsyncFitness.Web
                 }
 
                 context.FitnessLocation.AddRange(
-                    new GymLocation
+                    new GymClassLocation
                     {
                         Name = "Holdsal 1",
                         Capacity = 30,
                         Center = context.FitnessCenter.Where(c => c.Name == "Testcenter").First()
                     },
-                    new GymLocation
+                    new GymClassLocation
                     {
                         Name = "Holdsal 2",
                         Capacity = 15,
