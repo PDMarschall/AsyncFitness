@@ -13,7 +13,7 @@ namespace AsyncFitness.Infrastructure.Repository
 {
     public class TrainerRepository : GenericRepositoryBase<Trainer>
     {
-        public TrainerRepository(FitnessContext context) : base(context)
+        public TrainerRepository(FitnessDbContext context) : base(context)
         {
 
         }

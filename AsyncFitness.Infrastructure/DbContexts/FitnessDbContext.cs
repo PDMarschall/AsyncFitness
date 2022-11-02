@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AsyncFitness.Infrastructure.DbContexts
 {
-    public class FitnessContext : DbContext
+    public class FitnessDbContext : DbContext
     {
         #region UserModelClasses
         public DbSet<Customer> FitnessCustomer { get; set; }
@@ -16,13 +16,13 @@ namespace AsyncFitness.Infrastructure.DbContexts
         #endregion
 
         #region FacilityModelClasses
-        public DbSet<GroupFitnessClass> FitnessClass { get; set; }
-        public DbSet<GroupFitnessConcept> FitnessConcept { get; set; }
-        public DbSet<GroupFitnessLocation> FitnessLocation { get; set; }
-        public DbSet<FitnessCenter> FitnessCenter { get; set; }
+        public DbSet<GymClass> FitnessClass { get; set; }
+        public DbSet<GymClassConcept> FitnessConcept { get; set; }
+        public DbSet<GymLocation> FitnessLocation { get; set; }
+        public DbSet<Gym> FitnessCenter { get; set; }
         #endregion
 
-        public FitnessContext(DbContextOptions<FitnessContext> options)
+        public FitnessDbContext(DbContextOptions<FitnessDbContext> options)
     : base(options)
         {
 
@@ -66,17 +66,17 @@ namespace AsyncFitness.Infrastructure.DbContexts
 
         private void ConfigureFitnessCenterClass(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<FitnessCenter>().HasMany(f => f.Facilities).WithOne(c => c.Center);
-            modelBuilder.Entity<FitnessCenter>().HasMany(f => f.AvailableConcepts).WithMany(c => c.CentersWithConcept).UsingEntity(t => t.ToTable("FitnessConceptAtCenter"));
-            modelBuilder.Entity<FitnessCenter>(entity => entity.HasIndex(e => e.Name).IsUnique());
+            modelBuilder.Entity<Gym>().HasMany(f => f.Facilities).WithOne(c => c.Center);
+            modelBuilder.Entity<Gym>().HasMany(f => f.AvailableConcepts).WithMany(c => c.CentersWithConcept).UsingEntity(t => t.ToTable("FitnessConceptAtCenter"));
+            modelBuilder.Entity<Gym>(entity => entity.HasIndex(e => e.Name).IsUnique());
         }
 
         private void ConfigureGroupFitnessClass(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<GroupFitnessClass>().HasMany(c => c.BookedParticipants).WithMany(s => s.BookedClasses).UsingEntity(t => t.ToTable("FitnessCustomerClassBooking"));
-            modelBuilder.Entity<GroupFitnessClass>().HasMany(c => c.Instructors).WithMany(s => s.ClassesByTrainer).UsingEntity(t => t.ToTable("FitnessTrainerClassBooking"));
-            modelBuilder.Entity<GroupFitnessClass>().HasOne(c => c.Location).WithMany(s => s.Classes);
-            modelBuilder.Entity<GroupFitnessClass>().HasOne(c => c.Concept).WithMany(s => s.ClassesWithConcept);
+            modelBuilder.Entity<GymClass>().HasMany(c => c.BookedParticipants).WithMany(s => s.BookedClasses).UsingEntity(t => t.ToTable("FitnessCustomerClassBooking"));
+            modelBuilder.Entity<GymClass>().HasMany(c => c.Instructors).WithMany(s => s.ClassesByTrainer).UsingEntity(t => t.ToTable("FitnessTrainerClassBooking"));
+            modelBuilder.Entity<GymClass>().HasOne(c => c.Location).WithMany(s => s.Classes);
+            modelBuilder.Entity<GymClass>().HasOne(c => c.Concept).WithMany(s => s.ClassesWithConcept);
         }
     }
 }

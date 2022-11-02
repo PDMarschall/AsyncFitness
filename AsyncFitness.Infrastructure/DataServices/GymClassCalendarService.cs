@@ -1,4 +1,5 @@
-﻿using AsyncFitness.Core.DTOs.GroupFitnessClassDTOs;
+﻿using AsyncFitness.Core.Datastructures;
+using AsyncFitness.Core.DTOs.GymClassDTOs;
 using AsyncFitness.Core.Interfaces;
 using AsyncFitness.Core.Models.User;
 using AsyncFitness.Infrastructure.DbContexts;
@@ -11,16 +12,16 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Infrastructure.DataServices
 {
-    internal class GroupFitnessClassCalendarService : IGroupFitnessClassCalendarService
+    internal class GymClassCalendarService : IGymClassCalendarService
     {
-        private readonly FitnessContext _fitnessContext;
+        private readonly FitnessDbContext _fitnessContext;
 
-        public GroupFitnessClassCalendarService(FitnessContext fitnessContext)
+        public GymClassCalendarService(FitnessDbContext fitnessContext)
         {
             _fitnessContext = fitnessContext;
         }
 
-        public Task<IEnumerable<GroupFitnessClassBookingCalendarDto>> LoadCalendarWeekAsync(DateTime date, Customer customer)
+        public async Task<GymClassCalendarWeekDto> LoadCalendarWeekAsync(DateTime date, Customer customer)
         {
             DateTime[] Week = GetWeekStartAndEnd(date);
 

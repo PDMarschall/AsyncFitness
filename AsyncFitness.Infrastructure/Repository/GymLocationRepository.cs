@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Infrastructure.Repository
 {
-    public class FitnessCenterRepository : GenericRepositoryBase<FitnessCenter>
+    public class GymLocationRepository : GenericRepositoryBase<GymLocation>
     {
-        public FitnessCenterRepository(FitnessContext context) : base(context)
+        public GymLocationRepository(FitnessDbContext context) : base(context)
         {
         }
 

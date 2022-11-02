@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.Models.Facility
 {
-    public class GroupFitnessLocation
+    public class GymLocation
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -20,8 +20,8 @@ namespace AsyncFitness.Core.Models.Facility
         public int Capacity { get; set; }
 
         [Required]
-        public FitnessCenter Center { get; set; }
+        public Gym Center { get; set; }
 
-        public List<GroupFitnessClass> Classes { get; set; } = new List<GroupFitnessClass>();
+        public List<GymClass> Classes { get; set; } = new List<GymClass>();
     }
 }

@@ -12,11 +12,11 @@ namespace AsyncFitness.Infrastructure.Repository
 {
     public abstract class GenericRepositoryBase<T> : IRepository<T> where T : class
     {
-        protected readonly FitnessContext _context;
+        protected readonly FitnessDbContext _context;
 
         public abstract int Count { get; }
 
-        public GenericRepositoryBase(FitnessContext context)
+        public GenericRepositoryBase(FitnessDbContext context)
         {
             _context = context;
         }

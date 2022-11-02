@@ -1,4 +1,4 @@
-﻿using AsyncFitness.Core.DTOs.GroupFitnessClassDTOs;
+﻿using AsyncFitness.Core.DTOs.GymClassDTOs;
 using AsyncFitness.Core.Models.Facility;
 using AsyncFitness.Core.Models.User;
 using System;
@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.Interfaces
 {
-    public interface IGroupFitnessClassBookingService
+    public interface IGymClassBookingService
     {
         Task<bool> VerifyUserBooking(int id, string email);
-        Task<GroupFitnessClassBookingListDto> LoadClassAsync(int id);
-        Task<IEnumerable<GroupFitnessClassBookingListDto>> LoadClassesAsync(Customer customer);        
-        Task<IEnumerable<GroupFitnessClass>> FilterClassesAsync(Dictionary<string, string> criteria);
+        Task<GymClassBookingOverviewDto> LoadClassAsync(int id);
+        Task<IEnumerable<GymClassBookingOverviewDto>> LoadClassesAsync(Customer customer);        
+        Task<IEnumerable<GymClass>> FilterClassesAsync(Dictionary<string, string> criteria);
         Task<int> CancelBooking(int id, string email);
         Task SaveClassesAsync();
     }

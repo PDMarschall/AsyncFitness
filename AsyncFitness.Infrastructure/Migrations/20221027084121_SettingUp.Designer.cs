@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AsyncFitness.Infrastructure.Migrations
 {
-    [DbContext(typeof(FitnessContext))]
+    [DbContext(typeof(FitnessDbContext))]
     [Migration("20221027084121_SettingUp")]
     partial class SettingUp
     {

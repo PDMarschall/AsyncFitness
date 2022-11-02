@@ -14,6 +14,6 @@ namespace AsyncFitness.Core.Models.User
         public Subscription? Subscription { get; set; }
         public Trainer? Trainer { get; set; }
 
-        public List<GroupFitnessClass> BookedClasses { get; set; }
+        public List<GymClass> BookedClasses { get; set; }
     }
 }

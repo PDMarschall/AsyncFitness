@@ -9,7 +9,7 @@ using AsyncFitness.Core.Models.User;
 
 namespace AsyncFitness.Core.Models.Facility
 {
-    public class GroupFitnessClass
+    public class GymClass
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -20,10 +20,10 @@ namespace AsyncFitness.Core.Models.Facility
         public List<Trainer> Instructors { get; set; } = new List<Trainer>();
 
         [Required]
-        public GroupFitnessLocation Location { get; set; } = new GroupFitnessLocation();
+        public GymLocation Location { get; set; } = new GymLocation();
 
         [Required]
-        public GroupFitnessConcept Concept { get; set; } = new GroupFitnessConcept();
+        public GymClassConcept Concept { get; set; } = new GymClassConcept();
 
         [Required]
         public DateTime Start { get; set; }

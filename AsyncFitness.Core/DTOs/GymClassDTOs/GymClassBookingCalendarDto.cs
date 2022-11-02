@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AsyncFitness.Core.DTOs.GroupFitnessClassDTOs
+namespace AsyncFitness.Core.DTOs.GymClassDTOs
 {
-    public class GroupFitnessClassBookingCalendarDto
+    public class GymClassBookingCalendarDto
     {
         public int GroupFitnessClassId { get; set; }
         public string ConceptName { get; set; }

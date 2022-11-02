@@ -1,4 +1,4 @@
-using AsyncFitness.Core.DTOs.GroupFitnessClassDTOs;
+using AsyncFitness.Core.DTOs.GymClassDTOs;
 using AsyncFitness.Core.Interfaces;
 using AsyncFitness.Core.Models.Facility;
 using Microsoft.AspNetCore.Mvc;
@@ -9,11 +9,11 @@ namespace AsyncFitness.Web.Areas.Fitness.Pages
 {
     public class CancelModel : PageModel
     {
-        private readonly IGroupFitnessClassBookingService _bookingService;
+        private readonly IGymClassBookingService _bookingService;
 
-        public GroupFitnessClassBookingListDto BookingToConfirmCancel { get; set; }
-        public GroupFitnessClass BookingToCancel { get; set; }
-        public CancelModel(IGroupFitnessClassBookingService bookingService)
+        public GymClassBookingOverviewDto BookingToConfirmCancel { get; set; }
+        public GymClass BookingToCancel { get; set; }
+        public CancelModel(IGymClassBookingService bookingService)
         {
             _bookingService = bookingService;
         }

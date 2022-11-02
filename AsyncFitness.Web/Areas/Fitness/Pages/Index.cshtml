@@ -2,7 +2,7 @@
 @model AsyncFitness.Web.Areas.Fitness.Pages.IndexModel
 @using AsyncFitness.Core.Models.Facility
 @using AsyncFitness.Core.Models.User
-@using AsyncFitness.Core.DTOs.GroupFitnessClassDTOs
+@using AsyncFitness.Core.DTOs.GymClassDTOs
 @{
     ViewData["Title"] = "Overview";
 }
@@ -30,7 +30,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (GroupFitnessClassBookingListDto item in Model.UserBookings)
+        @foreach (GymClassBookingOverviewDto item in Model.UserBookings)
         {
 
             <tr>

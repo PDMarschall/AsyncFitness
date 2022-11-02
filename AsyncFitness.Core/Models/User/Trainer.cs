@@ -12,7 +12,7 @@ namespace AsyncFitness.Core.Models.User
     {
         public List<Customer> Clients { get; set; } = new List<Customer>();
 
-        public List<GroupFitnessConcept> Certifications { get; set; }
-        public List<GroupFitnessClass> ClassesByTrainer { get; set; }
+        public List<GymClassConcept> Certifications { get; set; }
+        public List<GymClass> ClassesByTrainer { get; set; }
     }
 }

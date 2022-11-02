@@ -10,7 +10,7 @@ using AsyncFitness.Core.Datastructures;
 
 namespace AsyncFitness.Core.Models.Facility
 {
-    public class FitnessCenter
+    public class Gym
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -19,8 +19,8 @@ namespace AsyncFitness.Core.Models.Facility
 
         public Admin GymLeader { get; set; }
 
-        public List<GroupFitnessLocation> Facilities { get; set; } = new List<GroupFitnessLocation>();
+        public List<GymLocation> Facilities { get; set; } = new List<GymLocation>();
 
-        public List<GroupFitnessConcept> AvailableConcepts { get; set; } = new List<GroupFitnessConcept>();
+        public List<GymClassConcept> AvailableConcepts { get; set; } = new List<GymClassConcept>();
     }
 }

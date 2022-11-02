@@ -11,26 +11,26 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Infrastructure.Repository
 {
-    public class GroupFitnessClassRepository : GenericRepositoryBase<GroupFitnessClass>
+    public class GymClassRepository : GenericRepositoryBase<GymClass>
     {
-        public GroupFitnessClassRepository(FitnessContext context) : base(context)
+        public GymClassRepository(FitnessDbContext context) : base(context)
         {
         }
 
         public override int Count => _context.FitnessClass.Count();
 
-        public override IEnumerable<GroupFitnessClass> Find(Expression<Func<GroupFitnessClass, bool>> predicate)
+        public override IEnumerable<GymClass> Find(Expression<Func<GymClass, bool>> predicate)
         {
-            return _context.Set<GroupFitnessClass>().AsQueryable<GroupFitnessClass>().Where(predicate)
+            return _context.Set<GymClass>().AsQueryable<GymClass>().Where(predicate)
                 .Include(c => c.BookedParticipants)
                 .Include(f => f.Concept)
                 .Include(p => p.Instructors)
                 .Include(l => l.Location).ThenInclude(t => t.Center);
         }
 
-        public override async Task<IEnumerable<GroupFitnessClass>> FindAsync(Expression<Func<GroupFitnessClass, bool>> predicate)
+        public override async Task<IEnumerable<GymClass>> FindAsync(Expression<Func<GymClass, bool>> predicate)
         {
-            return await _context.Set<GroupFitnessClass>().AsQueryable<GroupFitnessClass>().Where(predicate)
+            return await _context.Set<GymClass>().AsQueryable<GymClass>().Where(predicate)
                 .Include(c => c.BookedParticipants)
                 .Include(f => f.Concept)
                 .Include(p => p.Instructors)
