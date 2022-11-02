@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.Datastructures
 {
-    public class GroupFitnessClassCalendarWeekDto : GenericDomainCalendarWeek<GymClassBookingCalendarDto>
+    public class GymClassCalendarWeekDto : GenericDomainCalendarWeek<GymClassBookingCalendarDto>
     {
-        public GroupFitnessClassCalendarWeekDto(DateOnly dateFromWeek) : base(dateFromWeek)
+        public GymClassCalendarWeekDto(DateOnly dateFromWeek) : base(dateFromWeek)
         {
         }
 

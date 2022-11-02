@@ -1,4 +1,5 @@
-﻿using AsyncFitness.Core.DTOs.GymClassDTOs;
+﻿using AsyncFitness.Core.Datastructures;
+using AsyncFitness.Core.DTOs.GymClassDTOs;
 using AsyncFitness.Core.Interfaces;
 using AsyncFitness.Core.Models.User;
 using AsyncFitness.Infrastructure.DbContexts;
@@ -20,7 +21,7 @@ namespace AsyncFitness.Infrastructure.DataServices
             _fitnessContext = fitnessContext;
         }
 
-        public Task<IEnumerable<GymClassBookingCalendarDto>> LoadCalendarWeekAsync(DateTime date, Customer customer)
+        public async Task<GymClassCalendarWeekDto> LoadCalendarWeekAsync(DateTime date, Customer customer)
         {
             DateTime[] Week = GetWeekStartAndEnd(date);
 
