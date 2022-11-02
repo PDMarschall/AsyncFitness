@@ -19,11 +19,11 @@ internal class Program
 
 internal class GroupFitnessClassCalendarTests
 {
-    private GroupFitnessClassCalendarWeek _calendar;
-    private GroupFitnessClass[] _testClasses;
-    private GroupFitnessConcept _fitnessConcept;
-    private GroupFitnessLocation _fitnessLocation;
-    private FitnessCenter _fitnessCenter;
+    private GymClassCalendarWeek _calendar;
+    private GymClass[] _testClasses;
+    private GymClassConcept _fitnessConcept;
+    private GymLocation _fitnessLocation;
+    private Gym _fitnessCenter;
 
     public GroupFitnessClassCalendarTests()
     {
@@ -44,45 +44,45 @@ internal class GroupFitnessClassCalendarTests
 
     public void Setup()
     {
-        _fitnessCenter = new FitnessCenter { Name = "Viborgvej Centeret" };
-        _calendar = new GroupFitnessClassCalendarWeek(new DateOnly(2022, 10, 4));
-        _fitnessConcept = new GroupFitnessConcept { Name = "TestConcept", Description = "Dette er et test koncept og varer en time.", Duration = new TimeSpan(1, 0, 0) };
-        _fitnessLocation = new GroupFitnessLocation { Name = "Holdsal 1", Center = _fitnessCenter, Capacity = 30 };
-        _testClasses = new GroupFitnessClass[]
+        _fitnessCenter = new Gym { Name = "Viborgvej Centeret" };
+        _calendar = new GymClassCalendarWeek(new DateOnly(2022, 10, 4));
+        _fitnessConcept = new GymClassConcept { Name = "TestConcept", Description = "Dette er et test koncept og varer en time.", Duration = new TimeSpan(1, 0, 0) };
+        _fitnessLocation = new GymLocation { Name = "Holdsal 1", Center = _fitnessCenter, Capacity = 30 };
+        _testClasses = new GymClass[]
         {
-            new GroupFitnessClass{Id = 1,Concept = _fitnessConcept,Location = _fitnessLocation,Start = new DateTime(2022, 10, 4, 20, 0, 0),End = new DateTime(2022, 10, 4, 21, 0, 0)},
-            new GroupFitnessClass{Id = 2,Concept = _fitnessConcept,Location = _fitnessLocation,Start = new DateTime(2022, 10, 4, 21, 0, 0),End = new DateTime(2022, 10, 4, 22, 0, 0)},
-            new GroupFitnessClass{Id = 3,Concept = _fitnessConcept,Location = _fitnessLocation,Start = new DateTime(2022, 10, 4, 19, 0, 0),End = new DateTime(2022, 10, 4, 20, 0, 0)},
-            new GroupFitnessClass{Id = 4,Concept = _fitnessConcept,Location = _fitnessLocation,Start = new DateTime(2022, 10, 5, 20, 0, 0),End = new DateTime(2022, 10, 5, 21, 0, 0)},
-            new GroupFitnessClass{Id = 5,Concept = _fitnessConcept,Location = _fitnessLocation,Start = new DateTime(2022, 10, 5, 21, 0, 0),End = new DateTime(2022, 10, 5, 22, 0, 0)},
-            new GroupFitnessClass{Id = 6,Concept = _fitnessConcept,Location = _fitnessLocation,Start = new DateTime(2022, 10, 5, 19, 0, 0),End = new DateTime(2022, 10, 5, 20, 0, 0)},
-            new GroupFitnessClass{Id = 7,Concept = _fitnessConcept,Location = _fitnessLocation,Start = new DateTime(2022, 10, 5, 19, 30, 0),End = new DateTime(2022, 10, 5, 20, 30, 0)}
+            new GymClass{Id = 1,Concept = _fitnessConcept,Location = _fitnessLocation,Start = new DateTime(2022, 10, 4, 20, 0, 0),End = new DateTime(2022, 10, 4, 21, 0, 0)},
+            new GymClass{Id = 2,Concept = _fitnessConcept,Location = _fitnessLocation,Start = new DateTime(2022, 10, 4, 21, 0, 0),End = new DateTime(2022, 10, 4, 22, 0, 0)},
+            new GymClass{Id = 3,Concept = _fitnessConcept,Location = _fitnessLocation,Start = new DateTime(2022, 10, 4, 19, 0, 0),End = new DateTime(2022, 10, 4, 20, 0, 0)},
+            new GymClass{Id = 4,Concept = _fitnessConcept,Location = _fitnessLocation,Start = new DateTime(2022, 10, 5, 20, 0, 0),End = new DateTime(2022, 10, 5, 21, 0, 0)},
+            new GymClass{Id = 5,Concept = _fitnessConcept,Location = _fitnessLocation,Start = new DateTime(2022, 10, 5, 21, 0, 0),End = new DateTime(2022, 10, 5, 22, 0, 0)},
+            new GymClass{Id = 6,Concept = _fitnessConcept,Location = _fitnessLocation,Start = new DateTime(2022, 10, 5, 19, 0, 0),End = new DateTime(2022, 10, 5, 20, 0, 0)},
+            new GymClass{Id = 7,Concept = _fitnessConcept,Location = _fitnessLocation,Start = new DateTime(2022, 10, 5, 19, 30, 0),End = new DateTime(2022, 10, 5, 20, 30, 0)}
         };
 
-        var testOne = new GroupFitnessClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 19, 0, 0), End = new DateTime(2022, 10, 4, 20, 0, 0) };
-        var testTwo = new GroupFitnessClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 20, 0, 0), End = new DateTime(2022, 10, 4, 21, 0, 0) };
+        var testOne = new GymClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 19, 0, 0), End = new DateTime(2022, 10, 4, 20, 0, 0) };
+        var testTwo = new GymClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 20, 0, 0), End = new DateTime(2022, 10, 4, 21, 0, 0) };
         var falseOne = testOne.DoubleBooking(testTwo);
 
-        testOne = new GroupFitnessClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 19, 0, 0), End = new DateTime(2022, 10, 4, 20, 0, 0) };
-        testTwo = new GroupFitnessClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 19, 30, 0), End = new DateTime(2022, 10, 4, 20, 30, 0) };
+        testOne = new GymClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 19, 0, 0), End = new DateTime(2022, 10, 4, 20, 0, 0) };
+        testTwo = new GymClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 19, 30, 0), End = new DateTime(2022, 10, 4, 20, 30, 0) };
         var TrueOne = testOne.DoubleBooking(testTwo);
 
-        testOne = new GroupFitnessClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 19, 0, 0), End = new DateTime(2022, 10, 4, 20, 0, 0) };
-        testTwo = new GroupFitnessClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 18, 30, 0), End = new DateTime(2022, 10, 4, 19, 30, 0) };
+        testOne = new GymClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 19, 0, 0), End = new DateTime(2022, 10, 4, 20, 0, 0) };
+        testTwo = new GymClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 18, 30, 0), End = new DateTime(2022, 10, 4, 19, 30, 0) };
         var TrueTwo = testOne.DoubleBooking(testTwo);
 
-        testOne = new GroupFitnessClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 19, 0, 0), End = new DateTime(2022, 10, 4, 20, 0, 0) };
-        testTwo = new GroupFitnessClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 20, 00, 0), End = new DateTime(2022, 10, 4, 21, 00, 0) };
+        testOne = new GymClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 19, 0, 0), End = new DateTime(2022, 10, 4, 20, 0, 0) };
+        testTwo = new GymClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 20, 00, 0), End = new DateTime(2022, 10, 4, 21, 00, 0) };
         var falseTwo = testTwo.DoubleBooking(testOne);
 
-        testOne = new GroupFitnessClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 19, 0, 0), End = new DateTime(2022, 10, 4, 20, 0, 0) };
-        testTwo = new GroupFitnessClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 18, 30, 0), End = new DateTime(2022, 10, 4, 19, 30, 0) };
+        testOne = new GymClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 19, 0, 0), End = new DateTime(2022, 10, 4, 20, 0, 0) };
+        testTwo = new GymClass { Id = 3, Concept = _fitnessConcept, Location = _fitnessLocation, Start = new DateTime(2022, 10, 4, 18, 30, 0), End = new DateTime(2022, 10, 4, 19, 30, 0) };
         var trueThree = testTwo.DoubleBooking(testOne);
     }
 
     public void PrintCalendar()
     {
-        foreach (GroupFitnessClass fitnessClass in _calendar)
+        foreach (GymClass fitnessClass in _calendar)
         {
             Console.WriteLine($"Class {fitnessClass.Id}: {fitnessClass.Start} - {fitnessClass.End}");
         }

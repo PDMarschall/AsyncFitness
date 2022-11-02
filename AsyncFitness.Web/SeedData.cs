@@ -37,7 +37,7 @@ namespace AsyncFitness.Web
 
         private static void EnsureDB(IServiceProvider serviceProvider)
         {
-            var domainDBContext = serviceProvider.GetRequiredService<FitnessContext>();
+            var domainDBContext = serviceProvider.GetRequiredService<FitnessDbContext>();
             domainDBContext.Database.EnsureDeleted();
             domainDBContext.Database.EnsureCreated();
 
@@ -48,9 +48,9 @@ namespace AsyncFitness.Web
 
         private static void InitializeCustomer(IServiceProvider serviceProvider)
         {
-            using (var context = new FitnessContext(
+            using (var context = new FitnessDbContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<FitnessContext>>()))
+                    DbContextOptions<FitnessDbContext>>()))
             {
                 if (context.FitnessCustomer.Any())
                 {
@@ -149,9 +149,9 @@ namespace AsyncFitness.Web
 
         private static void InitializeTrainer(IServiceProvider serviceProvider)
         {
-            using (var context = new FitnessContext(
+            using (var context = new FitnessDbContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<FitnessContext>>()))
+                    DbContextOptions<FitnessDbContext>>()))
             {
                 if (context.FitnessTrainer.Any())
                 {
@@ -177,9 +177,9 @@ namespace AsyncFitness.Web
 
         private static void InitializeAdmin(IServiceProvider serviceProvider)
         {
-            using (var context = new FitnessContext(
+            using (var context = new FitnessDbContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<FitnessContext>>()))
+                    DbContextOptions<FitnessDbContext>>()))
             {
                 if (context.FitnessAdmin.Any())
                 {
@@ -205,9 +205,9 @@ namespace AsyncFitness.Web
 
         private static void InitializeSubscription(IServiceProvider serviceProvider)
         {
-            using (var context = new FitnessContext(
+            using (var context = new FitnessDbContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<FitnessContext>>()))
+                    DbContextOptions<FitnessDbContext>>()))
             {
 
                 if (context.FitnessSubscription.Any())
@@ -244,15 +244,15 @@ namespace AsyncFitness.Web
 
         private static void InitializeFitnessCenter(IServiceProvider serviceProvider)
         {
-            using (var context = new FitnessContext(
+            using (var context = new FitnessDbContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<FitnessContext>>()))
+                    DbContextOptions<FitnessDbContext>>()))
             {
                 if (context.FitnessCenter.Any())
                 {
                     return;
                 }
-                context.FitnessCenter.Add(new FitnessCenter
+                context.FitnessCenter.Add(new Gym
                 {
                     Name = "Testcenter",
                     GymLeader = context.FitnessAdmin.Where(c => c.FirstName == "Niels").First()
@@ -264,9 +264,9 @@ namespace AsyncFitness.Web
 
         private static void InitializeFitnessLocations(IServiceProvider serviceProvider)
         {
-            using (var context = new FitnessContext(
+            using (var context = new FitnessDbContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<FitnessContext>>()))
+                    DbContextOptions<FitnessDbContext>>()))
             {
                 if (context.FitnessLocation.Any())
                 {
@@ -274,13 +274,13 @@ namespace AsyncFitness.Web
                 }
 
                 context.FitnessLocation.AddRange(
-                    new GroupFitnessLocation
+                    new GymLocation
                     {
                         Name = "Holdsal 1",
                         Capacity = 30,
                         Center = context.FitnessCenter.Where(c => c.Name == "Testcenter").First()
                     },
-                    new GroupFitnessLocation
+                    new GymLocation
                     {
                         Name = "Holdsal 2",
                         Capacity = 15,
@@ -294,9 +294,9 @@ namespace AsyncFitness.Web
 
         private static void InitializeFitnessConcept(IServiceProvider serviceProvider)
         {
-            using (var context = new FitnessContext(
+            using (var context = new FitnessDbContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<FitnessContext>>()))
+                    DbContextOptions<FitnessDbContext>>()))
             {
                 if (context.FitnessConcept.Any())
                 {
@@ -304,13 +304,13 @@ namespace AsyncFitness.Web
                 }
 
                 context.FitnessConcept.AddRange(
-                    new GroupFitnessConcept
+                    new GymClassConcept
                     {
                         Name = "Concept One",
                         Description = "This is the first test concept",
                         Duration = new TimeSpan(1, 0, 0),
                     },
-                    new GroupFitnessConcept
+                    new GymClassConcept
                     {
                         Name = "Concept Two",
                         Description = "This is the second test concept",
@@ -324,9 +324,9 @@ namespace AsyncFitness.Web
 
         private static void InitializeFitnessClass(IServiceProvider serviceProvider)
         {
-            using (var context = new FitnessContext(
+            using (var context = new FitnessDbContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<FitnessContext>>()))
+                    DbContextOptions<FitnessDbContext>>()))
             {
                 if (context.FitnessClass.Any())
                 {
@@ -334,28 +334,28 @@ namespace AsyncFitness.Web
                 }
 
                 context.FitnessClass.AddRange(
-                    new GroupFitnessClass
+                    new GymClass
                     {
                         Location = context.FitnessLocation.Where(c => c.Name == "Holdsal 1").First(),
                         Concept = context.FitnessConcept.Where(c => c.Name == "Concept One").First(),
                         Start = new DateTime(2022, 10, 4, 20, 0, 0),
                         End = new DateTime(2022, 10, 4, 21, 0, 0)
                     },
-                    new GroupFitnessClass
+                    new GymClass
                     {
                         Location = context.FitnessLocation.Where(c => c.Name == "Holdsal 2").First(),
                         Concept = context.FitnessConcept.Where(c => c.Name == "Concept Two").First(),
                         Start = new DateTime(2022, 10, 4, 20, 0, 0),
                         End = new DateTime(2022, 10, 4, 21, 0, 0)
                     },
-                    new GroupFitnessClass
+                    new GymClass
                     {
                         Location = context.FitnessLocation.Where(c => c.Name == "Holdsal 1").First(),
                         Concept = context.FitnessConcept.Where(c => c.Name == "Concept One").First(),
                         Start = new DateTime(2022, 10, 5, 20, 0, 0),
                         End = new DateTime(2022, 10, 5, 21, 0, 0)
                     },
-                    new GroupFitnessClass
+                    new GymClass
                     {
                         Location = context.FitnessLocation.Where(c => c.Name == "Holdsal 2").First(),
                         Concept = context.FitnessConcept.Where(c => c.Name == "Concept Two").First(),
@@ -371,9 +371,9 @@ namespace AsyncFitness.Web
 
         private static void InitializeBridgeTables(IServiceProvider serviceProvider)
         {
-            using (var context = new FitnessContext(
+            using (var context = new FitnessDbContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<FitnessContext>>()))
+                    DbContextOptions<FitnessDbContext>>()))
             {
                 var class1 = context.FitnessClass.Include(c => c.Instructors).Include(p => p.BookedParticipants).Where(g => g.Id == 1).First();
                 var class2 = context.FitnessClass.Include(c => c.Instructors).Include(p => p.BookedParticipants).Where(g => g.Id == 2).First();

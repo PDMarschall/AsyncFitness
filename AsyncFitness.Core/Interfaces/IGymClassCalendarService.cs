@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.Interfaces
 {
-    public interface IGroupFitnessClassCalendarService
+    public interface IGymClassCalendarService
     {
         Task<GroupFitnessClassCalendarWeekDto> LoadCalendarWeekAsync(DateTime date, Customer customer);
     }

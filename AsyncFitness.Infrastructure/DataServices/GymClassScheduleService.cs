@@ -10,38 +10,38 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Infrastructure.DataServices
 {
-    public class GroupFitnessClassCalendarCreationService : IGroupFitnessClassCalendarCreationService
+    public class GymClassScheduleService : IGymClassScheduleService
     {
-        private readonly FitnessContext _fitnessContext;
+        private readonly FitnessDbContext _fitnessContext;
 
-        public FitnessCenter FitnessCenter { get; }
+        public Gym FitnessCenter { get; }
 
-        public GroupFitnessClassCalendarCreationService(FitnessContext fitnessContext)
+        public GymClassScheduleService(FitnessDbContext fitnessContext)
         {
             _fitnessContext = fitnessContext;
         }
 
-        public Task<List<GroupFitnessClassCalendarWeek>> GetCalendarAsync(int year)
+        public Task<List<GymClassCalendarWeek>> GetCalendarAsync(int year)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<GroupFitnessClassCalendarWeek>> GetCalendarAsync(int year, int month)
+        public Task<List<GymClassCalendarWeek>> GetCalendarAsync(int year, int month)
         {
             throw new NotImplementedException();
         }
 
-        public Task<GroupFitnessClassCalendarWeek> GetCalendarAsync(int year, int month, int week)
+        public Task<GymClassCalendarWeek> GetCalendarAsync(int year, int month, int week)
         {
             throw new NotImplementedException();
         }
 
-        public Task<GroupFitnessClassCalendarWeek> GetCalendarAsync(DateTime date)
+        public Task<GymClassCalendarWeek> GetCalendarAsync(DateTime date)
         {
             throw new NotImplementedException();
         }
 
-        public Task<GroupFitnessClassCalendarWeek> SaveCalendarAsync()
+        public Task<GymClassCalendarWeek> SaveCalendarAsync()
         {
             throw new NotImplementedException();
         }

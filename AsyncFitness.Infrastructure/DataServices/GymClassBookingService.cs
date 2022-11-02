@@ -1,5 +1,5 @@
-﻿using AsyncFitness.Core.DTOs.GroupFitnessClassDTOs;
-using AsyncFitness.Core.DTOs.GroupFitnessClassDTOs.QueryObjects;
+﻿using AsyncFitness.Core.DTOs.GymClassDTOs;
+using AsyncFitness.Core.DTOs.GymClassDTOs.QueryObjects;
 using AsyncFitness.Core.Interfaces;
 using AsyncFitness.Core.Models.Facility;
 using AsyncFitness.Core.Models.User;
@@ -13,36 +13,36 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Infrastructure.DataServices
 {
-    public class GroupFitnessClassBookingService : IGroupFitnessClassBookingService
+    public class GymClassBookingService : IGymClassBookingService
     {
-        private readonly FitnessContext _fitnessContext;
+        private readonly FitnessDbContext _fitnessContext;
 
-        public GroupFitnessClassBookingService(FitnessContext fitnessContext)
+        public GymClassBookingService(FitnessDbContext fitnessContext)
         {
             _fitnessContext = fitnessContext;
         }
 
         public async Task<int> CancelBooking(int fitnessClassId, string userEmail)
         {
-            GroupFitnessClass fitnessClass = _fitnessContext.FitnessClass.Include(c => c.BookedParticipants).First(f => f.Id ==fitnessClassId);
+            GymClass fitnessClass = _fitnessContext.FitnessClass.Include(c => c.BookedParticipants).First(f => f.Id ==fitnessClassId);
             fitnessClass.BookedParticipants.RemoveAll(c => c.Email == userEmail);
 
             return await _fitnessContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<GroupFitnessClass>> FilterClassesAsync(Dictionary<string, string> criteria)
+        public async Task<IEnumerable<GymClass>> FilterClassesAsync(Dictionary<string, string> criteria)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<GroupFitnessClassBookingListDto> LoadClassAsync(int fitnessClassId)
+        public async Task<GymClassBookingOverviewDto> LoadClassAsync(int fitnessClassId)
         {
             var fitnessQuery = _fitnessContext.FitnessClass.MapGroupFitnessClassToListDto(fitnessClassId);
 
             return await fitnessQuery.FirstAsync();
         }
 
-        public async Task<IEnumerable<GroupFitnessClassBookingListDto>> LoadClassesAsync(Customer customer)
+        public async Task<IEnumerable<GymClassBookingOverviewDto>> LoadClassesAsync(Customer customer)
         {            
             var fitnessQuery = _fitnessContext.FitnessClass.MapGroupFitnessClassToListDto(customer);
 
@@ -56,7 +56,7 @@ namespace AsyncFitness.Infrastructure.DataServices
 
         public async Task<bool> VerifyUserBooking(int fitnessClassId, string userEmail)
         {
-            GroupFitnessClass fitnessClass =  await _fitnessContext.FitnessClass.Include(c => c.BookedParticipants).FirstAsync(f => f.Id == fitnessClassId);
+            GymClass fitnessClass =  await _fitnessContext.FitnessClass.Include(c => c.BookedParticipants).FirstAsync(f => f.Id == fitnessClassId);
             Customer customer = await _fitnessContext.FitnessCustomer.Where(c => c.Email == userEmail).FirstOrDefaultAsync();
             return fitnessClass.BookedParticipants.Contains(customer);
         }

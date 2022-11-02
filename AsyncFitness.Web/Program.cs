@@ -53,7 +53,7 @@ namespace AsyncFitness.Web
             options.UseSqlServer(connectionStringIdentity));
 
             string connectionStringCore = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<FitnessContext>(options =>
+            builder.Services.AddDbContext<FitnessDbContext>(options =>
             options.UseSqlServer(connectionStringCore));
         }
 
@@ -101,13 +101,13 @@ namespace AsyncFitness.Web
             builder.Services.AddTransient<IRepository<Subscription>, SubscriptionRepository>();
             builder.Services.AddTransient<IRepository<Customer>, CustomerRepository>();
             builder.Services.AddTransient<IRepository<Trainer>, TrainerRepository>();
-            builder.Services.AddTransient<IRepository<FitnessCenter>, FitnessCenterRepository>();
-            builder.Services.AddTransient<IRepository<GroupFitnessClass>, GroupFitnessClassRepository>();
-            builder.Services.AddTransient<IRepository<GroupFitnessConcept>, GroupFitnessConceptRepository>();
-            builder.Services.AddTransient<IRepository<GroupFitnessLocation>, GroupFitnessLocationRepository>();
+            builder.Services.AddTransient<IRepository<Gym>, GymRepository>();
+            builder.Services.AddTransient<IRepository<GymClass>, GymClassRepository>();
+            builder.Services.AddTransient<IRepository<GymClassConcept>, GymClassConceptRepository>();
+            builder.Services.AddTransient<IRepository<GymLocation>, GymLocationRepository>();
 
-            builder.Services.AddTransient<IGroupFitnessClassBookingService, GroupFitnessClassBookingService>();
-            builder.Services.AddTransient<IGroupFitnessClassCalendarCreationService, GroupFitnessClassCalendarCreationService>();
+            builder.Services.AddTransient<IGymClassBookingService, GymClassBookingService>();
+            builder.Services.AddTransient<IGymClassScheduleService, GymClassScheduleService>();
         }
 
         private static void SeedDatabase(WebApplication app)

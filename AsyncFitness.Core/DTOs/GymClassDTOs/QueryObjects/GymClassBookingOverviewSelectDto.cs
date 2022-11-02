@@ -1,4 +1,4 @@
-﻿using AsyncFitness.Core.DTOs.GroupFitnessClassDTOs;
+﻿using AsyncFitness.Core.DTOs.GymClassDTOs;
 using AsyncFitness.Core.Models.Facility;
 using AsyncFitness.Core.Models.User;
 using System;
@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AsyncFitness.Core.DTOs.GroupFitnessClassDTOs.QueryObjects
+namespace AsyncFitness.Core.DTOs.GymClassDTOs.QueryObjects
 {
-    public static class GroupFitnessClassBookingListSelectDto
+    public static class GymClassBookingOverviewSelectDto
     {
-        public static IQueryable<GroupFitnessClassBookingListDto> MapGroupFitnessClassToListDto(this IQueryable<GroupFitnessClass> fitnessClasses, Customer customer)
+        public static IQueryable<GymClassBookingOverviewDto> MapGroupFitnessClassToListDto(this IQueryable<GymClass> fitnessClasses, Customer customer)
         {
-            return fitnessClasses.Where(c => c.BookedParticipants.Contains(customer)).Select(groupfitnessclass => new GroupFitnessClassBookingListDto
+            return fitnessClasses.Where(c => c.BookedParticipants.Contains(customer)).Select(groupfitnessclass => new GymClassBookingOverviewDto
             {
                 GroupFitnessClassId = groupfitnessclass.Id,
                 ConceptName = groupfitnessclass.Concept.Name,
@@ -23,9 +23,9 @@ namespace AsyncFitness.Core.DTOs.GroupFitnessClassDTOs.QueryObjects
             });
         }
 
-        public static IQueryable<GroupFitnessClassBookingListDto> MapGroupFitnessClassToListDto(this IQueryable<GroupFitnessClass> fitnessClasses, int fitnessClassId)
+        public static IQueryable<GymClassBookingOverviewDto> MapGroupFitnessClassToListDto(this IQueryable<GymClass> fitnessClasses, int fitnessClassId)
         {
-            return fitnessClasses.Where(c => c.Id == fitnessClassId).Select(groupfitnessclass => new GroupFitnessClassBookingListDto
+            return fitnessClasses.Where(c => c.Id == fitnessClassId).Select(groupfitnessclass => new GymClassBookingOverviewDto
             {
                 GroupFitnessClassId = groupfitnessclass.Id,
                 ConceptName = groupfitnessclass.Concept.Name,

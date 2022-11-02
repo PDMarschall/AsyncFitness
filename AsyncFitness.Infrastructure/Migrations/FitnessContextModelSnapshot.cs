@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AsyncFitness.Infrastructure.Migrations
 {
-    [DbContext(typeof(FitnessContext))]
+    [DbContext(typeof(FitnessDbContext))]
     partial class FitnessContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

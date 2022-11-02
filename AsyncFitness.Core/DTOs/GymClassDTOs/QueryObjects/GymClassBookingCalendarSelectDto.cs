@@ -1,4 +1,5 @@
-﻿using AsyncFitness.Core.Models.Facility;
+﻿using AsyncFitness.Core.DTOs.GymClassDTOs;
+using AsyncFitness.Core.Models.Facility;
 using AsyncFitness.Core.Models.User;
 using System;
 using System.Collections.Generic;
@@ -6,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AsyncFitness.Core.DTOs.GroupFitnessClassDTOs.QueryObjects
+namespace AsyncFitness.Core.DTOs.GymClassDTOs.QueryObjects
 {
-    public static class GroupFitnessClassBookingCalendarSelectDto
+    public static class GymClassBookingCalendarSelectDto
     {
         // to do adapt to this dto
-        public static IQueryable<GroupFitnessClassBookingCalendarDto> MapGroupFitnessClassToCalendarDto(this IQueryable<GroupFitnessClass> fitnessClasses, Customer customer)
+        public static IQueryable<GymClassBookingCalendarDto> MapGroupFitnessClassToCalendarDto(this IQueryable<GymClass> fitnessClasses, Customer customer)
         {
-            return fitnessClasses.Where(c => c.BookedParticipants.Contains(customer)).Select(groupfitnessclass => new GroupFitnessClassBookingCalendarDto
+            return fitnessClasses.Where(c => c.BookedParticipants.Contains(customer)).Select(groupfitnessclass => new GymClassBookingCalendarDto
             {
                 GroupFitnessClassId = groupfitnessclass.Id,
                 ConceptName = groupfitnessclass.Concept.Name,

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.Models.Facility
 {
-    public class GroupFitnessConcept
+    public class GymClassConcept
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -23,7 +23,7 @@ namespace AsyncFitness.Core.Models.Facility
         [Required]
         public TimeSpan Duration { get; set; }
 
-        public List<GroupFitnessClass> ClassesWithConcept { get; set; } = new List<GroupFitnessClass>();
-        public List<FitnessCenter> CentersWithConcept { get; set; } = new List<FitnessCenter>();
+        public List<GymClass> ClassesWithConcept { get; set; } = new List<GymClass>();
+        public List<Gym> CentersWithConcept { get; set; } = new List<Gym>();
     }
 }

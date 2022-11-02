@@ -10,7 +10,7 @@ namespace AsyncFitness.Core.Extensions
 {
     public static class GroupFitnessClassExtensions
     {
-        public static void GuardAgainstNull(this GroupFitnessClass fitnessClass)
+        public static void GuardAgainstNull(this GymClass fitnessClass)
         {
             if (fitnessClass == null)
             {
@@ -18,7 +18,7 @@ namespace AsyncFitness.Core.Extensions
             }
         }
 
-        public static void GuardAgainstInvalid(this GroupFitnessClass fitnessClass)
+        public static void GuardAgainstInvalid(this GymClass fitnessClass)
         {
             if (!fitnessClass.IsValidTimeSlot())
             {
@@ -31,7 +31,7 @@ namespace AsyncFitness.Core.Extensions
 
         }
 
-        public static void GuardAgainstOverbooking(this GroupFitnessClass fitnessClass)
+        public static void GuardAgainstOverbooking(this GymClass fitnessClass)
         {
             if (!fitnessClass.IsValidCapacity())
             {
@@ -40,7 +40,7 @@ namespace AsyncFitness.Core.Extensions
         }
         
 
-        public static bool DoubleBooking(this GroupFitnessClass fitnessClassOne, GroupFitnessClass fitnessClassTwo)
+        public static bool DoubleBooking(this GymClass fitnessClassOne, GymClass fitnessClassTwo)
         {
             if (fitnessClassOne.Location == fitnessClassTwo.Location)
             {

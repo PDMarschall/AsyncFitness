@@ -1,4 +1,4 @@
-using AsyncFitness.Core.DTOs.GroupFitnessClassDTOs;
+using AsyncFitness.Core.DTOs.GymClassDTOs;
 using AsyncFitness.Core.Interfaces;
 using AsyncFitness.Core.Models.Facility;
 using AsyncFitness.Core.Models.User;
@@ -13,17 +13,17 @@ namespace AsyncFitness.Web.Areas.Fitness.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly IGroupFitnessClassBookingService _bookingService;        
+        private readonly IGymClassBookingService _bookingService;        
         private readonly IRepository<Customer> _customerRepo;
 
-        public IndexModel(IGroupFitnessClassBookingService bookingService, IRepository<Customer> customerRepo)
+        public IndexModel(IGymClassBookingService bookingService, IRepository<Customer> customerRepo)
         {
             _bookingService = bookingService;            
             _customerRepo = customerRepo;
         }
 
         [BindProperty(SupportsGet = true)]
-        public IEnumerable<GroupFitnessClassBookingListDto> UserBookings { get; set; }
+        public IEnumerable<GymClassBookingOverviewDto> UserBookings { get; set; }
 
         public async Task OnGetAsync()
         {

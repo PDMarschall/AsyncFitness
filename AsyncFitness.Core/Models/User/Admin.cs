@@ -9,6 +9,6 @@ namespace AsyncFitness.Core.Models.User
 {
     public class Admin : UserBase
     {
-        public List<FitnessCenter> AdministratedFitnessCenters { get; set; }
+        public List<Gym> AdministratedFitnessCenters { get; set; }
     }
 }

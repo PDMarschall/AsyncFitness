@@ -1,4 +1,4 @@
-﻿using AsyncFitness.Core.DTOs.GroupFitnessClassDTOs;
+﻿using AsyncFitness.Core.DTOs.GymClassDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,43 +8,43 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.Datastructures
 {
-    public class GroupFitnessClassCalendarWeekDto : GenericDomainCalendarWeek<GroupFitnessClassBookingCalendarDto>
+    public class GroupFitnessClassCalendarWeekDto : GenericDomainCalendarWeek<GymClassBookingCalendarDto>
     {
         public GroupFitnessClassCalendarWeekDto(DateOnly dateFromWeek) : base(dateFromWeek)
         {
         }
 
-        public override GroupFitnessClassBookingCalendarDto Add(GroupFitnessClassBookingCalendarDto entity)
+        public override GymClassBookingCalendarDto Add(GymClassBookingCalendarDto entity)
         {
             throw new NotImplementedException();
         }
 
-        public override GroupFitnessClassBookingCalendarDto AddRange(IEnumerable<GroupFitnessClassBookingCalendarDto> entity)
+        public override GymClassBookingCalendarDto AddRange(IEnumerable<GymClassBookingCalendarDto> entity)
         {
             throw new NotImplementedException();
         }
 
-        public override IEnumerable<GroupFitnessClassBookingCalendarDto> All()
+        public override IEnumerable<GymClassBookingCalendarDto> All()
         {
             throw new NotImplementedException();
         }
 
-        public override IEnumerable<GroupFitnessClassBookingCalendarDto> Find(Expression<Func<GroupFitnessClassBookingCalendarDto, bool>> predicate)
+        public override IEnumerable<GymClassBookingCalendarDto> Find(Expression<Func<GymClassBookingCalendarDto, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public override IEnumerable<GroupFitnessClassBookingCalendarDto> GetCalendarConflicts()
+        public override IEnumerable<GymClassBookingCalendarDto> GetCalendarConflicts()
         {
             throw new NotImplementedException();
         }
 
-        public override GroupFitnessClassBookingCalendarDto Remove(GroupFitnessClassBookingCalendarDto entity)
+        public override GymClassBookingCalendarDto Remove(GymClassBookingCalendarDto entity)
         {
             throw new NotImplementedException();
         }
 
-        public override GroupFitnessClassBookingCalendarDto Update(GroupFitnessClassBookingCalendarDto entity)
+        public override GymClassBookingCalendarDto Update(GymClassBookingCalendarDto entity)
         {
             throw new NotImplementedException();
         }
