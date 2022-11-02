@@ -25,6 +25,13 @@ namespace AsyncFitness.Web.Areas.Fitness.Pages
                 return NotFound();
             }
 
+            bool veriticationResult = await _bookingService.VerifyUserBooking(id.Value, User.Identity.Name);
+
+            if (!veriticationResult)
+            {
+                return Forbid();
+            }
+
             BookingToConfirmCancel = await _bookingService.LoadClassAsync(id.Value);
 
             if (BookingToConfirmCancel == null)
@@ -40,17 +47,24 @@ namespace AsyncFitness.Web.Areas.Fitness.Pages
             if (id == null)
             {
                 return NotFound();
+
             }
 
-            int result = await _bookingService.CancelBooking(id.Value, User.Identity.Name);
+            bool veriticationResult = await _bookingService.VerifyUserBooking(id.Value, User.Identity.Name);
 
-            if (result <= 0)
+            if (!veriticationResult)
+            {
+                return Forbid();
+            }
+
+            int removeResult = await _bookingService.CancelBooking(id.Value, User.Identity.Name);
+
+            if (removeResult <= 0)
             {
                 return NotFound();
             }
 
             return RedirectToPage("./Index");
         }
-
     }
 }

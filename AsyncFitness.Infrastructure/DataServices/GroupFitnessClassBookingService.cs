@@ -35,9 +35,9 @@ namespace AsyncFitness.Infrastructure.DataServices
             throw new NotImplementedException();
         }
 
-        public async Task<GroupFitnessClassBookingListDto> LoadClassAsync(int id)
+        public async Task<GroupFitnessClassBookingListDto> LoadClassAsync(int fitnessClassId)
         {
-            var fitnessQuery = _fitnessContext.FitnessClass.MapGroupFitnessClassToDto(id);
+            var fitnessQuery = _fitnessContext.FitnessClass.MapGroupFitnessClassToDto(fitnessClassId);
 
             return await fitnessQuery.FirstAsync();
         }
@@ -52,6 +52,13 @@ namespace AsyncFitness.Infrastructure.DataServices
         public Task SaveClassesAsync()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<bool> VerifyUserBooking(int fitnessClassId, string userEmail)
+        {
+            GroupFitnessClass fitnessClass =  await _fitnessContext.FitnessClass.Include(c => c.BookedParticipants).FirstAsync(f => f.Id == fitnessClassId);
+            Customer customer = await _fitnessContext.FitnessCustomer.Where(c => c.Email == userEmail).FirstOrDefaultAsync();
+            return fitnessClass.BookedParticipants.Contains(customer);
         }
     }
 }
