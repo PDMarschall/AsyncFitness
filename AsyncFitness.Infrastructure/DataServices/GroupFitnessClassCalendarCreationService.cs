@@ -1,6 +1,7 @@
 ﻿using AsyncFitness.Core.Datastructures;
 using AsyncFitness.Core.Interfaces;
 using AsyncFitness.Core.Models.Facility;
+using AsyncFitness.Infrastructure.DbContexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,14 @@ namespace AsyncFitness.Infrastructure.DataServices
 {
     public class GroupFitnessClassCalendarCreationService : IGroupFitnessClassCalendarCreationService
     {
+        private readonly FitnessContext _fitnessContext;
+
         public FitnessCenter FitnessCenter { get; }
+
+        public GroupFitnessClassCalendarCreationService(FitnessContext fitnessContext)
+        {
+            _fitnessContext = fitnessContext;
+        }
 
         public Task<List<GroupFitnessClassCalendarWeek>> GetCalendarAsync(int year)
         {

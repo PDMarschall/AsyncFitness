@@ -11,7 +11,7 @@ namespace AsyncFitness.Core.DTOs.GroupFitnessClassDTOs.QueryObjects
 {
     public static class GroupFitnessClassBookingListSelectDto
     {
-        public static IQueryable<GroupFitnessClassBookingListDto> MapGroupFitnessClassToDto(this IQueryable<GroupFitnessClass> fitnessClasses, Customer customer)
+        public static IQueryable<GroupFitnessClassBookingListDto> MapGroupFitnessClassToListDto(this IQueryable<GroupFitnessClass> fitnessClasses, Customer customer)
         {
             return fitnessClasses.Where(c => c.BookedParticipants.Contains(customer)).Select(groupfitnessclass => new GroupFitnessClassBookingListDto
             {
@@ -23,7 +23,7 @@ namespace AsyncFitness.Core.DTOs.GroupFitnessClassDTOs.QueryObjects
             });
         }
 
-        public static IQueryable<GroupFitnessClassBookingListDto> MapGroupFitnessClassToDto(this IQueryable<GroupFitnessClass> fitnessClasses, int fitnessClassId)
+        public static IQueryable<GroupFitnessClassBookingListDto> MapGroupFitnessClassToListDto(this IQueryable<GroupFitnessClass> fitnessClasses, int fitnessClassId)
         {
             return fitnessClasses.Where(c => c.Id == fitnessClassId).Select(groupfitnessclass => new GroupFitnessClassBookingListDto
             {

@@ -37,14 +37,14 @@ namespace AsyncFitness.Infrastructure.DataServices
 
         public async Task<GroupFitnessClassBookingListDto> LoadClassAsync(int fitnessClassId)
         {
-            var fitnessQuery = _fitnessContext.FitnessClass.MapGroupFitnessClassToDto(fitnessClassId);
+            var fitnessQuery = _fitnessContext.FitnessClass.MapGroupFitnessClassToListDto(fitnessClassId);
 
             return await fitnessQuery.FirstAsync();
         }
 
         public async Task<IEnumerable<GroupFitnessClassBookingListDto>> LoadClassesAsync(Customer customer)
         {            
-            var fitnessQuery = _fitnessContext.FitnessClass.MapGroupFitnessClassToDto(customer);
+            var fitnessQuery = _fitnessContext.FitnessClass.MapGroupFitnessClassToListDto(customer);
 
             return await fitnessQuery.ToListAsync();
         }
