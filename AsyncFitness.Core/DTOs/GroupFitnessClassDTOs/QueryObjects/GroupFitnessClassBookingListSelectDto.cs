@@ -22,5 +22,17 @@ namespace AsyncFitness.Core.DTOs.GroupFitnessClassDTOs.QueryObjects
                 Time = string.Format("{0:d. MMMM HH:mm}", groupfitnessclass.Start)
             });
         }
+
+        public static IQueryable<GroupFitnessClassBookingListDto> MapGroupFitnessClassToDto(this IQueryable<GroupFitnessClass> fitnessClasses, int fitnessClassId)
+        {
+            return fitnessClasses.Where(c => c.Id == fitnessClassId).Select(groupfitnessclass => new GroupFitnessClassBookingListDto
+            {
+                GroupFitnessClassId = groupfitnessclass.Id,
+                ConceptName = groupfitnessclass.Concept.Name,
+                LocationName = groupfitnessclass.Location.Name,
+                InstructorNames = groupfitnessclass.Instructors.Select(i => i.FirstName + " " + i.LastName),
+                Time = string.Format("{0:d. MMMM HH:mm}", groupfitnessclass.Start)
+            });
+        }
     }
 }

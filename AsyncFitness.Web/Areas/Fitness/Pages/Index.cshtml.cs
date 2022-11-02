@@ -4,6 +4,7 @@ using AsyncFitness.Core.Models.Facility;
 using AsyncFitness.Core.Models.User;
 using AsyncFitness.Infrastructure.Repository;
 using AsyncFitness.Web.Areas.Identity.Data;
+using Microsoft.AspNetCore.Http.Metadata;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -23,7 +24,6 @@ namespace AsyncFitness.Web.Areas.Fitness.Pages
 
         [BindProperty(SupportsGet = true)]
         public IEnumerable<GroupFitnessClassBookingListDto> UserBookings { get; set; }
-        public int ClassId { get; set; }
 
         public async Task OnGetAsync()
         {

@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 namespace AsyncFitness.Core.Interfaces
 {
     public interface IGroupFitnessClassBookingService
-    {     
+    {
+        Task<GroupFitnessClassBookingListDto> LoadClassAsync(int id);
         Task<IEnumerable<GroupFitnessClassBookingListDto>> LoadClassesAsync(Customer customer);        
         Task<IEnumerable<GroupFitnessClass>> FilterClassesAsync(Dictionary<string, string> criteria);
         Task<int> CancelBooking(int id, string email);

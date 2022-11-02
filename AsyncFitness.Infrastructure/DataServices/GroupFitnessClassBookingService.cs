@@ -24,15 +24,22 @@ namespace AsyncFitness.Infrastructure.DataServices
 
         public async Task<int> CancelBooking(int fitnessClassId, string userEmail)
         {
-            GroupFitnessClass fitnessClass = _fitnessContext.FitnessClass.Find(fitnessClassId);
+            GroupFitnessClass fitnessClass = _fitnessContext.FitnessClass.Include(c => c.BookedParticipants).First(f => f.Id ==fitnessClassId);
             fitnessClass.BookedParticipants.RemoveAll(c => c.Email == userEmail);
 
             return await _fitnessContext.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<GroupFitnessClass>> FilterClassesAsync(Dictionary<string, string> criteria)
+        public async Task<IEnumerable<GroupFitnessClass>> FilterClassesAsync(Dictionary<string, string> criteria)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<GroupFitnessClassBookingListDto> LoadClassAsync(int id)
+        {
+            var fitnessQuery = _fitnessContext.FitnessClass.MapGroupFitnessClassToDto(id);
+
+            return await fitnessQuery.FirstAsync();
         }
 
         public async Task<IEnumerable<GroupFitnessClassBookingListDto>> LoadClassesAsync(Customer customer)
