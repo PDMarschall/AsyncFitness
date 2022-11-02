@@ -13,6 +13,7 @@ namespace AsyncFitness.Core.Interfaces
     {     
         Task<IEnumerable<GroupFitnessClassBookingListDto>> LoadClassesAsync(Customer customer);        
         Task<IEnumerable<GroupFitnessClass>> FilterClassesAsync(Dictionary<string, string> criteria);
+        Task<int> CancelBooking(int id, string email);
         Task SaveClassesAsync();
     }
 }

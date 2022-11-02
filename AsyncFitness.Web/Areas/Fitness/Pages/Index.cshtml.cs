@@ -23,8 +23,14 @@ namespace AsyncFitness.Web.Areas.Fitness.Pages
 
         [BindProperty(SupportsGet = true)]
         public IEnumerable<GroupFitnessClassBookingListDto> UserBookings { get; set; }
+        public int ClassId { get; set; }
 
         public async Task OnGetAsync()
+        {
+            await LoadBookings();
+        }
+
+        private async Task LoadBookings()
         {
             IEnumerable<Customer> customerResult = await _customerRepo.FindAsync(c => c.Email == User.Identity.Name);
 

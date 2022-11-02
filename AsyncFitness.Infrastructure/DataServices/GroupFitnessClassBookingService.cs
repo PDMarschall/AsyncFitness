@@ -22,6 +22,14 @@ namespace AsyncFitness.Infrastructure.DataServices
             _fitnessContext = fitnessContext;
         }
 
+        public async Task<int> CancelBooking(int fitnessClassId, string userEmail)
+        {
+            GroupFitnessClass fitnessClass = _fitnessContext.FitnessClass.Find(fitnessClassId);
+            fitnessClass.BookedParticipants.RemoveAll(c => c.Email == userEmail);
+
+            return await _fitnessContext.SaveChangesAsync();
+        }
+
         public Task<IEnumerable<GroupFitnessClass>> FilterClassesAsync(Dictionary<string, string> criteria)
         {
             throw new NotImplementedException();

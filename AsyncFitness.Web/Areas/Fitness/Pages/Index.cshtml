@@ -1,8 +1,8 @@
 ﻿@page
+@model AsyncFitness.Web.Areas.Fitness.Pages.IndexModel
 @using AsyncFitness.Core.Models.Facility
 @using AsyncFitness.Core.Models.User
 @using AsyncFitness.Core.DTOs.GroupFitnessClassDTOs
-@model AsyncFitness.Web.Areas.Fitness.Pages.IndexModel
 @{
     ViewData["Title"] = "Overview";
 }
@@ -12,54 +12,49 @@
 <h2>Bookings</h2>
 
 <table class="table">
-    <table class="table">
-        <thead>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserBookings.First().ConceptName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserBookings.First().LocationName)
+            </th>
+            <th>
+                @Html.Raw("Instructor(s)")
+            </th>
+            <th>
+                @Html.Raw("Time")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (GroupFitnessClassBookingListDto item in Model.UserBookings)
+        {
+
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserBookings.First().ConceptName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserBookings.First().LocationName)
-                </th>
-                <th>
-                    @Html.Raw("Instructor(s)")
-                </th>
-                <th>
-                    @Html.Raw("Time")
-                </th>
-                <th></th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConceptName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LocationName)
+                </td>
+                <td>
+                    <div>
+                        @foreach (string name in item.InstructorNames)
+                        {
+                            @Html.Raw(name)
+                        }
+                    </div>
+                </td>
+                <td>
+                    @item.Time
+                </td>
+                <td>
+                    <a asp-page="./Cancel" asp-route-id="@item.GroupFitnessClassId">Cancel</a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (GroupFitnessClassBookingListDto item in Model.UserBookings)
-            {
-
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ConceptName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LocationName)
-                    </td>
-                    <td>
-                        <div>
-                            @foreach (string name in item.InstructorNames)
-                            {
-                                @Html.Raw(name)
-                            }                            
-                        </div>
-                    </td>
-                    <td>
-                        @item.Time
-                    </td>
-                    <td>
-                        <a>Check-In</a> |
-                        <a>Cancel</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-
-
+        }
+    </tbody>
+</table>
