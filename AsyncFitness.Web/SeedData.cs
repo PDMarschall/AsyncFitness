@@ -1,4 +1,5 @@
-﻿using AsyncFitness.Core.Interfaces;
+﻿using AsyncFitness.Core.Extensions;
+using AsyncFitness.Core.Interfaces;
 using AsyncFitness.Core.Models.Facility;
 using AsyncFitness.Core.Models.User;
 using AsyncFitness.Infrastructure.DbContexts;
@@ -333,37 +334,26 @@ namespace AsyncFitness.Web
                     return;
                 }
 
-                context.FitnessClass.AddRange(
-                    new GymClass
-                    {
-                        Location = context.FitnessLocation.Where(c => c.Name == "Holdsal 1").First(),
-                        Concept = context.FitnessConcept.Where(c => c.Name == "Concept One").First(),
-                        Start = new DateTime(2022, 10, 4, 20, 0, 0),
-                        End = new DateTime(2022, 10, 4, 21, 0, 0)
-                    },
-                    new GymClass
-                    {
-                        Location = context.FitnessLocation.Where(c => c.Name == "Holdsal 2").First(),
-                        Concept = context.FitnessConcept.Where(c => c.Name == "Concept Two").First(),
-                        Start = new DateTime(2022, 10, 4, 20, 0, 0),
-                        End = new DateTime(2022, 10, 4, 21, 0, 0)
-                    },
-                    new GymClass
-                    {
-                        Location = context.FitnessLocation.Where(c => c.Name == "Holdsal 1").First(),
-                        Concept = context.FitnessConcept.Where(c => c.Name == "Concept One").First(),
-                        Start = new DateTime(2022, 10, 5, 20, 0, 0),
-                        End = new DateTime(2022, 10, 5, 21, 0, 0)
-                    },
-                    new GymClass
-                    {
-                        Location = context.FitnessLocation.Where(c => c.Name == "Holdsal 2").First(),
-                        Concept = context.FitnessConcept.Where(c => c.Name == "Concept Two").First(),
-                        Start = new DateTime(2022, 10, 5, 20, 0, 0),
-                        End = new DateTime(2022, 10, 5, 21, 0, 0)
-                    }
-                ); ;
+                var week = DateTime.Now.GetWeekStartAndEnd();
 
+                for (DateTime i = week[0]; i <= week[1]; i = i.AddDays(1))
+                {
+                    context.FitnessClass.AddRange(
+                    new GymClass
+                    {
+                        Location = context.FitnessLocation.Where(c => c.Name == "Holdsal 1").First(),
+                        Concept = context.FitnessConcept.Where(c => c.Name == "Concept One").First(),
+                        Start = i.AddHours(20),
+                        End = i.AddHours(21)
+                    },
+                    new GymClass
+                    {
+                        Location = context.FitnessLocation.Where(c => c.Name == "Holdsal 2").First(),
+                        Concept = context.FitnessConcept.Where(c => c.Name == "Concept Two").First(),
+                        Start = i.AddHours(20),
+                        End = i.AddHours(21)
+                    });
+                }
 
                 context.SaveChanges();
             }
@@ -375,38 +365,19 @@ namespace AsyncFitness.Web
                 serviceProvider.GetRequiredService<
                     DbContextOptions<FitnessDbContext>>()))
             {
-                var class1 = context.FitnessClass.Include(c => c.Instructors).Include(p => p.BookedParticipants).Where(g => g.Id == 1).First();
-                var class2 = context.FitnessClass.Include(c => c.Instructors).Include(p => p.BookedParticipants).Where(g => g.Id == 2).First();
-                var class3 = context.FitnessClass.Include(c => c.Instructors).Include(p => p.BookedParticipants).Where(g => g.Id == 3).First();
-                var class4 = context.FitnessClass.Include(c => c.Instructors).Include(p => p.BookedParticipants).Where(g => g.Id == 4).First();
+                var seededGymClasses = context.FitnessClass.Include(c => c.Instructors).Include(p => p.BookedParticipants);
 
-                if (class1.BookedParticipants.Count == 0 && class1.Instructors.Count == 0 && class1 != null)
+                foreach (var item in seededGymClasses)
                 {
-                    class1.BookedParticipants.Add(context.FitnessCustomer.First());
-                    class1.Instructors.Add(context.FitnessTrainer.First());
-                    context.SaveChanges();
+                    if (item.BookedParticipants.Count == 0 && item.Instructors.Count == 0 && item != null)
+                    {
+                        item.BookedParticipants.Add(context.FitnessCustomer.First());
+                        item.Instructors.Add(context.FitnessTrainer.First());
+                        
+                    }
                 }
 
-                if (class2.BookedParticipants.Count == 0 && class2.Instructors.Count == 0 & class2 != null)
-                {
-                    class2.BookedParticipants.Add(context.FitnessCustomer.First());
-                    class2.Instructors.Add(context.FitnessTrainer.First());
-                    context.SaveChanges();
-                }
-
-                if (class3.BookedParticipants.Count == 0 && class3.Instructors.Count == 0 & class3 != null)
-                {
-                    class3.BookedParticipants.Add(context.FitnessCustomer.Where(c => c.Id == 2).First());
-                    class3.Instructors.Add(context.FitnessTrainer.First());
-                    context.SaveChanges();
-                }
-
-                if (class4.BookedParticipants.Count == 0 && class4.Instructors.Count == 0 & class4 != null)
-                {
-                    class4.BookedParticipants.Add(context.FitnessCustomer.Where(c => c.Id == 2).First());
-                    class4.Instructors.Add(context.FitnessTrainer.First());
-                    context.SaveChanges();
-                }
+                context.SaveChanges();
 
                 var fitnessCenter = context.FitnessCenter.Include(c => c.GymLeader).Include(d => d.Facilities).Include(a => a.AvailableConcepts).First();
 

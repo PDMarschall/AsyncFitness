@@ -1,5 +1,6 @@
 ﻿using AsyncFitness.Core.Datastructures;
 using AsyncFitness.Core.DTOs.GymClassDTOs;
+using AsyncFitness.Core.Extensions;
 using AsyncFitness.Core.Interfaces;
 using AsyncFitness.Core.Models.User;
 using AsyncFitness.Infrastructure.DbContexts;
@@ -23,21 +24,11 @@ namespace AsyncFitness.Infrastructure.DataServices
 
         public async Task<GymClassCalendarWeekDto> LoadCalendarWeekAsync(DateTime date, Customer customer)
         {
-            DateTime[] Week = GetWeekStartAndEnd(date);
+            DateTime[] Week = date.GetWeekStartAndEnd();
 
             var fitnessQuery = _fitnessContext;
 
                 throw new NotImplementedException();
-        }
-
-        private DateTime[] GetWeekStartAndEnd(DateTime date)
-        {
-            int weekOfYear = ISOWeek.GetWeekOfYear(DateTime.Now);
-            DateTime[] weekDates = new DateTime[2];
-            weekDates[0] = ISOWeek.ToDateTime(DateTime.Now.Year, weekOfYear, DayOfWeek.Monday);
-            weekDates[1] = ISOWeek.ToDateTime(DateTime.Now.Year, weekOfYear, DayOfWeek.Sunday);
-
-            return weekDates;
         }
     }
 }
