@@ -1,6 +1,7 @@
 ﻿using AsyncFitness.Core.DTOs.GymClassDTOs;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -10,9 +11,19 @@ namespace AsyncFitness.Core.Datastructures
 {
     public class GymClassCalendarWeekDto : GenericDomainCalendarWeek<GymClassBookingCalendarDto>
     {
-        public GymClassCalendarWeekDto(DateOnly dateFromWeek) : base(dateFromWeek)
+        public GymClassCalendarWeekDto()
         {
+
         }
+        public GymClassCalendarWeekDto(IQueryable<GymClassBookingCalendarDto> gymClasses, DateTime dateFromWeek)
+        {
+            CalendarWeekNumber = ISOWeek.GetWeekOfYear(dateFromWeek);
+            CalendarYear = dateFromWeek.Year;
+        }
+
+        public override int CalendarWeekNumber { get; }
+
+        public override int CalendarYear { get; }
 
         public override GymClassBookingCalendarDto Add(GymClassBookingCalendarDto entity)
         {

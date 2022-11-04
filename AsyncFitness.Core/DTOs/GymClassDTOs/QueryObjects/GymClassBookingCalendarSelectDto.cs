@@ -14,13 +14,15 @@ namespace AsyncFitness.Core.DTOs.GymClassDTOs.QueryObjects
         // to do adapt to this dto
         public static IQueryable<GymClassBookingCalendarDto> MapGroupFitnessClassToCalendarDto(this IQueryable<GymClass> fitnessClasses, Customer customer)
         {
-            return fitnessClasses.Where(c => c.BookedParticipants.Contains(customer)).Select(groupfitnessclass => new GymClassBookingCalendarDto
+            return fitnessClasses.Select(groupfitnessclass => new GymClassBookingCalendarDto
             {
                 GroupFitnessClassId = groupfitnessclass.Id,
                 ConceptName = groupfitnessclass.Concept.Name,
                 LocationName = groupfitnessclass.Location.Name,
                 InstructorNames = groupfitnessclass.Instructors.Select(i => i.FirstName + " " + i.LastName),
-                Time = string.Format("{0:d. MMMM HH:mm}", groupfitnessclass.Start)
+                Time = string.Format("{0:d. MMMM HH:mm}", groupfitnessclass.Start),
+                Capacity = groupfitnessclass.Location.Capacity,
+                AlreadyBooked = groupfitnessclass.BookedParticipants.Contains(customer)
             });
         }
     }

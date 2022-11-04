@@ -336,7 +336,7 @@ namespace AsyncFitness.Web
 
                 var week = DateTime.Now.GetWeekStartAndEnd();
 
-                for (DateTime i = week[0]; i <= week[1]; i = i.AddDays(1))
+                for (DateTime i = week[0]; i <= week[1].AddDays(7); i = i.AddDays(1))
                 {
                     context.FitnessClass.AddRange(
                     new GymClass

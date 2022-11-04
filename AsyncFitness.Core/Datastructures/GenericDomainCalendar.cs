@@ -1,4 +1,5 @@
-﻿using AsyncFitness.Core.Interfaces;
+﻿using AsyncFitness.Core.DTOs.GymClassDTOs;
+using AsyncFitness.Core.Interfaces;
 using AsyncFitness.Core.Models.Facility;
 using System;
 using System.Collections;
@@ -13,15 +14,13 @@ namespace AsyncFitness.Core.Datastructures
 {
     public abstract class GenericDomainCalendarWeek<T> : IDomainCalendarWeek<T>
     {
-        private readonly List<T>[] _calendarContainer;
+        protected List<T>[] _calendarContainer;
 
-        public int CalendarWeekNumber { get; }
-        public int CalendarYear { get; }
+        public abstract int CalendarWeekNumber { get; }
+        public abstract int CalendarYear { get; }
 
-        public GenericDomainCalendarWeek(DateOnly dateFromWeek)
+        public GenericDomainCalendarWeek()
         {
-            CalendarWeekNumber = ISOWeek.GetWeekOfYear(dateFromWeek.ToDateTime(TimeOnly.MinValue));
-            CalendarYear = dateFromWeek.Year;
             _calendarContainer = new List<T>[7];
             for (int i = 0; i < _calendarContainer.Length; i++)
             {
@@ -53,6 +52,6 @@ namespace AsyncFitness.Core.Datastructures
             return this.GetEnumerator();
         }
 
-        
+
     }
 }

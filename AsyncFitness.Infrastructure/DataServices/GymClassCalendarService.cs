@@ -1,9 +1,11 @@
 ﻿using AsyncFitness.Core.Datastructures;
 using AsyncFitness.Core.DTOs.GymClassDTOs;
+using AsyncFitness.Core.DTOs.GymClassDTOs.QueryObjects;
 using AsyncFitness.Core.Extensions;
 using AsyncFitness.Core.Interfaces;
 using AsyncFitness.Core.Models.User;
 using AsyncFitness.Infrastructure.DbContexts;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -13,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Infrastructure.DataServices
 {
-    internal class GymClassCalendarService : IGymClassCalendarService
+    public class GymClassCalendarService : IGymClassCalendarService
     {
         private readonly FitnessDbContext _fitnessContext;
 
@@ -24,11 +26,11 @@ namespace AsyncFitness.Infrastructure.DataServices
 
         public async Task<GymClassCalendarWeekDto> LoadCalendarWeekAsync(DateTime date, Customer customer)
         {
-            DateTime[] Week = date.GetWeekStartAndEnd();
+            DateTime[] week = date.GetWeekStartAndEnd();
 
-            var fitnessQuery = _fitnessContext;
+            var fitnessQuery = _fitnessContext.FitnessClass.Where(c => c.Start >= week[0] && c.Start <= week[1]).MapGroupFitnessClassToCalendarDto(customer).AsNoTracking();
 
-                throw new NotImplementedException();
+            return new GymClassCalendarWeekDto(fitnessQuery, date);
         }
     }
 }

@@ -108,6 +108,8 @@ namespace AsyncFitness.Web
 
             builder.Services.AddTransient<IGymClassBookingService, GymClassBookingService>();
             builder.Services.AddTransient<IGymClassScheduleService, GymClassScheduleService>();
+            builder.Services.AddTransient<IGymClassCalendarService, GymClassCalendarService>();
+
         }
 
         private static void SeedDatabase(WebApplication app)
