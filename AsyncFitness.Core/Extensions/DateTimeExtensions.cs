@@ -11,12 +11,12 @@ namespace AsyncFitness.Core.Extensions
     {
         public static DateTime[] GetWeekStartAndEnd(this DateTime date)
         {
-            int weekOfYear = ISOWeek.GetWeekOfYear(DateTime.Now);
-            DateTime[] weekDates = new DateTime[2];
-            weekDates[0] = ISOWeek.ToDateTime(DateTime.Now.Year, weekOfYear, DayOfWeek.Monday);
-            weekDates[1] = ISOWeek.ToDateTime(DateTime.Now.Year, weekOfYear, DayOfWeek.Sunday);
-
-            return weekDates;
+            DateTime[] weekStartAndEnd = new DateTime[] 
+            { 
+                ISOWeek.ToDateTime(year:DateTime.Now.Year, week:ISOWeek.GetWeekOfYear(DateTime.Now), dayOfWeek:DayOfWeek.Monday), 
+                ISOWeek.ToDateTime(year:DateTime.Now.Year, week:ISOWeek.GetWeekOfYear(DateTime.Now), dayOfWeek:DayOfWeek.Sunday) 
+            };
+            return weekStartAndEnd;
         }
     }
 }
