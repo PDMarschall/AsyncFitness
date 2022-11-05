@@ -14,6 +14,6 @@ namespace AsyncFitness.Core.Interfaces
         int CalendarYear { get; }
         void Add(T entity);
         void AddRange(IEnumerable<T> entities);
-
+        IEnumerable<T> GetDay(int index);
     }
 }

@@ -29,8 +29,7 @@ namespace AsyncFitness.Core.Datastructures
         public override int CalendarYear { get; }
 
         public override void Add(GymClassCalendarDto gymClass)
-        {
-            //TestAgainstGuards(gymClass);
+        {            
             InsertGymClass(gymClass);
             SortCalendarDayAscending(GetClassIndex(gymClass));
         }
@@ -38,8 +37,7 @@ namespace AsyncFitness.Core.Datastructures
         public override void AddRange(IEnumerable<GymClassCalendarDto> gymClasses)
         {
             foreach (GymClassCalendarDto gymClass in gymClasses)
-            {
-                //TestAgainstGuards(fitnessClass);
+            {                
                 InsertGymClass(gymClass);
             }
             SortCalendarAscending();

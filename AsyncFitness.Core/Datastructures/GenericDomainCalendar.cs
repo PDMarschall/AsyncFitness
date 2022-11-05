@@ -30,6 +30,10 @@ namespace AsyncFitness.Core.Datastructures
 
         public abstract void Add(T entity);
         public abstract void AddRange(IEnumerable<T> entities);
+        public IEnumerable<T> GetDay(int index)
+        {
+            return _calendarContainer[index];
+        }
 
         public IEnumerator<T> GetEnumerator()
         {
