@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.DTOs.GymClassDTOs
 {
-    public class GymClassCalendarDto
+    public class GymCalendarClassDto
     {
         public int GroupFitnessClassId { get; set; }
         public string ConceptName { get; set; }

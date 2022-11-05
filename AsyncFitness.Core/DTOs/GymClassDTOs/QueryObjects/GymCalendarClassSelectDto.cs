@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.DTOs.GymClassDTOs.QueryObjects
 {
-    public static class GymClassCalendarSelectDto
+    public static class GymCalendarClassSelectDto
     {
-        public static IQueryable<GymClassCalendarDto> MapGroupFitnessClassToCalendarDto(this IQueryable<GymClass> fitnessClasses, Customer customer)
+        public static IQueryable<GymCalendarClassDto> MapGroupFitnessClassToCalendarDto(this IQueryable<GymClass> fitnessClasses, Customer customer)
         {
-            return fitnessClasses.Select(groupfitnessclass => new GymClassCalendarDto
+            return fitnessClasses.Select(groupfitnessclass => new GymCalendarClassDto
             {
                 GroupFitnessClassId = groupfitnessclass.Id,
                 ConceptName = groupfitnessclass.Concept.Name,

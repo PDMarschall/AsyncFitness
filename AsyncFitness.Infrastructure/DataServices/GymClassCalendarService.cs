@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Infrastructure.DataServices
 {
-    public class GymClassCalendarService : IGymClassCalendarService
+    public class GymClassCalendarService : IGymCalendarService
     {
         private readonly FitnessDbContext _fitnessContext;
 
@@ -24,13 +24,13 @@ namespace AsyncFitness.Infrastructure.DataServices
             _fitnessContext = fitnessContext;
         }
 
-        public GymClassCalendarWeekDto LoadCalendarWeek(DateTime date, Customer customer)
+        public GymCalendarWeekDto LoadCalendarWeek(DateTime date, Customer customer)
         {
             DateTime[] week = date.GetWeekStartAndEnd();
 
             var fitnessQuery = _fitnessContext.FitnessClass.Where(c => c.Start >= week[0] && c.Start <= week[1]).MapGroupFitnessClassToCalendarDto(customer).AsNoTracking();
 
-            return new GymClassCalendarWeekDto(fitnessQuery, date);
+            return new GymCalendarWeekDto(fitnessQuery, date);
         }
     }
 }

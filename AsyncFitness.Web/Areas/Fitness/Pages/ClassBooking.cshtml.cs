@@ -9,13 +9,13 @@ namespace AsyncFitness.Web.Areas.Fitness.Pages
 {
     public class ClassBookingModel : PageModel
     {
-        private readonly IGymClassCalendarService _calendarService;
+        private readonly IGymCalendarService _calendarService;
         private readonly IRepository<Customer> _customerRepo;
 
         [BindProperty(SupportsGet = true)]
-        public GymClassCalendarWeekDto CalendarWeek { get; set; }
+        public GymCalendarWeekDto CalendarWeek { get; set; }
 
-        public ClassBookingModel(IGymClassCalendarService calendarService, IRepository<Customer> customerRepo)
+        public ClassBookingModel(IGymCalendarService calendarService, IRepository<Customer> customerRepo)
         {
             _calendarService = calendarService;
             _customerRepo = customerRepo;

@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.Interfaces
 {
-    public interface IGymClassCalendarService
+    public interface IGymCalendarService
     {
-        GymClassCalendarWeekDto LoadCalendarWeek(DateTime date, Customer customer);
+        GymCalendarWeekDto LoadCalendarWeek(DateTime date, Customer customer);
     }
 }

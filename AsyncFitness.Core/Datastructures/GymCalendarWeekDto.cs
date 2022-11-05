@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.Datastructures
 {
-    public class GymClassCalendarWeekDto : GenericDomainCalendarWeek<GymClassCalendarDto>
+    public class GymCalendarWeekDto : GenericDomainCalendarWeek<GymCalendarClassDto>
     {
-        public GymClassCalendarWeekDto()
+        public GymCalendarWeekDto()
         {
 
         }
 
-        public GymClassCalendarWeekDto(IQueryable<GymClassCalendarDto> gymClasses, DateTime dateFromWeek)
+        public GymCalendarWeekDto(IQueryable<GymCalendarClassDto> gymClasses, DateTime dateFromWeek)
         {
             CalendarWeekNumber = ISOWeek.GetWeekOfYear(dateFromWeek);
             CalendarYear = dateFromWeek.Year;
@@ -28,28 +28,28 @@ namespace AsyncFitness.Core.Datastructures
 
         public override int CalendarYear { get; }
 
-        public override void Add(GymClassCalendarDto gymClass)
+        public override void Add(GymCalendarClassDto gymClass)
         {            
             InsertGymClass(gymClass);
             SortCalendarDayAscending(GetClassIndex(gymClass));
         }
 
-        public override void AddRange(IEnumerable<GymClassCalendarDto> gymClasses)
+        public override void AddRange(IEnumerable<GymCalendarClassDto> gymClasses)
         {
-            foreach (GymClassCalendarDto gymClass in gymClasses)
+            foreach (GymCalendarClassDto gymClass in gymClasses)
             {                
                 InsertGymClass(gymClass);
             }
             SortCalendarAscending();
         }
 
-        private void InsertGymClass(GymClassCalendarDto entity)
+        private void InsertGymClass(GymCalendarClassDto entity)
         {
             int indexOfClass = GetClassIndex(entity);
             _calendarContainer[indexOfClass].Add(entity);
         }
 
-        private int GetClassIndex(GymClassCalendarDto entity)
+        private int GetClassIndex(GymCalendarClassDto entity)
         {
             return (int)(entity.Start.DayOfWeek + 6) % 7;
         }
