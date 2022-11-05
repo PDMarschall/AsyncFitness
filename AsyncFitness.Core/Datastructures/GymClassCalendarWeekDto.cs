@@ -1,4 +1,5 @@
 ﻿using AsyncFitness.Core.DTOs.GymClassDTOs;
+using AsyncFitness.Core.Models.Facility;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -9,55 +10,63 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.Datastructures
 {
-    public class GymClassCalendarWeekDto : GenericDomainCalendarWeek<GymClassBookingCalendarDto>
+    public class GymClassCalendarWeekDto : GenericDomainCalendarWeek<GymClassCalendarDto>
     {
         public GymClassCalendarWeekDto()
         {
 
         }
-        public GymClassCalendarWeekDto(IQueryable<GymClassBookingCalendarDto> gymClasses, DateTime dateFromWeek)
+
+        public GymClassCalendarWeekDto(IQueryable<GymClassCalendarDto> gymClasses, DateTime dateFromWeek)
         {
             CalendarWeekNumber = ISOWeek.GetWeekOfYear(dateFromWeek);
             CalendarYear = dateFromWeek.Year;
+            AddRange(gymClasses);
         }
 
         public override int CalendarWeekNumber { get; }
 
         public override int CalendarYear { get; }
 
-        public override GymClassBookingCalendarDto Add(GymClassBookingCalendarDto entity)
+        public override void Add(GymClassCalendarDto gymClass)
         {
-            throw new NotImplementedException();
+            //TestAgainstGuards(gymClass);
+            InsertGymClass(gymClass);
+            SortCalendarDayAscending(GetClassIndex(gymClass));
         }
 
-        public override GymClassBookingCalendarDto AddRange(IEnumerable<GymClassBookingCalendarDto> entity)
+        public override void AddRange(IEnumerable<GymClassCalendarDto> gymClasses)
         {
-            throw new NotImplementedException();
+            foreach (GymClassCalendarDto gymClass in gymClasses)
+            {
+                //TestAgainstGuards(fitnessClass);
+                InsertGymClass(gymClass);
+            }
+            SortCalendarAscending();
         }
 
-        public override IEnumerable<GymClassBookingCalendarDto> All()
+        private void InsertGymClass(GymClassCalendarDto entity)
         {
-            throw new NotImplementedException();
+            int indexOfClass = GetClassIndex(entity);
+            _calendarContainer[indexOfClass].Add(entity);
         }
 
-        public override IEnumerable<GymClassBookingCalendarDto> Find(Expression<Func<GymClassBookingCalendarDto, bool>> predicate)
+        private int GetClassIndex(GymClassCalendarDto entity)
         {
-            throw new NotImplementedException();
+            return (int)(entity.Start.DayOfWeek + 6) % 7;
         }
 
-        public override IEnumerable<GymClassBookingCalendarDto> GetCalendarConflicts()
+        private void SortCalendarDayAscending(int indexOfDay)
         {
-            throw new NotImplementedException();
+            _calendarContainer[indexOfDay].Sort((c1, c2) => c1.Start.CompareTo(c2.Start));
         }
 
-        public override GymClassBookingCalendarDto Remove(GymClassBookingCalendarDto entity)
+        private void SortCalendarAscending()
         {
-            throw new NotImplementedException();
-        }
-
-        public override GymClassBookingCalendarDto Update(GymClassBookingCalendarDto entity)
-        {
-            throw new NotImplementedException();
+            for (int i = 0; i < _calendarContainer.Length; i++)
+            {
+                _calendarContainer[i].Sort((c1, c2) => c1.Start.CompareTo(c2.Start));
+            }
         }
     }
 }

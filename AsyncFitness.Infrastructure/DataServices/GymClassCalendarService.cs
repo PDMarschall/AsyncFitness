@@ -24,7 +24,7 @@ namespace AsyncFitness.Infrastructure.DataServices
             _fitnessContext = fitnessContext;
         }
 
-        public async Task<GymClassCalendarWeekDto> LoadCalendarWeekAsync(DateTime date, Customer customer)
+        public GymClassCalendarWeekDto LoadCalendarWeek(DateTime date, Customer customer)
         {
             DateTime[] week = date.GetWeekStartAndEnd();
 

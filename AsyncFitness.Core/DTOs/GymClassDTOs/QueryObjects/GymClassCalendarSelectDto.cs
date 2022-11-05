@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.DTOs.GymClassDTOs.QueryObjects
 {
-    public static class GymClassBookingCalendarSelectDto
+    public static class GymClassCalendarSelectDto
     {
-        // to do adapt to this dto
-        public static IQueryable<GymClassBookingCalendarDto> MapGroupFitnessClassToCalendarDto(this IQueryable<GymClass> fitnessClasses, Customer customer)
+        public static IQueryable<GymClassCalendarDto> MapGroupFitnessClassToCalendarDto(this IQueryable<GymClass> fitnessClasses, Customer customer)
         {
-            return fitnessClasses.Select(groupfitnessclass => new GymClassBookingCalendarDto
+            return fitnessClasses.Select(groupfitnessclass => new GymClassCalendarDto
             {
                 GroupFitnessClassId = groupfitnessclass.Id,
                 ConceptName = groupfitnessclass.Concept.Name,
                 LocationName = groupfitnessclass.Location.Name,
                 InstructorNames = groupfitnessclass.Instructors.Select(i => i.FirstName + " " + i.LastName),
-                Time = string.Format("{0:d. MMMM HH:mm}", groupfitnessclass.Start),
+                Start = groupfitnessclass.Start,
+                End = groupfitnessclass.End,
                 Capacity = groupfitnessclass.Location.Capacity,
                 AlreadyBooked = groupfitnessclass.BookedParticipants.Contains(customer)
             });

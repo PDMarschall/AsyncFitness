@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.DTOs.GymClassDTOs
 {
-    public class GymClassBookingCalendarDto
+    public class GymClassCalendarDto
     {
         public int GroupFitnessClassId { get; set; }
         public string ConceptName { get; set; }
         public string LocationName { get; set; }
         public IEnumerable<string> InstructorNames { get; set; }
-        public string Time { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
         public int Capacity { get; set; }
         public bool AlreadyBooked { get; set; }
     }

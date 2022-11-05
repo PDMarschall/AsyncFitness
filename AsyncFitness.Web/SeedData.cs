@@ -352,6 +352,20 @@ namespace AsyncFitness.Web
                         Concept = context.FitnessConcept.Where(c => c.Name == "Concept Two").First(),
                         Start = i.AddHours(20),
                         End = i.AddHours(21)
+                    },
+                    new GymClass
+                    {
+                        Location = context.FitnessLocation.Where(c => c.Name == "Holdsal 1").First(),
+                        Concept = context.FitnessConcept.Where(c => c.Name == "Concept One").First(),
+                        Start = i.AddHours(14),
+                        End = i.AddHours(15)
+                    },
+                    new GymClass
+                    {
+                        Location = context.FitnessLocation.Where(c => c.Name == "Holdsal 2").First(),
+                        Concept = context.FitnessConcept.Where(c => c.Name == "Concept Two").First(),
+                        Start = i.AddHours(14),
+                        End = i.AddHours(15)
                     });
                 }
 
@@ -365,15 +379,23 @@ namespace AsyncFitness.Web
                 serviceProvider.GetRequiredService<
                     DbContextOptions<FitnessDbContext>>()))
             {
-                var seededGymClasses = context.FitnessClass.Include(c => c.Instructors).Include(p => p.BookedParticipants);
+                var gymClassesForTestUser = context.FitnessClass.Include(c => c.Instructors).Include(p => p.BookedParticipants).Where(c => c.Start.Hour > 19);
 
-                foreach (var item in seededGymClasses)
+                foreach (var item in gymClassesForTestUser)
                 {
-                    if (item.BookedParticipants.Count == 0 && item.Instructors.Count == 0 && item != null)
+                    if (item.BookedParticipants.Count == 0 && item != null)
                     {
-                        item.BookedParticipants.Add(context.FitnessCustomer.First());
+                        item.BookedParticipants.Add(context.FitnessCustomer.First());                                        
+                    }
+                }
+
+                var allGymClasses = context.FitnessClass.Include(c => c.Instructors).Include(p => p.BookedParticipants);
+
+                foreach (var item in allGymClasses)
+                {
+                    if (item.Instructors.Count == 0 && item != null)
+                    {                        
                         item.Instructors.Add(context.FitnessTrainer.First());
-                        
                     }
                 }
 

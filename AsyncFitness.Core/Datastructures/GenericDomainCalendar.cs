@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.Datastructures
 {
-    public abstract class GenericDomainCalendarWeek<T> : IDomainCalendarWeek<T>
+    public abstract class GenericDomainCalendarWeek<T> : IDomainCalendar<T>
     {
         protected List<T>[] _calendarContainer;
 
@@ -28,13 +28,8 @@ namespace AsyncFitness.Core.Datastructures
             }
         }
 
-        public abstract T Add(T entity);
-        public abstract T AddRange(IEnumerable<T> entity);
-        public abstract IEnumerable<T> All();
-        public abstract IEnumerable<T> GetCalendarConflicts();
-        public abstract IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
-        public abstract T Remove(T entity);
-        public abstract T Update(T entity);
+        public abstract void Add(T entity);
+        public abstract void AddRange(IEnumerable<T> entities);
 
         public IEnumerator<T> GetEnumerator()
         {

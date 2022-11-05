@@ -10,6 +10,6 @@ namespace AsyncFitness.Core.Interfaces
 {
     public interface IGymClassCalendarService
     {
-        Task<GymClassCalendarWeekDto> LoadCalendarWeekAsync(DateTime date, Customer customer);
+        GymClassCalendarWeekDto LoadCalendarWeek(DateTime date, Customer customer);
     }
 }

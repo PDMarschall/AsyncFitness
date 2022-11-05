@@ -24,7 +24,7 @@ namespace AsyncFitness.Web.Areas.Fitness.Pages
         public async Task OnGetAsync()
         {
             var user = await _customerRepo.FindAsync(c => c.Email == User.Identity.Name);
-            CalendarWeek = await _calendarService.LoadCalendarWeekAsync(date: DateTime.Now, customer: user.First());
+            CalendarWeek = _calendarService.LoadCalendarWeek(date: DateTime.Now, customer: user.First());
         }
     }
 }
