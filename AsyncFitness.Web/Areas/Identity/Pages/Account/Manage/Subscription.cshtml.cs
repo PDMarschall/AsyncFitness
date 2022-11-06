@@ -19,15 +19,15 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<AsyncFitnessUser> _userManager;
         private readonly SignInManager<AsyncFitnessUser> _signInManager;
         private readonly IEmailSender _emailSender;
-        private readonly IRepository<Customer> _customerRepo;
-        private readonly IRepository<Subscription> _subscriptionRepo;
+        private readonly IDomainRepository<Customer> _customerRepo;
+        private readonly IDomainRepository<Subscription> _subscriptionRepo;
 
         public SubscriptionModel(
             UserManager<AsyncFitnessUser> userManager,
             SignInManager<AsyncFitnessUser> signInManager,
             IEmailSender emailSender,
-            IRepository<Customer> customerRepo,
-            IRepository<Subscription> subscriptionRepo)
+            IDomainRepository<Customer> customerRepo,
+            IDomainRepository<Subscription> subscriptionRepo)
         {
             _userManager = userManager;
             _signInManager = signInManager;

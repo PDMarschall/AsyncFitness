@@ -14,9 +14,9 @@ namespace AsyncFitness.Web.Areas.Fitness.Pages
     public class IndexModel : PageModel
     {
         private readonly IGymClassBookingService _bookingService;        
-        private readonly IRepository<Customer> _customerRepo;
+        private readonly IDomainRepository<Customer> _customerRepo;
 
-        public IndexModel(IGymClassBookingService bookingService, IRepository<Customer> customerRepo)
+        public IndexModel(IGymClassBookingService bookingService, IDomainRepository<Customer> customerRepo)
         {
             _bookingService = bookingService;            
             _customerRepo = customerRepo;

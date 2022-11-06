@@ -23,13 +23,13 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<AsyncFitnessUser> _userManager;
         private readonly SignInManager<AsyncFitnessUser> _signInManager;
         private readonly IEmailSender _emailSender;
-        private readonly IRepository<Customer> _customerRepo;
+        private readonly IDomainRepository<Customer> _customerRepo;
 
         public EmailModel(
             UserManager<AsyncFitnessUser> userManager,
             SignInManager<AsyncFitnessUser> signInManager,
             IEmailSender emailSender,
-            IRepository<Customer> customerRepo)
+            IDomainRepository<Customer> customerRepo)
         {
             _userManager = userManager;
             _signInManager = signInManager;

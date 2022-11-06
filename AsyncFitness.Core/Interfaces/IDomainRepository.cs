@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AsyncFitness.Core.Interfaces
 {
-    public interface IRepository<T>
+    public interface IDomainRepository<T>
     {
         public int Count { get; }
         T Add(T entity);

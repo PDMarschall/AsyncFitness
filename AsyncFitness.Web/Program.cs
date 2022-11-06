@@ -98,13 +98,13 @@ namespace AsyncFitness.Web
 
         private static void ConfigureDI(WebApplicationBuilder builder)
         {
-            builder.Services.AddTransient<IRepository<Subscription>, SubscriptionRepository>();
-            builder.Services.AddTransient<IRepository<Customer>, CustomerRepository>();
-            builder.Services.AddTransient<IRepository<Trainer>, TrainerRepository>();
-            builder.Services.AddTransient<IRepository<Gym>, GymRepository>();
-            builder.Services.AddTransient<IRepository<GymClass>, GymClassRepository>();
-            builder.Services.AddTransient<IRepository<GymClassConcept>, GymClassConceptRepository>();
-            builder.Services.AddTransient<IRepository<GymClassLocation>, GymLocationRepository>();
+            builder.Services.AddTransient<IDomainRepository<Subscription>, SubscriptionRepository>();
+            builder.Services.AddTransient<IDomainRepository<Customer>, CustomerRepository>();
+            builder.Services.AddTransient<IDomainRepository<Trainer>, TrainerRepository>();
+            builder.Services.AddTransient<IDomainRepository<Gym>, GymRepository>();
+            builder.Services.AddTransient<IDomainRepository<GymClass>, GymClassRepository>();
+            builder.Services.AddTransient<IDomainRepository<GymClassConcept>, GymClassConceptRepository>();
+            builder.Services.AddTransient<IDomainRepository<GymClassLocation>, GymLocationRepository>();
 
             builder.Services.AddTransient<IGymClassBookingService, GymClassBookingService>();
             builder.Services.AddTransient<IGymClassScheduleService, GymClassScheduleService>();

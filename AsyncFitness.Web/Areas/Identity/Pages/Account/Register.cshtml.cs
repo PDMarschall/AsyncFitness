@@ -32,7 +32,7 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<AsyncFitnessUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly IRepository<Customer> _customerRepo;
+        private readonly IDomainRepository<Customer> _customerRepo;
 
         public RegisterModel(
             UserManager<AsyncFitnessUser> userManager,
@@ -40,7 +40,7 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account
             SignInManager<AsyncFitnessUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            IRepository<Customer> customerRepo)
+            IDomainRepository<Customer> customerRepo)
         {
             _userManager = userManager;
             _userStore = userStore;

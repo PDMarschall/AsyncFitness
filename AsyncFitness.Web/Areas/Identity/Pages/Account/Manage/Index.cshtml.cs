@@ -19,12 +19,12 @@ namespace AsyncFitness.Web.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<AsyncFitnessUser> _userManager;
         private readonly SignInManager<AsyncFitnessUser> _signInManager;
-        private readonly IRepository<Customer> _customerRepo;
+        private readonly IDomainRepository<Customer> _customerRepo;
 
         public IndexModel(
             UserManager<AsyncFitnessUser> userManager,
             SignInManager<AsyncFitnessUser> signInManager,
-            IRepository<Customer> customerRepo)
+            IDomainRepository<Customer> customerRepo)
         {
             _userManager = userManager;
             _signInManager = signInManager;

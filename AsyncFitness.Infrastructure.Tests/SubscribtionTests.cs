@@ -9,7 +9,7 @@ namespace AsyncFitness.Infrastructure.Tests
     public class SubscribtionTests
     {
         [TestMethod]
-        public void AddSubscription(IRepository<Subscription> subRepo)
+        public void AddSubscription(IDomainRepository<Subscription> subRepo)
         {
         }
     }

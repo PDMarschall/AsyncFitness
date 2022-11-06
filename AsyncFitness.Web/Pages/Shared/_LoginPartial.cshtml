@@ -8,7 +8,7 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <form id="classbookingForm" class="form-inline" asp-area="Fitness" asp-page="/ClassBooking" method="get">
+            <form id="classbookingForm" class="form-inline" asp-area="Fitness" asp-page="/ClassBooking" asp-route-year="@DateTime.Now.Year" asp-route-week="@System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Now)" method="get">
                 <button id="classbook" type="submit" class="nav-link btn btn-link text-dark">Book Class</button>
             </form>
         </li>
