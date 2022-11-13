@@ -18,6 +18,7 @@ namespace AsyncFitness.Core.Datastructures
 
         public abstract int CalendarWeekNumber { get; }
         public abstract int CalendarYear { get; }
+        public abstract DateTime[] Dates { get; }
 
         public GenericDomainCalendarWeek()
         {

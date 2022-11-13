@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AsyncFitness.Core.Models.Facility;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -17,6 +18,21 @@ namespace AsyncFitness.Core.Extensions
                 ISOWeek.ToDateTime(year:DateTime.Now.Year, week:ISOWeek.GetWeekOfYear(DateTime.Now), dayOfWeek:DayOfWeek.Sunday).AddHours(23).AddMinutes(59).AddSeconds(59) 
             };
             return weekStartAndEnd;
+        }
+
+        public static DateTime[] GetDatesInWeek(this DateTime date)
+        {
+            DateTime[] datesInWeek = new DateTime[7];
+            var weekBoundaries = date.GetWeekStartAndEnd();
+            int index = 0;
+
+            for (DateTime i = weekBoundaries[0]; i <= weekBoundaries[1]; i = i.AddDays(1))
+            {
+                datesInWeek[index] = i;
+                index++;
+            }
+
+            return datesInWeek;
         }
 
         public static DateTime FirstDateOfWeekISO8601(int year, int weekOfYear)

@@ -1,5 +1,5 @@
 ﻿:root {
-    --numDays: 5;
+    --numDays: 7;
     --numHours: 10;
     --timeHeight: 60px;
     --calBgColor: #fff1f8;
@@ -34,43 +34,6 @@
     grid-template-rows: repeat(var(--numHours), var(--timeHeight));
     border-radius: 5px;
     background: var(--calBgColor);
-}
-
-// Place on Timeline
-.start-10 {
-    grid-row-start: 2;
-}
-
-.start-12 {
-    grid-row-start: 4;
-}
-
-.start-1 {
-    grid-row-start: 5;
-}
-
-.start-2 {
-    grid-row-start: 6;
-}
-
-.end-12 {
-    grid-row-end: 4;
-}
-
-.end-1 {
-    grid-row-end: 5;
-}
-
-.end-3 {
-    grid-row-end: 7;
-}
-
-.end-4 {
-    grid-row-end: 8;
-}
-
-.end-5 {
-    grid-row-end: 9;
 }
 
 // Event

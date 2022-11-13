@@ -12,6 +12,7 @@ namespace AsyncFitness.Core.Interfaces
     {
         int CalendarWeekNumber { get; }
         int CalendarYear { get; }
+        DateTime[] Dates { get; }
         void Add(T entity);
         void AddRange(IEnumerable<T> entities);
         IEnumerable<T> GetDay(int index);

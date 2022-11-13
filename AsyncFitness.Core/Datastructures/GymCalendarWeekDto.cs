@@ -1,4 +1,5 @@
 ﻿using AsyncFitness.Core.DTOs.GymClassDTOs;
+using AsyncFitness.Core.Extensions;
 using AsyncFitness.Core.Models.Facility;
 using System;
 using System.Collections.Generic;
@@ -21,12 +22,15 @@ namespace AsyncFitness.Core.Datastructures
         {
             CalendarWeekNumber = ISOWeek.GetWeekOfYear(dateFromWeek);
             CalendarYear = dateFromWeek.Year;
+            Dates = dateFromWeek.GetDatesInWeek();
             AddRange(gymClasses);
         }
 
         public override int CalendarWeekNumber { get; }
 
         public override int CalendarYear { get; }
+
+        public override DateTime[] Dates { get; }
 
         public override void Add(GymCalendarClassDto gymClass)
         {            

@@ -1,14 +1,36 @@
 ﻿@page "{year:int}, {week:int}"
+@using AsyncFitness.Core.DTOs.GymClassDTOs;
 @model AsyncFitness.Web.Areas.Fitness.Pages.ClassBookingModel
 @{
 }
-<link rel="stylesheet" href="~/css/BookingCalendar.css"/>
+<link rel="stylesheet" href="~/css/BookingCalendar.css" />
 
 <h1>Book Class</h1>
 
 
 
+
 <div class="calendar">
+    <div class="days">
+        @for (int i = 0; i < 7; i++)
+        {
+            <div>
+            <div class="date">
+                <p class="date-num">@Model.CalendarWeek.Dates[i].Date.ToString("dd")</p>
+                <p class="date-day">@Model.CalendarWeek.Dates[i].DayOfWeek</p>
+            </div>
+            <div class="events">
+            @foreach(GymCalendarClassDto item in Model.CalendarWeek.GetDay(i))
+            {
+
+            }
+            </div>
+            </div>
+        }
+    </div>
+</div>
+
+@*<div class="calendar">
     <div class="timeline">
         <div class="spacer"></div>
         <div class="time-marker">9 AM</div>
@@ -92,5 +114,4 @@
             </div>
         </div>
     </div>
-</div>
-
+</div>*@
